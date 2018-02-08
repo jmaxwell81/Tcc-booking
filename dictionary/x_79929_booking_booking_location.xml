@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="Booking Location" max_length="40" name="x_79929_booking_booking_location" type="collection">
+        <element default="true" label="Active" max_length="40" name="active" type="boolean"/>
+        <element label="Latitude" max_length="40" name="latitude" type="float"/>
+        <element label="Longitude" max_length="40" name="longitude" type="float"/>
+        <element label="Name" max_length="200" name="name" type="string"/>
+        <element label="Notification end" max_length="40" name="notification_end" type="glide_date_time"/>
+        <element label="Notification start" max_length="40" name="notification_start" type="glide_date_time"/>
+        <element label="Notification text" max_length="4000" name="notification_text" type="string"/>
+        <element label="Payment Description" max_length="1000" name="payment_description" type="string"/>
+        <element label="Payment Type" max_length="100" name="payment_type" type="string"/>
+    </element>
+</database>

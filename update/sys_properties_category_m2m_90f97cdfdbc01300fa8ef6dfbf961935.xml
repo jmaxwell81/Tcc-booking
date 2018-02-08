@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_properties_category_m2m">
+    <sys_properties_category_m2m action="INSERT_OR_UPDATE">
+        <category display_value="Booking">d8d6305fdbc01300fa8ef6dfbf9619c7</category>
+        <order>400</order>
+        <property display_value="x_79929_booking.reservation.footermenu.sysid.blackweir" name="x_79929_booking.reservation.footermenu.sysid.blackweir">dc58f09fdbc01300fa8ef6dfbf961903</property>
+        <sys_class_name>sys_properties_category_m2m</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-02-08 04:58:24</sys_created_on>
+        <sys_id>90f97cdfdbc01300fa8ef6dfbf961935</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_79929_booking.reservation.footermenu.sysid.blackweir.Booking</sys_name>
+        <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
+        <sys_update_name>sys_properties_category_m2m_90f97cdfdbc01300fa8ef6dfbf961935</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-02-08 04:58:24</sys_updated_on>
+    </sys_properties_category_m2m>
+</record_update>

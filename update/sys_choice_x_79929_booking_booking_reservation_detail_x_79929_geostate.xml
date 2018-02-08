@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_choice action="INSERT_OR_UPDATE" field="x_79929_geostate" table="x_79929_booking_booking_reservation_detail" version="3">
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>x_79929_geostate</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Queensland</label>
+            <language>en</language>
+            <name>x_79929_booking_booking_reservation_detail</name>
+            <sequence>0</sequence>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-08 03:42:16</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>2378ac17dbc01300fa8ef6dfbf961918</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-08 03:42:33</sys_updated_on>
+            <value>qld</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>x_79929_geostate</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Australian Capital Territory</label>
+            <language>en</language>
+            <name>x_79929_booking_booking_reservation_detail</name>
+            <sequence>1</sequence>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-08 03:42:43</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>2988ec17dbc01300fa8ef6dfbf9619be</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-08 03:42:56</sys_updated_on>
+            <value>act</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>x_79929_geostate</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Northern Teritory</label>
+            <language>en</language>
+            <name>x_79929_booking_booking_reservation_detail</name>
+            <sequence>2</sequence>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-08 03:43:29</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>c0a8ac17dbc01300fa8ef6dfbf9619eb</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-08 03:43:39</sys_updated_on>
+            <value>nt</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>x_79929_geostate</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>New South Wales</label>
+            <language>en</language>
+            <name>x_79929_booking_booking_reservation_detail</name>
+            <sequence>3</sequence>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-08 03:43:50</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>5fc8ec17dbc01300fa8ef6dfbf9619bf</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-08 03:44:00</sys_updated_on>
+            <value>nsw</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>x_79929_geostate</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Victoria</label>
+            <language>en</language>
+            <name>x_79929_booking_booking_reservation_detail</name>
+            <sequence>4</sequence>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-08 03:44:10</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>94e820d3dbc01300fa8ef6dfbf9619e1</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-08 03:44:24</sys_updated_on>
+            <value>vic</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>x_79929_geostate</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Tasmania</label>
+            <language>en</language>
+            <name>x_79929_booking_booking_reservation_detail</name>
+            <sequence>5</sequence>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-08 03:44:38</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>ddf820d3dbc01300fa8ef6dfbf9619e1</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-08 03:44:49</sys_updated_on>
+            <value>tas</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>x_79929_geostate</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>South Australia</label>
+            <language>en</language>
+            <name>x_79929_booking_booking_reservation_detail</name>
+            <sequence>6</sequence>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-08 03:45:02</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>8419ec17dbc01300fa8ef6dfbf9619c0</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-08 03:45:12</sys_updated_on>
+            <value>sa</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>x_79929_geostate</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Western Australia</label>
+            <language>en</language>
+            <name>x_79929_booking_booking_reservation_detail</name>
+            <sequence>7</sequence>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-08 03:45:24</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>ce29ec17dbc01300fa8ef6dfbf9619c0</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-08 03:45:33</sys_updated_on>
+            <value>wa</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>x_79929_geostate</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Other</label>
+            <language>en</language>
+            <name>x_79929_booking_booking_reservation_detail</name>
+            <sequence>8</sequence>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-08 03:45:51</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>1b3920d3dbc01300fa8ef6dfbf9619e2</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-08 03:46:05</sys_updated_on>
+            <value>other</value>
+        </sys_choice>
+        <sys_choice_set action="INSERT_OR_UPDATE">
+            <element>x_79929_geostate</element>
+            <name>x_79929_booking_booking_reservation_detail</name>
+            <sys_class_name>sys_choice_set</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-08 03:42:16</sys_created_on>
+            <sys_id>15886817dbc01300fa8ef6dfbf9619e4</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>x_79929_geostate</sys_name>
+            <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
+            <sys_update_name>sys_choice_x_79929_booking_booking_reservation_detail_x_79929_geostate</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-08 03:42:16</sys_updated_on>
+        </sys_choice_set>
+    </sys_choice>
+</record_update>

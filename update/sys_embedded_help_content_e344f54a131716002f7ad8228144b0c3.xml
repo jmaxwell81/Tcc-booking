@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_embedded_help_content">
+    <sys_embedded_help_content action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <category/>
+        <content/>
+        <last_sync>2016-05-11 16:40:26</last_sync>
+        <modifier>normal</modifier>
+        <name>catalog_script_client_list-normal</name>
+        <page>catalog_script_client_list</page>
+        <product>1</product>
+        <qualifier/>
+        <role/>
+        <role_order/>
+        <snc_created>true</snc_created>
+        <sys_class_name>sys_embedded_help_content</sys_class_name>
+        <sys_created_by>ben.hollifield@snc_SHARE</sys_created_by>
+        <sys_created_on>2016-05-11 16:40:26</sys_created_on>
+        <sys_id>e344f54a131716002f7ad8228144b0c3</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>catalog_script_client_list-normal</sys_name>
+        <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
+        <sys_update_name>sys_embedded_help_content_e344f54a131716002f7ad8228144b0c3</sys_update_name>
+        <sys_updated_by>ben.hollifield@snc_SHARE</sys_updated_by>
+        <sys_updated_on>2016-05-11 16:40:26</sys_updated_on>
+        <version>h</version>
+    </sys_embedded_help_content>
+    <sys_translated_text action="delete_multiple" query="documentkey=e344f54a131716002f7ad8228144b0c3"/>
+</record_update>

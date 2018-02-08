@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element attributes="update_synch=true" extends="sys_metadata" label="Booking Resource Features" max_length="40" name="x_79929_booking_booking_resource_features" type="collection">
+        <element default="true" label="Active" max_length="40" name="active" type="boolean"/>
+        <element label="Parent Resource" mandatory="true" max_length="40" name="parent_resource" reference="x_79929_booking_booking_resources" reference_qual="active=true^EQ" reference_qual_condition="active=true^EQ" type="reference"/>
+        <element choice="1" display="true" label="Feature" mandatory="true" max_length="40" name="x_79929_booking_feature" type="choice">
+            <choice>
+                <element label="Fire place" sequence="0" value="fireplace"/>
+                <element label="Parking space" sequence="1" value="parkingspace"/>
+            </choice>
+        </element>
+    </element>
+</database>

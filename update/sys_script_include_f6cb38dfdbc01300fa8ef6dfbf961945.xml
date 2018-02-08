@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_79929_booking.system2_ajax</api_name>
+        <client_callable>false</client_callable>
+        <description/>
+        <name>system2_ajax</name>
+        <script><![CDATA[var bookingsystem2_ajax = Class.create();
+bookingsystem2_ajax.prototype = Object.extendsObject(AbstractAjaxProcessor, {
+	//
+	//Check time slot availability and return nearby available times
+	checkSlotAvailability: function(){
+		var schedTemplate = this.getParameter('sysparm_schedTemplate') + '';
+		var dateRequested = this.getParameter('sysparm_date') + '';
+		return this.checkSlotAvailabilityServer(schedTemplate, dateRequested);
+	},
+	checkSlotAvailabilityServer: function(schedTemplate, dateRequested){
+		var resBuffer = -1 * gs.getProperty("booking.reservation.buffer");
+		var openSlots = []; //Array to hold open slots
+		var now = gs.nowDateTime();
+		var dateInternal = new GlideDate();
+		dateInternal.setValue(dateRequested);
+		var openSlot = new GlideRecord("booking_schedule");
+		openSlot.addQuery("start_time", "CONTAINS", dateInternal.toString());
+		openSlot.addEncodedQuery("start_time>=javascript:gs.minutesAgoStart(" + resBuffer + ")");
+		openSlot.addQuery("schedule_template", schedTemplate);
+		openSlot.addQuery("available_capacity", ">", 0);
+		openSlot.orderBy("start_time");
+		openSlot.query();
+		while (openSlot.next()) {
+			//Send all available slots to the client in array of format "numeric::display"
+			var numericDate = openSlot.start_time.getGlideObject().getNumericValue();
+			var displayDate = this._prettifyTime(openSlot.start_time.getGlideObject().getDisplayValueInternal().split(' ')[1]);
+			var arrayEntry = numericDate + '::' + displayDate;
+			openSlots.push(arrayEntry);
+		}
+		return openSlots.toString();
+	},
+	
+	//Check if slot is available
+	//Used onSubmit of record producer to ensure no duplicate reservations.
+	checkSingleSlotAvailability: function(){
+		var schedTemplate = this.getParameter('sysparm_schedTemplate') + '';
+		var timeRequested = this.getParameter('sysparm_datetime') + '';
+		return this.checkSingleSlotAvailabilityServer(schedTemplate, timeRequested);
+	},
+	checkSingleSlotAvailabilityServer: function(schedTemplate, timeRequested){
+		var slotTime = new GlideDateTime();
+		slotTime.setNumericValue(timeRequested);
+		var slotToFill = this._slotAvailable(slotTime, schedTemplate);
+		var response;
+		//If returns null, slot has filled while user was in booking process
+		if (slotToFill == '')
+			response = 'FAILURE';
+		//Else, slot is still available
+		else
+			response = 'SUCCESS';
+		return response;
+	},
+	
+	//Check if slot is still available before processing
+	_slotAvailable: function(slotTime, schedTemplate){
+		var slot = new GlideRecord("booking_schedule");
+		slot.addQuery("start_time", slotTime);
+		slot.addQuery("schedule_template", schedTemplate);
+		slot.addQuery("available_capacity", ">", 0);
+		slot.query();
+		if (slot.next())
+			return slot;
+		return '';
+	},
+	
+	//Prettify the display value of time
+	_prettifyTime: function(rawTime){
+		var hour = parseInt(rawTime.split(":")[0], 10);
+		var min = rawTime.split(":")[1];
+		var am_pm = 'AM';
+		if (hour >= 12){
+			am_pm = 'PM';
+			if (hour > 12)
+				hour -= 12;
+		}
+		var finalTime = hour + ':' + min + ' ' + am_pm;
+		return finalTime;
+	}
+});]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-02-08 05:07:21</sys_created_on>
+        <sys_id>f6cb38dfdbc01300fa8ef6dfbf961945</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>system2_ajax</sys_name>
+        <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
+        <sys_update_name>sys_script_include_f6cb38dfdbc01300fa8ef6dfbf961945</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-02-08 05:07:21</sys_updated_on>
+    </sys_script_include>
+</record_update>

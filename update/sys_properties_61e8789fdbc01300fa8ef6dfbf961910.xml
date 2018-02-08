@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_properties">
+    <sys_properties action="INSERT_OR_UPDATE">
+        <choices/>
+        <description>The Google Recaptcha Key. An account is required with Google where you register the domain. Google provide you with this public key that needs to be entered here. </description>
+        <ignore_cache>false</ignore_cache>
+        <is_private>false</is_private>
+        <name>x_79929_booking.reservation.recaptcha</name>
+        <read_roles/>
+        <suffix>reservation.recaptcha</suffix>
+        <sys_class_name>sys_properties</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-02-08 04:54:12</sys_created_on>
+        <sys_id>61e8789fdbc01300fa8ef6dfbf961910</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_79929_booking.reservation.recaptcha</sys_name>
+        <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
+        <sys_update_name>sys_properties_61e8789fdbc01300fa8ef6dfbf961910</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-02-08 04:54:12</sys_updated_on>
+        <type>string</type>
+        <value>6Lf1iCITAAAAALOF5FLkgArSlFpmgK009Na5MJ36</value>
+        <write_roles/>
+    </sys_properties>
+    <sys_translated_text action="delete_multiple" query="documentkey=61e8789fdbc01300fa8ef6dfbf961910"/>
+</record_update>

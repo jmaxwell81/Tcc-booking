@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_79929_booking.ScheduleHelper</api_name>
+        <client_callable>false</client_callable>
+        <description/>
+        <name>ScheduleHelper</name>
+        <script><![CDATA[var BookingScheduleHelper = Class.create();
+BookingScheduleHelper.prototype = {
+	//
+	initialize: function() {
+		this.debug = 0; //1=logging enabled, 0=logging disabled
+	},
+	
+	//Generate schedule weeks
+	generateScheduleDays: function(schedTemplate, regenerate){
+		//If regenerate flag is set, delete all schedule slots from beginning
+		//of tomorrow and regenerate from template. Else, only create future slots
+		//where slots do not yet exist.
+		if (regenerate == 1){
+			var oldSlot = new GlideRecord("booking_schedule");
+			oldSlot.addQuery("schedule_template", schedTemplate.sys_id.toString());
+			oldSlot.addEncodedQuery("start_time>javascript:gs.daysAgoEnd(0)");
+			oldSlot.deleteMultiple();
+		}
+		var dayInms = 86400000;  //1 day in milliseconds
+		var numDays = schedTemplate.schedule_days;
+		var now = new GlideDateTime();
+		//Iterate through the next numDays, creating a schedule if it doesn't already exist
+		for (var i = 0; i < numDays; i++) {
+			var todayOfWeek = now.getDayOfWeek();
+			var todayDateMidnight = now.getInternalMidnight(todayOfWeek);
+			todayDateMidnight.subtract(1000); //Need to adjust down 1 second for even number
+			this._generateScheduleDay(schedTemplate, todayOfWeek, todayDateMidnight);
+			now.add(dayInms);
+		}
+	},
+	
+	//Generate full schedule template
+	generateScheduleTemplateSlots: function(schedTemplate){
+		if (this.debug == 1)
+			gs.log('**** Starting generation of slots for - ' + schedTemplate.title);
+		//Delete any existing template slots
+		var oldSlots = new GlideRecord("booking_template_slot");
+		oldSlots.addQuery("schedule_template", schedTemplate.sys_id.toString());
+		oldSlots.deleteMultiple();
+		
+		if (schedTemplate.monday == true)
+			this._generateDayScheduleTemplateSlots('1', schedTemplate, schedTemplate.u_monday_price);
+		if (schedTemplate.tuesday == true)
+			this._generateDayScheduleTemplateSlots('2', schedTemplate, schedTemplate.u_tuesday_price);
+		if (schedTemplate.wednesday == true)
+			this._generateDayScheduleTemplateSlots('3', schedTemplate, schedTemplate.u_wednesday_price);
+		if (schedTemplate.thursday == true)
+			this._generateDayScheduleTemplateSlots('4', schedTemplate, schedTemplate.u_thursday_price);
+		if (schedTemplate.friday == true)
+			this._generateDayScheduleTemplateSlots('5', schedTemplate, schedTemplate.u_friday_price);
+		if (schedTemplate.saturday == true)
+			this._generateDayScheduleTemplateSlots('6', schedTemplate, schedTemplate.u_saturday_price);
+		if (schedTemplate.sunday == true)
+			this._generateDayScheduleTemplateSlots('7', schedTemplate, schedTemplate.u_sunday_price);
+	},
+	
+	//Set old Reservations to no-show
+	setOldResoNoShow: function(){
+		var oldReso = new GlideRecord("booking_reservation");
+		oldReso.addEncodedQuery("end_time<javascript:gs.daysAgoStart(0)^state=reserved");
+		oldReso.query();
+		while (oldReso.next()) {
+			oldReso.state = 'noshow';
+			oldReso.update();
+		}
+	},
+	
+	//Generate schedule for the given day and date
+	_generateScheduleDay: function(schedTemplate, day, dateMidnight){
+		if (this.debug == 1)
+			gs.log('**** Generating schedule for day ' + dateMidnight.toString().split(" ")[0] + '(' + schedTemplate.start_time.getDisplayValue() + ' - ' + schedTemplate.end_time.getDisplayValue() + ')');
+		//Get start of week date
+		var multiplier = day - 1;
+		var msToSubtract = multiplier*86400000; //multipler * 1 day in milliseconds
+		var backToStartDate = new GlideDateTime(dateMidnight);
+		backToStartDate.subtract(msToSubtract);
+		var startOfWeek = backToStartDate.getDate();
+		
+		//Determine if slots exist for this day, week, and template
+		var existingSlots = this._daySlotsExist(startOfWeek, day, schedTemplate);
+		
+		//If no slots exist for this day, week, and template
+		if (existingSlots == false){
+			var schedTemplateSlot = new GlideRecord("booking_template_slot");
+			schedTemplateSlot.addQuery("schedule_template", schedTemplate.sys_id.toString());
+			schedTemplateSlot.addQuery("day_of_week", day);
+			schedTemplateSlot.orderBy("start_time");
+			schedTemplateSlot.query();
+			while (schedTemplateSlot.next()) {
+				this._generateScheduleSlot(schedTemplateSlot, dateMidnight, day, startOfWeek);
+			}
+		}
+	},
+	
+	//Generate individual schedule slot
+	_generateScheduleSlot: function(schedTemplateSlot, dateMidnight, day, startOfWeek){
+		//Get numeric value of start time from template (always at 01/01/1970 non-DST)
+		var startTimeTemplate = schedTemplateSlot.start_time.getGlideObject().getNumericValue();
+		var endTimeTemplate = schedTemplateSlot.end_time.getGlideObject().getNumericValue();
+		
+		//Check if currently DST - if so, adjust
+		if (dateMidnight.isDST() == true){
+			var adjustment = 3600000; //1 hour in milliseconds
+			startTimeTemplate -= adjustment;
+			endTimeTemplate -= adjustment;
+		}
+		
+		//Generate today dates at midnight
+		var startDateTime = new GlideDateTime(dateMidnight);
+		var endDateTime = new GlideDateTime(dateMidnight);
+		
+		//Add start/end times from template
+		startDateTime.add(startTimeTemplate);
+		endDateTime.add(endTimeTemplate);
+		
+		//Generate new slots
+		var newSlot = new GlideRecord("booking_schedule");
+		newSlot.initialize();
+		newSlot.capacity = schedTemplateSlot.capacity;
+		newSlot.start_time = startDateTime;
+		newSlot.end_time = endDateTime;
+		newSlot.day_of_week = day;
+		newSlot.week_start = startOfWeek;
+		newSlot.schedule_template = schedTemplateSlot.schedule_template.sys_id.toString();
+		newSlot.schedule_template_slot = schedTemplateSlot.sys_id.toString();
+		
+		//Add Price
+		newSlot.u_price = schedTemplateSlot.u_price;
+		
+		var newSlotID = newSlot.insert();
+		
+		//Try to reassociate any existing reservations to this new slot
+		this._reassociateResos(newSlotID);
+	},
+	
+	//Check if schedule exists for provided date and time on template
+	_daySlotsExist: function(startOfWeek, day, schedTemplate){
+		var existingSlot = new GlideRecord("booking_schedule");
+		existingSlot.addQuery("week_start", startOfWeek);
+		existingSlot.addQuery("day_of_week", day);
+		existingSlot.addQuery("schedule_template", schedTemplate.sys_id.toString());
+		existingSlot.query();
+		if (existingSlot.next())
+			return true;
+		return false;
+	},
+	
+	//Check if any existing reservations fall into a created time slot
+	//and, if so, associate those reservations to this time slot.
+	_reassociateResos: function(slotID){
+		var slotRec = new GlideRecord("booking_schedule");
+		if (slotRec.get(slotID)) {
+			var slotBegin = slotRec.start_time.getGlideObject().getValue();
+			var slotEnd = slotRec.end_time.getGlideObject().getValue();
+			//Generate query string to gather related reservations
+			var query = 'start_time>=' + slotBegin + '^start_time<' + slotEnd + '^schedule_template=' + slotRec.schedule_template.sys_id.toString() + '^state=reserved^NQend_time<=' + slotEnd + '^end_time>' + slotBegin + '^schedule_template=' + slotRec.schedule_template.sys_id.toString() + '^state=reserved';
+			var existingReso = new GlideRecord("booking_reservation");
+			existingReso.addEncodedQuery(query);
+			existingReso.query();
+			while (existingReso.next()) {
+				existingReso.schedule = slotID;
+				existingReso.update();
+			}
+		}
+		
+	},
+	
+	//Generate individual day schedule template
+	_generateDayScheduleTemplateSlots: function(day, schedTemplate, price){
+		if (this.debug == 1){
+			gs.log('**** Generating template slots for day ' + day + '(' + schedTemplate.start_time.getDisplayValue() + ' - ' + schedTemplate.end_time.getDisplayValue() + ')');
+		}
+		
+		//Gather needed variables
+		var templateID = schedTemplate.sys_id.toString();
+		var capacity = schedTemplate.capacity;
+		var slotLength = parseInt(schedTemplate.reservation_length) * 60000; //slotLength in milliseconds
+		
+		//Gather start & end variables in milliseconds
+		var timeStart = schedTemplate.start_time.getGlideObject().getNumericValue();
+		var timeEnd = schedTemplate.end_time.getGlideObject().getNumericValue();
+		
+		//Using millisecond values, iterate from timeStart to timeEnd, incrementing by slotLength
+		for (var time = timeStart; time < timeEnd; time+=slotLength) {
+			this._generateTemplateSlot(day, time, slotLength, templateID, capacity, price);
+		}
+	},
+	
+	//Generate individual schedule slot template
+	_generateTemplateSlot: function(day, time, slotLength, templateID, capacity, price){		
+		var newSlot = new GlideRecord("booking_template_slot");
+		newSlot.initialize();
+		newSlot.day_of_week = day;
+		newSlot.start_time = new GlideTime(time);
+		newSlot.end_time = new GlideTime(time + slotLength);
+		newSlot.capacity = capacity;
+		newSlot.schedule_template = templateID;
+		newSlot.u_price = price;
+		newSlot.insert();
+	},
+	
+	type: 'BookingScheduleHelper'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-02-08 05:06:29</sys_created_on>
+        <sys_id>718b7413db041300fa8ef6dfbf96193f</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>ScheduleHelper</sys_name>
+        <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
+        <sys_update_name>sys_script_include_718b7413db041300fa8ef6dfbf96193f</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-02-08 05:06:29</sys_updated_on>
+    </sys_script_include>
+</record_update>

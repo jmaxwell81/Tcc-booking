@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="Booking Reservation" max_length="40" name="x_79929_booking_booking_reservation" type="collection">
+        <element label="Comments" max_length="4000" name="comments" type="journal"/>
+        <element choice="1" choice_field="day_of_week" choice_table="x_79929_booking_booking_template_slot" label="Day of week" max_length="40" name="day_of_week" read_only="true" type="choice">
+            <choice>
+                <element label="Sunday" sequence="0" value="7"/>
+                <element label="Monday" sequence="1" value="1"/>
+                <element label="Tuesday" sequence="2" value="2"/>
+                <element label="Wednesday" sequence="3" value="3"/>
+                <element label="Thursday" sequence="4" value="4"/>
+                <element label="Friday" sequence="5" value="5"/>
+                <element label="Saturday" sequence="6" value="6"/>
+            </choice>
+        </element>
+        <element label="Drivers license number" max_length="100" name="drivers_license_number" type="string"/>
+        <element label="Email" max_length="1000" name="email" type="string"/>
+        <element label="End time" max_length="40" name="end_time" type="glide_date_time"/>
+        <element label="Fax" max_length="1000" name="fax" type="string"/>
+        <element label="First name 1" max_length="1000" name="first_name_1" type="string"/>
+        <element label="First name 2" max_length="1000" name="first_name_2" type="string"/>
+        <element label="First name 3" max_length="1000" name="first_name_3" type="string"/>
+        <element label="First name 4" max_length="1000" name="first_name_4" type="string"/>
+        <element label="First name 5" max_length="1000" name="first_name_5" type="string"/>
+        <element label="First name 6" max_length="1000" name="first_name_6" type="string"/>
+        <element label="First name 7" max_length="1000" name="first_name_7" type="string"/>
+        <element label="First name 8" max_length="1000" name="first_name_8" type="string"/>
+        <element label="Last name 1" max_length="1000" name="last_name_1" type="string"/>
+        <element label="Last name 2" max_length="1000" name="last_name_2" type="string"/>
+        <element label="Last name 3" max_length="1000" name="last_name_3" type="string"/>
+        <element label="Last name 4" max_length="1000" name="last_name_4" type="string"/>
+        <element label="Last name 5" max_length="1000" name="last_name_5" type="string"/>
+        <element label="Last name 6" max_length="1000" name="last_name_6" type="string"/>
+        <element label="Last name 7" max_length="1000" name="last_name_7" type="string"/>
+        <element label="Last name 8" max_length="1000" name="last_name_8" type="string"/>
+        <element label="Mobile" max_length="100" name="mobile" type="string"/>
+        <element default="javascript:getNextObjNumberPadded();" display="true" dynamic_default_value="fdcb83a85f220100a9ad2572f2b4773c" label="Number" mandatory="true" max_length="40" name="number" type="string" use_dynamic_default="true"/>
+        <element choice="1" default="1" label="Number of adults" max_length="40" name="number_of_adults" type="choice">
+            <choice>
+                <element label="1" sequence="0" value="1"/>
+                <element label="2" sequence="1" value="2"/>
+                <element label="3" sequence="2" value="3"/>
+                <element label="4" sequence="3" value="4"/>
+                <element label="5" sequence="4" value="5"/>
+                <element label="6" sequence="5" value="6"/>
+                <element label="7" sequence="6" value="7"/>
+                <element label="8" sequence="7" value="8"/>
+            </choice>
+        </element>
+        <element label="Number of children" max_length="40" name="number_of_children" type="integer"/>
+        <element label="Parent" max_length="32" name="parent" read_only="true" reference="x_79929_booking_booking_reservation_detail" type="reference"/>
+        <element label="Postal address" max_length="1000" name="postal_address" type="string"/>
+        <element label="Postcode" max_length="40" name="postcode" type="integer"/>
+        <element label="Schedule" max_length="40" name="schedule" read_only="true" reference="x_79929_booking_booking_schedule" type="reference"/>
+        <element label="Schedule template" max_length="40" name="schedule_template" read_only="true" reference="x_79929_booking_booking_template" type="reference"/>
+        <element label="Short description" max_length="80" name="short_description" type="string"/>
+        <element label="Start time" max_length="40" name="start_time" type="glide_date_time"/>
+        <element choice="1" label="State" mandatory="true" max_length="40" name="state" read_only="true" type="choice">
+            <choice>
+                <element label="On Hold" value="On Hold"/>
+                <element label="Reserved" sequence="0" value="Reserved"/>
+                <element label="Completed" sequence="1" value="Completed"/>
+                <element label="Cancelled" sequence="2" value="Cancelled"/>
+                <element label="No-show" sequence="3" value="No-show"/>
+            </choice>
+        </element>
+        <element label="State Change Date" max_length="40" name="state_change_date" type="glide_date_time"/>
+        <element label="Telephone" max_length="20" name="telephone" type="string"/>
+        <element label="User" max_length="40" name="user" reference="sys_user" type="reference"/>
+        <element label="Vehicle registration number" max_length="100" name="vehicle_registration_number" type="string"/>
+        <element label="Week start on" max_length="40" name="week_start_on" type="glide_date"/>
+        <element choice="1" label="State" mandatory="true" max_length="40" name="x_79929_booking_u_geostate" type="choice">
+            <choice>
+                <element label="Australian Capital Territory" sequence="0" value="act"/>
+                <element label="Northern Territory" sequence="1" value="nt"/>
+                <element label="Queensland" sequence="2" value="qld"/>
+                <element label="New South Wales" sequence="3" value="nsw"/>
+                <element label="Victoria" sequence="4" value="vic"/>
+                <element label="Tasmania" sequence="5" value="tas"/>
+                <element label="South Australia" sequence="6" value="sa"/>
+                <element label="Western Australia" sequence="7" value="wa"/>
+                <element label="Other" sequence="8" value="other"/>
+            </choice>
+        </element>
+        <index name="index">
+            <element name="parent"/>
+        </index>
+    </element>
+</database>

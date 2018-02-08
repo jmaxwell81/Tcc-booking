@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_choice action="INSERT_OR_UPDATE" field="reservation_length" table="x_79929_booking_booking_template" version="3">
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>reservation_length</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>15 minutes</label>
+            <language>en</language>
+            <name>x_79929_booking_booking_template</name>
+            <sequence>0</sequence>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-08 04:17:56</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>1e707c5bdbc01300fa8ef6dfbf961923</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-08 04:18:07</sys_updated_on>
+            <value>15</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>reservation_length</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>30 minutes</label>
+            <language>en</language>
+            <name>x_79929_booking_booking_template</name>
+            <sequence>1</sequence>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-08 04:18:21</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>67a07c5bdbc01300fa8ef6dfbf961924</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-08 04:18:30</sys_updated_on>
+            <value>30</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>reservation_length</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>60 minutes</label>
+            <language>en</language>
+            <name>x_79929_booking_booking_template</name>
+            <sequence>2</sequence>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-08 04:18:39</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>bdc0bc5bdbc01300fa8ef6dfbf961978</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-08 04:18:48</sys_updated_on>
+            <value>60</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>reservation_length</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>3 hours</label>
+            <language>en</language>
+            <name>x_79929_booking_booking_template</name>
+            <sequence>3</sequence>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-08 04:19:02</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>8ed0309bdbc01300fa8ef6dfbf9619d5</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-08 04:23:04</sys_updated_on>
+            <value>180</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>reservation_length</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>1 day</label>
+            <language>en</language>
+            <name>x_79929_booking_booking_template</name>
+            <sequence>4</sequence>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-08 04:22:51</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>bbe0bc5bdbc01300fa8ef6dfbf961981</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-08 04:23:08</sys_updated_on>
+            <value>1439</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>reservation_length</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>1 Week</label>
+            <language>en</language>
+            <name>x_79929_booking_booking_template</name>
+            <sequence>5</sequence>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-08 04:23:17</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>7bc1f49bdbc01300fa8ef6dfbf96197d</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-08 04:23:30</sys_updated_on>
+            <value>10073</value>
+        </sys_choice>
+        <sys_choice_set action="INSERT_OR_UPDATE">
+            <element>reservation_length</element>
+            <name>x_79929_booking_booking_template</name>
+            <sys_class_name>sys_choice_set</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-08 04:17:56</sys_created_on>
+            <sys_id>eba0bc5bdbc01300fa8ef6dfbf96199d</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>reservation_length</sys_name>
+            <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
+            <sys_update_name>sys_choice_x_79929_booking_booking_template_reservation_length</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-08 04:17:56</sys_updated_on>
+        </sys_choice_set>
+    </sys_choice>
+</record_update>

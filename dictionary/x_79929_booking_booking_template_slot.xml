@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="Booking Template Slot" max_length="40" name="x_79929_booking_booking_template_slot" type="collection">
+        <element choice="1" label="Day of week" mandatory="true" max_length="40" name="day_of_week" type="choice">
+            <choice>
+                <element label="Sunday" sequence="0" value="7"/>
+                <element label="Monday" sequence="1" value="1"/>
+                <element label="Tuesday" sequence="2" value="2"/>
+                <element label="Wednesday" sequence="3" value="3"/>
+                <element label="Thursday" sequence="4" value="4"/>
+                <element label="Friday" sequence="5" value="5"/>
+                <element label="Saturday" sequence="6" value="6"/>
+            </choice>
+        </element>
+        <element label="End time" max_length="40" name="end_time" type="glide_time"/>
+        <element label="Name" max_length="80" name="name" type="string"/>
+        <element label="Number of resources" max_length="40" name="number_of_resources" type="integer"/>
+        <element label="Price" max_length="40" name="price" type="currency"/>
+        <element label="Schedule template" mandatory="true" max_length="32" name="schedule_template" read_only="true" reference="x_79929_booking_booking_template" type="reference"/>
+        <element label="Start time" max_length="40" name="start_time" type="glide_time"/>
+    </element>
+</database>

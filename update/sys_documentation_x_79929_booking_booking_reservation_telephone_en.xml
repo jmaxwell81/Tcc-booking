@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_documentation element="telephone" label="Telephone" language="en" table="x_79929_booking_booking_reservation">
+        <sys_documentation action="INSERT_OR_UPDATE">
+            <element>telephone</element>
+            <help/>
+            <hint/>
+            <label>Telephone</label>
+            <language>en</language>
+            <name>x_79929_booking_booking_reservation</name>
+            <plural>Telephones</plural>
+            <sys_class_name>sys_documentation</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-08 02:06:04</sys_created_on>
+            <sys_id>8482d89bdb801300fa8ef6dfbf961939</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>Telephone</sys_name>
+            <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
+            <sys_update_name>sys_documentation_x_79929_booking_booking_reservation_telephone_en</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-08 02:06:04</sys_updated_on>
+            <url/>
+            <url_target/>
+        </sys_documentation>
+    </sys_documentation>
+</record_update>

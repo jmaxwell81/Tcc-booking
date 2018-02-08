@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="content_block_programmatic">
+    <content_block_programmatic action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <category>general</category>
+        <condition/>
+        <conditional>false</conditional>
+        <frame/>
+        <logged_on>false</logged_on>
+        <name>tcc_booking_app</name>
+        <programmatic_content><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+
+		<!-- dirPagination -->
+	<g:requires name="dirPagination.jsdbx" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+	
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular.min.js"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular-sanitize.min.js"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular-animate.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular-route.min.js"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular-touch.min.js"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular-messages.min.js"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.4.9/angular-sanitize.min.js"/>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.1.2/ui-bootstrap.min.js"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.1.2/ui-bootstrap-tpls.min.js"/>
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"></link>
+	
+	<!-- UI-Router -->
+	<script src="//angular-ui.github.io/ui-router/release/angular-ui-router.js"></script>
+
+	<!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>-->
+	<link href="9a3789074f2752005596c61f0310c714.cssdbx" rel="stylesheet" type="text/css"></link>
+	<link href="2ce4f72a4ffb8b00aab4a3b11310c7ae.cssdbx" rel="stylesheet" type="text/css"></link>
+		
+	<g:requires name="lodash.jsdbx" /> 
+	<g:requires name="tcc_reservations.jsdbx" /> 
+	
+	<!-- Include the JS ReCaptcha API -->
+    <script src="https://www.google.com/recaptcha/api.js?onload=vcRecaptchaApiLoaded${AND}render=explicit" async="true" defer="true"></script>
+	<g:requires name="angular-recaptcha.jsdbx" /> 
+		
+	<!-- include the controller macro -->
+	<g:macro_invoke macro="tcc_reservations_spa_template" />
+	
+	<g:macro_invoke macro="tcc_reservations_spa_controller" />
+	
+	<!--  Angular  -->
+	<g:requires name="angularjs.min.1.5.0.jsdbx" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.4/ui-bootstrap-tpls.min.js"></script>
+
+	
+	
+</j:jelly>]]></programmatic_content>
+        <sys_class_name>content_block_programmatic</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-02-08 04:41:29</sys_created_on>
+        <sys_id>a8e5fc9bdbc01300fa8ef6dfbf96197c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>tcc_booking_app</sys_name>
+        <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
+        <sys_update_name>content_block_programmatic_a8e5fc9bdbc01300fa8ef6dfbf96197c</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-02-08 04:41:29</sys_updated_on>
+        <two_phase>false</two_phase>
+    </content_block_programmatic>
+</record_update>
