@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ui_macro">
+    <sys_ui_macro action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <category>general</category>
+        <description/>
+        <media_type/>
+        <name>customer_details_template</name>
+        <scoped_name>x_79929_booking_customer_details_template</scoped_name>
+        <sys_class_name>sys_ui_macro</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-02-08 05:44:41</sys_created_on>
+        <sys_id>13640d17db041300fa8ef6dfbf961966</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>customer_details_template</sys_name>
+        <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
+        <sys_update_name>sys_ui_macro_13640d17db041300fa8ef6dfbf961966</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-02-08 05:44:41</sys_updated_on>
+        <xml><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+	
+	
+	<script type="text/ng-template" id="details.html">
+		
+		
+		
+		<!--<div class="col-lg-4 col-md-2 col-sm-2 hidden-xs"></div>-->
+		<div class="col-lg-16 col-md-14 col-sm-12 col-xs-10"></div>
+			<div ng-show="!showpage" class="col-lg-4 col-sm-8 col-xs-12">
+				You have not completed the previous page. Please make sure:
+				* You have selected the Adults and Childrens fields.
+				* You have selected at least 1 time slot.
+				* You have not selected more {{configuration.consecutiveSlots}} than time slots consecutively.
+				<p>
+					<button type="button" class="btn  btn-default pull-left" ui-sref="select({location:'{{configuration.locationkey}}'})"  >Back</button>
+				</p>
+			</div>
+			<div ng-show="showpage" class="col-lg-16 col-md-14 col-sm-12 col-xs-10">
+				<div class="row ">
+						<div class="col-lg-16 col-md-14 col-sm-12 col-xs-10">
+							<h2 class="text-center">Customer Details</h2>
+						</div>	
+					</div>	
+				<form name="customerDetailsForm">
+					<input type="hidden" class="form-control required" ng-model="response" name="hasresponse" required="required" />
+					<div class="row ">
+						<div class="col-lg-16 col-md-14 col-sm-12 col-xs-10">
+							<hr/>
+						</div>
+					</div>
+					
+					<div class="row required">
+						<div class="col-lg-16 col-md-14 col-sm-12 col-xs-10 pull-right">
+							<div class="pull-right">
+								<label></label>required fields
+							</div>
+						</div>
+					</div>	
+					
+					<div class="row ">
+						<div class="col-lg-16 col-md-14 col-sm-12 col-xs-10">
+							<label>{{reqnamestext}}</label>
+						</div>
+					</div>	
+					
+					<div class="row ">
+						<div class="col-md-12 col-sm-12 col-xs-12" ng-repeat="name in reservation.names">
+							<div class="row required">
+								<div class="col-md-12 col-sm-12 col-xs-12">
+									<label for="name">Adult {{name.no}} Details</label>
+								</div>								
+							</div>
+							
+							<div class="row form-group required">
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<input type="text" class="form-control required" ng-model="name.firstname" name="firstname{{name.no}}" placeholder="First Name {{name.no}}" required="required" ng-maxlength="250"/>
+									<div ng-messages="customerDetailsForm['firstname' + name.no].$error">
+									  <div ng-message="required">First Name is required</div>
+									  <div ng-message="maxlength">Must not exceed 250 characters</div>
+									</div>
+								</div>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<input type="text" class="form-control required" ng-model="name.lastname" name="lastname{{name.no}}" placeholder="Last Name {{name.no}}" required="required" ng-maxlength="250"/>
+									<div ng-messages="customerDetailsForm['lastname' + name.no].$error">
+									  <div ng-message="required">Last Name is required</div>
+									  <div ng-message="maxlength">Must not exceed 250 characters</div>
+									</div>
+								</div>
+							</div>							
+						</div>
+					</div>	
+					
+					<div class="row ">
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<hr/>
+						</div>
+					</div>
+					
+					<div class="row form-group">
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<label>Please enter your details below.</label>
+						</div>
+					</div>	
+					
+						
+					
+					<div class="row required">
+						<div class="col-lg-16 col-md-14 col-sm-12 col-xs-10">
+							<label for="address_post">Postal Address</label>
+						</div>
+					</div>
+					
+					<div class="row form-group">						
+						<div class="col-lg-16 col-md-14 col-sm-12 col-xs-10">
+							<input type="text" class="form-control required" name="address_post" placeholder="Postal Address" ng-model="reservation.postaladdress" required="required" ng-maxlength="250"/>
+							<div ng-messages="customerDetailsForm.address_post.$error">
+								<div ng-message="required">This field is required</div>
+								<div ng-message="maxlength">Postal Address must not exceed 250 characters</div>
+							</div>
+						</div>
+					</div>
+					
+					
+					
+					<div class="row required">
+						<div class="col-lg-16 col-md-14 col-sm-12 col-xs-10">
+							<label for="state">State</label>
+						</div>
+					</div>
+					
+					<div class="row form-group">
+						<div class="col-lg-16 col-md-14 col-sm-12 col-xs-10">
+							<select class="form-control" name="state" ng-model="reservation.state" ng-options="x for x in states" required="required">
+								<option value="">-- Please Select --</option>
+							</select>
+							<div ng-messages="customerDetailsForm.state.$error">
+								<div ng-message="required">This field is required</div>
+							</div>
+						</div>
+					</div>
+					
+					
+					<div class="row required">
+						<div class="col-lg-16 col-md-14 col-sm-12 col-xs-10">
+							<label for="postcode">Postcode</label>
+						</div>						
+					</div>
+					
+					<div class="row form-group">
+						<div class="col-lg-16 col-md-14 col-sm-12 col-xs-10">
+							<input type="text" class="form-control" name="postcode" placeholder="Postcode" ng-model="reservation.postcode" required="required" ng-maxlength="5"/>
+							<div ng-messages="customerDetailsForm.postcode.$error">
+								<div ng-message="required">This field is required</div>
+								<div ng-message="maxlength">Postcode must not exceed 5 characters</div>
+							</div>
+						</div>
+					</div>
+					
+									
+					
+					<div class="row required">
+						<div class="col-lg-16 col-md-14 col-sm-12 col-xs-10">
+							<label for="email">Email address</label>
+						</div>
+					</div>
+					
+					<div class="row form-group">
+						<div class="col-lg-16 col-md-14 col-sm-12 col-xs-10">
+							<input type="email" class="form-control" name="email" placeholder="Email" ng-model="reservation.email" required="required" />
+							<div ng-messages="customerDetailsForm.email.$error">
+								<div ng-message="required">This field is required</div>
+								<div ng-message="email">Your email address is invalid</div>
+							</div>
+						</div>
+					</div>
+					
+					
+					
+					<div class="row required">
+						<div class="col-lg-16 col-md-14 col-sm-12 col-xs-10">
+							<label for="telephone">Telephone</label>
+						</div>
+					</div>
+					
+					<!-- Added extra validation. Solon Islands have an 8 digit international number  so is used for the minimum-->
+					<div class="row form-group">						
+						<div class="col-lg-16 col-md-14 col-sm-12 col-xs-10">
+							<input type="number" ng-minlength="8" 
+                   ng-maxlength="15" class="form-control" name="telephone" placeholder="Telephone" ng-model="reservation.telephone" required="required"/>
+							<div ng-messages="customerDetailsForm.telephone.$error">
+								<div ng-message="required">This field is required</div>
+								<div ng-message="minlength">Phone number must not be less than 8 characters</div>
+								<div ng-message="maxlength">Phone number must not exceed 15 characters</div>
+							</div>
+						</div>
+					</div>
+					
+					
+					
+					
+					<div class="row">
+						<div class="col-lg-16 col-md-14 col-sm-12 col-xs-10">
+							<label for="fax">Fax</label>
+						</div>
+					</div>
+					
+					<div class="row form-group">
+						<div class="col-lg-16 col-md-14 col-sm-12 col-xs-10">
+							<input type="text" class="form-control" name="fax" placeholder="Fax" ng-model="reservation.fax"/>
+						</div>
+					</div>
+					
+										
+					<div class="row">
+						<div class="col-lg-16 col-md-14 col-sm-12 col-xs-10">
+							<label for="mobile">Mobile</label>
+						</div>
+					</div>
+										
+					
+					<div class="row form-group">
+						<div class="col-lg-16 col-md-14 col-sm-12 col-xs-10">
+							<input type="text" class="form-control" name="mobile" placeholder="Mobile" ng-model="reservation.mobile"/>
+						</div>
+					</div>
+					
+					<div class="row required">
+						<div class="col-lg-16 col-md-14 col-sm-12 col-xs-10">
+							<label for="driverslicensenumber">Drivers License Number</label>							
+						</div>
+					</div>
+					
+					<div class="row form-group">
+						<div class="col-lg-16 col-md-14 col-sm-12 col-xs-10">
+							<input type="text" class="form-control" name="driverslicensenumber" placeholder="Drivers License Number" ng-model="reservation.driverslicensenumber" required="required" ng-maxlength="50"/>
+							<div ng-messages="customerDetailsForm.driverslicensenumber.$error">
+								<div ng-message="required">This field is required</div>
+								<div ng-message="maxlength">Drivers License Number must not exceed 50 characters</div>
+							</div>
+						</div>
+					</div>
+															
+					
+					<div class="row required">
+						<div class="col-lg-16 col-md-14 col-sm-12 col-xs-10">
+							<label for="vehicleregistrationnumber">Vehicle Registration Number</label>
+						</div>
+					</div>
+					
+					<div class="row form-group">
+						<div class="col-lg-16 col-md-14 col-sm-12 col-xs-10">
+							<input type="text" class="form-control" name="vehicleregistrationnumber" placeholder="Vehicle Registration Number" ng-model="reservation.vehicleregistrationnumber" required="required" ng-maxlength="50"/>
+							<div ng-messages="customerDetailsForm.vehicleregistrationnumber.$error">
+								<div ng-message="required">This field is required</div>
+								<div ng-message="maxlength">Vehicle Registration Number must not exceed 50 characters</div>
+							</div>
+						</div>
+					</div>
+						
+					
+					<div class="row" style="margin-bottom:10px;">
+						<div class="col-lg-16 col-md-14 col-sm-12 col-xs-10">
+							<div
+								vc-recaptcha="true"
+								theme="'light'"
+								key="model.key"								 
+								on-create="setWidgetId(widgetId)"
+								on-success="setResponse(response)"
+								on-expire="cbExpiration()"
+							></div>
+						</div>
+					</div>
+					
+					
+					<div class="row">
+						<div class="col-lg-16 col-md-14 col-sm-12 col-xs-10">
+							<button type="button" class="btn  btn-default pull-left" ui-sref="select({location:'{{configuration.locationkey}}'})"  >Back</button>
+						</div>
+						<div class="col-lg-16 col-md-14 col-sm-12 col-xs-10">
+							<button type="button" class="btn  btn-success pull-right" ng-click="postReservation()" ng-disabled="customerDetailsForm.$invalid" >Next</button>
+						</div>
+					</div>
+				</form>
+		
+		</div>
+		<div class="col-lg-16 col-md-14 col-sm-12 col-xs-10"></div>
+	</script>
+</j:jelly>]]></xml>
+    </sys_ui_macro>
+</record_update>

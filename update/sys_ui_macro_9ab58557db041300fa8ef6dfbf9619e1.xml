@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ui_macro">
+    <sys_ui_macro action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <category>general</category>
+        <description/>
+        <media_type/>
+        <name>selectiongrid_template</name>
+        <scoped_name>x_79929_booking_selectiongrid_template</scoped_name>
+        <sys_class_name>sys_ui_macro</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-02-08 05:50:28</sys_created_on>
+        <sys_id>9ab58557db041300fa8ef6dfbf9619e1</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>selectiongrid_template</sys_name>
+        <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
+        <sys_update_name>sys_ui_macro_9ab58557db041300fa8ef6dfbf9619e1</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-02-08 05:50:28</sys_updated_on>
+        <xml><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+<script type="text/ng-template" id="select.html">
+		 
+	     <div class="col-lg-16 col-md-14 col-sm-12 col-xs-10"></div>
+            <div class="col-lg-16 col-md-14 col-sm-12 col-xs-10">
+                <div class="center-block">
+					<div class="row ">
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<h2 class="text-center">Make a Booking</h2>
+						</div>	
+					</div>	
+					<div class="row ">
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							 <p class="text-center">for {{locationdata.title}}</p>
+						</div>
+					</div>
+													<div class="row selector-grid-primary">
+									<div class="col-md-12 col-sm-12">
+										<p>
+											<ul class="selector-grid-footer-text">
+												<li ng-repeat="entry in footer">{{entry.name}}</li>
+												</ul>
+
+										</p>								
+									</div>
+								</div>	
+					
+					<!-- NOTIFICATIONS FROM RANGER -->
+					<div ng-show="hasnotification" class="row component-spacer-row bg-primary">
+						<div class="col-md-12 col-sm-12 col-xs-12 ">
+							<p class="text-center notification-text">{{locationdata.notification}}</p>
+						</div>
+					</div>	
+						
+					
+					<!-- VALIDATION MESSAGES -->
+					<div ng-show="exceededconsecutivelimit" class="row component-spacer-row bg-warning">
+						<div class="col-md-12 col-sm-12 col-xs-12 ">
+							<p class="text-center">You can only select up to {{configuration.consecutiveSlots}} slots consecutively. Please deselect one or more of the timeslots or break up your request.</p>
+						</div>						
+					</div>
+					<div ng-show="guestsnotselected" class="row component-spacer-row bg-warning">
+						<div class="col-md-12 col-sm-12 col-xs-12 ">
+							<p class="text-center">You must also select the number of adults and children this booking is for.</p>
+						</div>						
+					</div>
+					
+					<form name="reservationGridForm">
+						<input type="hidden" required="required" value="" ng-model="validbooking"/>
+						<input type="hidden" required="required" value="" ng-model="exceededconsecutivelimit"/>
+						
+						<!-- Date and number of guests selection  -->
+						<div class="row selector-grid-row selector-grid-primary component-spacer-row">
+							<div class="col-md-4 col-sm-4 col-xs-12">
+								<div class="row">
+									<div class="col-md-12 col-sm-12 col-xs-12">
+										<label for="startDate">Check In Date</label>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12 col-sm-12 col-xs-12">
+
+										<p class="input-group">
+										  <input type="text" class="form-control" datepicker-popup="{{format}}" min-date="minDate" max-date="datePickerMax" ng-change="changeStartDate('check-in-date')" ng-model="startDate" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+										  <span class="input-group-btn">
+											<button type="button" class="btn btn-default" ng-click="open1()"> <i class="fa fa-calendar"></i></button>
+										  </span>
+										</p>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="col-md-8 col-sm-8 col-xs-12">							
+								<div class="row">
+									<div class="col-md-12 col-sm-12 col-xs-12">
+										<label for="adults">Number of Guests</label>
+									</div>
+								</div>
+								<div class="row form-group required">
+									<div class="col-md-3 col-sm-3 col-xs-6">
+										<label for="adults">Adults:</label>
+									</div>
+									<div class="col-md-3 col-sm-3 col-xs-6">
+										<select class="form-control" name="adults" id="adults" ng-model="adults" ng-options="x for x in adultoptions" required="required" ng-change="checkIfGuestsSelected()">
+											<option value=""></option>
+										  </select>
+									</div>
+									<div class="col-md-3 col-sm-3 col-xs-6">
+										<label for="children">Children:</label>
+									</div>
+									<div class="col-md-3 col-sm-3 col-xs-6">
+										<select class="form-control" name="children" id="children" ng-model="children" ng-options="x for x in childrenoptions" required="required" ng-change="checkIfGuestsSelected()">
+											<option value="invalid"></option>
+										  </select>
+									</div>
+								</div>							
+							</div>
+						</div>
+
+
+						<div class="row selector-grid-nav-row">
+							<div class="col-md-3 col-sm-3 hidden-xs">
+
+									</div>
+							<div class="col-md-5 col-sm-5 col-xs-6 ">
+
+								<a ng-show="displayLeftArrow" ng-click="changeStartDate('left-arrow')"><i class="fa fa-caret-left pull-left"></i></a>
+
+							</div>
+							<div class="col-md-4 col-sm-4 col-xs-6">
+								 <a ng-show="displayRightArrow" ng-click="changeStartDate('right-arrow')"><i class="fa fa-caret-right  pull-right"></i></a>
+							</div>
+						</div>
+
+						<!-- Main selection grid  -->
+						<div class="row">
+							<div class="col-md-12 col-sm-12 col-xs-12">
+
+								<div ng-show="loadingGrid == true" id="searching_spinner" class="row searching_spinner">
+									<p class="text-center"><i class="fa fa-spinner fa-spin"></i> loading ...</p>
+								</div>
+
+								<div ng-show="loadingGrid == false">
+
+									<!--  DYNAMIC START -->
+
+										<!-- fixed date row -->
+									<div  class="row selector-grid-primary">
+										<div class="col-md-3 col-sm-3 hidden-xs selector-grid-col selector-grid-col-empty">
+
+										</div>
+
+										<div class="col-md-9 col-sm-9 col-xs-12">									
+											<div class="row">
+												<!-- dynamic date -->
+												<div ng-repeat="slot in dateslots | orderBy:'order'" class="col-md-1 col-sm-1 col-xs-1 selector-grid-col selector-grid-col-date center-block {{slot.currentdayclass}} {{slot.weekendclass}}"> 
+													<div class="selector-grid-col-date-text">{{slot.time}}</div>
+													<div class="selector-grid-col-date-text">{{slot.day}}</div>
+													<div class="selector-grid-col-date-num">{{slot.date}}</div>
+													<div class="selector-grid-col-date-text">{{slot.month}}</div>	
+													<div class="selector-grid-col-date-text">{{slot.name}}</div>	
+												</div>
+											</div>
+										</div>
+
+									</div>
+
+									<div ng-repeat="resource in bookingslots.result | orderBy:'order'"  class="row {{resource.rowclass}}">
+										<div class="col-md-3 col-sm-3 col-xs-12 selector-grid-col selector-grid-col-resource">
+											<span class="selector-grid-resource-text"><a ui-sref="campsite" target="_blank">{{resource.name}}</a></span>
+											
+										</div>
+										<div class="col-md-9 col-sm-9 col-xs-12">
+											<div  class="row">
+												
+												<div ng-repeat="slot in resource.slot" id="{{slot.sys_id}}" ng-click="toggleSelected(slot.avail, slot.sys_id, resource.name, slot.start, slot.end, slot.price)" class="col-md-1 col-sm-1 col-xs-1 selector-grid-col selector-grid-slot {{slot.slotclass}}">											
+													<div class="selector-grid-slot-text">{{slot.displayText}}</div>																						
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+
+								<g:evaluate jelly="true">
+									var tccMenuUtils = new tccMenuUtils();
+								</g:evaluate>
+
+								<!--<g:evaluate var="jvar_nav_items" object="true" expression="tccMenuUtils.getSiteNavigation('${footersysid}')"/>-->
+
+							<!--	<div class="row selector-grid-primary">
+									<div class="col-md-12 col-sm-12">
+										<p>
+											<ul class="selector-grid-footer-text">
+												<li ng-repeat="entry in footer">{{entry.name}}</li>
+												</ul>
+
+										</p>								
+									</div>
+								</div>	-->
+							</div>
+						</div>
+
+
+						<!--<div class="row selector-grid-row component-spacer-row">-->	
+							<div class="col-md-12 col-sm-12 col-xs-12">
+								<button ng-click="storeSelections()" class="btn btn-sm btn-success pull-right" style="margin-right:15px;" ng-disabled="reservationGridForm.$invalid">
+									Next >
+								</button>
+							</div>
+						<!--</div>-->
+					</form>
+                </div>
+            </div>
+            <div class="col-md-2 hidden-sm hidden-xs"></div>
+	
+	
+	
+			
+	</script>
+
+</j:jelly>]]></xml>
+    </sys_ui_macro>
+</record_update>

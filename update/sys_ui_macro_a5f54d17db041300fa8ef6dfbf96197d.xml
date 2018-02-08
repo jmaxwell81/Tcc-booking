@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ui_macro">
+    <sys_ui_macro action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <category>general</category>
+        <description/>
+        <media_type/>
+        <name>selections_controller</name>
+        <scoped_name>x_79929_booking_selections_controller</scoped_name>
+        <sys_class_name>sys_ui_macro</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-02-08 05:51:21</sys_created_on>
+        <sys_id>a5f54d17db041300fa8ef6dfbf96197d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>selections_controller</sys_name>
+        <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
+        <sys_update_name>sys_ui_macro_a5f54d17db041300fa8ef6dfbf96197d</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-02-08 05:51:21</sys_updated_on>
+        <xml><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+		
+	<script>
+		
+		app.controller('reservationSelectionsController',function($scope, $rootScope, $http, $state,$stateParams, Config, LocationData, Reservation) {
+	
+			if($rootScope.selectionspage == undefined){
+				$rootScope.selectionspage = false;
+			}
+		
+			$scope.locationdata = [];
+			$scope.bookingslots = [];
+			$scope.loadingGrid = true;
+		$scope.format = 'dd/MM/yyyy';
+			$scope.totalslots  = '';
+			$scope.location = $stateParams.location;
+			$scope.adultoptions = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"];		
+			$scope.childrenoptions = ["0", "1", "2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"];
+			$scope.adults = '';
+			$scope.children = '';		
+			$scope.hasnotification = false;
+			$scope.exceededconsecutivelimit	= false;
+			$scope.guestsnotselected = false;
+			Config.getConfigData($stateParams.location);	
+			Reservation.getReservation().locationkey = $stateParams.location;
+			
+			/***************************************
+				
+				CHANGE START DATE
+		
+			****************************************/		
+			$scope.changeStartDate = function(mode){		
+
+				if(mode =='check-in-date'){
+					$scope.endDate = getRangeEndDate($scope.startDate,($scope.configuration.dayIncrement - 1));
+					$scope.showLeftArrow();
+					$scope.showRightArrow();
+		
+					//call the method to retrieve slot information
+					loadBookingSlotsData($scope.configuration.locationsysid, $scope.startDate, $scope.endDate);
+				}else if(mode == 'left-arrow'){
+					if(!isDateToday($scope.configuration.todayDate, $scope.startDate)){
+						//Calculate the new startDate by subtracting 12 days from the current startDate.
+						$scope.startDate = decrementStartDate($scope.configuration.todayDate, $scope.startDate, $scope.configuration.dayIncrement);
+						$scope.endDate = getRangeEndDate($scope.startDate,($scope.configuration.dayIncrement - 1));
+						$scope.showLeftArrow();
+						$scope.showRightArrow();
+		
+						//call the method to retrieve slot information
+						loadBookingSlotsData($scope.configuration.locationsysid, $scope.startDate, $scope.endDate);	
+						
+					}
+				}else if(mode == 'right-arrow'){
+					if(!isDateEndOfRange($scope.configuration.todayDate, $scope.startDate, $scope.maxDate, $scope.configuration.dayIncrement)){
+						//Calculate the new startDate by adding 12 days from the current startDate
+						$scope.startDate = incrementStartDate($scope.configuration.todayDate, $scope.startDate, $scope.configuration.dayIncrement, $scope.locationdata.maxdays);
+						$scope.endDate = getRangeEndDate($scope.startDate,($scope.configuration.dayIncrement - 1));		
+		
+						$scope.showLeftArrow();
+						$scope.showRightArrow();
+		
+						//call the method to retrieve slot information
+						loadBookingSlotsData($scope.configuration.locationsysid, $scope.startDate, $scope.endDate);
+								
+					}
+				}
+				
+			};
+ 
+			/***************************************
+				
+				TOGGLE SELECTED SLOT
+		
+			****************************************/		
+			$scope.toggleSelected = function(avail, slotid, resource, start, end, price){
+
+		
+				if(avail == 1){
+					$scope.selectedslot = Reservation.getSlot(slotid);
+
+					if($scope.selectedslot == null || typeof $scope.selectedslot == 'undefined'){
+						
+						//add the slot to the array
+						Reservation.addReservation(slotid, resource, start, getDisplayDate(start), getDisplayDate(end), getDisplayPrice(price));						
+					}else{
+						//remove the slot to the array
+						Reservation.removeReservation(slotid);						
+					}
+	
+					//add or remove the selected class to the slot in the ui
+					updateSlotClass(LocationData.getBookingSlots(), Reservation.getReservation(), slotid);
+					$scope.validbooking = validBookings(Reservation.getReservation(),LocationData.getTotalSlots(), $scope.configuration.consecutiveSlots);
+					if(!$scope.validbooking){
+						$rootScope.selectionspage = false;
+					}
+					checkIfExceededConsecutiveLimit();
+					$scope.checkIfGuestsSelected();
+					Reservation.setValidBooking($scope.validbooking);
+
+				}
+			};
+				
+			$scope.displayLeftArrow = false;
+		
+			//Hide the left arrow if going backward in time takes us into the past.
+			$scope.showLeftArrow = function(){
+				if($scope.configuration != undefined){
+					if(isFutureDate($scope.configuration.todayDate, $scope.startDate)){
+						$scope.displayLeftArrow =  true;
+					}else{
+						$scope.displayLeftArrow =  false;
+					}
+				}
+			};
+
+			$scope.displayRightArrow = false;
+		/*
+			dont show the right arrow if the next start date is after the last day they can make a booking  (60 days after todays date)
+			issue is that on first pass the maxdate is not yet set. Need to bind it to the scope
+		*/
+			$scope.showRightArrow = function(){
+				if($scope.configuration != undefined){
+					if($scope.locationdata != undefined){
+						if($scope.maxDate != undefined){
+							if(isLastStartDate($scope.startDate, $scope.maxDate, $scope.configuration.dayIncrement)){
+								$scope.displayRightArrow = false;
+							}else{
+								$scope.displayRightArrow = true;
+							}
+						}else{
+							isDateEndOfRange($scope.startDate, $scope.locationdata.maxdays, $scope.configuration.dayIncrement)
+						}
+					}
+				}
+			};
+		
+		
+			$scope.toggleMin = function() {
+				$scope.minDate = $scope.minDate ? null : new Date();
+			};
+
+			$scope.toggleMin();
+
+			$scope.open1 = function() {
+				$scope.popup1.opened = true;
+			};
+
+			$scope.popup1 = {
+				opened: false
+			};
+
+			//Action is bound to the NEXT button on the page.
+			$scope.storeSelections = function(){		
+				Reservation.setSelections($scope.location, $scope.adults, $scope.children);
+				$rootScope.selectionspage = true;
+				$state.go('details');
+			}
+			
+			function loadLocationData(location_sysid, startDate, endDate){
+				LocationData.getLocationData(location_sysid);
+			}
+		
+			function loadBookingSlotsData(location_sysid, startDate, endDate){
+				$scope.loadingGrid = true;
+				LocationData.loadSlotData(location_sysid, startDate, endDate);				
+			}
+		
+			
+			function checkIfExceededConsecutiveLimit(){
+				if($scope.reservation != undefined){
+					if( $scope.reservation.bookedresources.length > 0){
+						if($scope.validbooking == 'true'){
+							$scope.exceededconsecutivelimit	=  false;
+							Reservation.getReservation().exceededconsecutivelimit = false;
+						}else{
+							$scope.exceededconsecutivelimit	=  true;
+							Reservation.getReservation().exceededconsecutivelimit = true;
+							$rootScope.selectionspage = false;
+						}
+					}else{
+						$scope.exceededconsecutivelimit	=  false;
+						Reservation.getReservation().exceededconsecutivelimit = false;
+					}
+				}else{
+					$scope.exceededconsecutivelimit	=  false;
+					Reservation.getReservation().exceededconsecutivelimit = false;
+				}
+			}
+		
+		$scope.checkIfGuestsSelected = function(){
+			var guestsnotselected = false;
+			if($scope.reservation != undefined){			
+				if($scope.reservation.bookedresources.length > 0){				
+					if($scope.adults != undefined){
+						if($scope.adults != ''){	
+							if($scope.children != undefined){
+								if($scope.children == ''){											
+									$scope.guestsnotselected =  true;
+									$rootScope.selectionspage = false;
+								}
+							}else{
+								$scope.guestsnotselected =  true;
+								$rootScope.selectionspage = false;
+							}
+						}else{
+							$scope.guestsnotselected =  true;
+							$rootScope.selectionspage = false;
+						}
+					}else{	
+						$scope.guestsnotselected =  true;
+						$rootScope.selectionspage = false;
+					}
+				}
+			}
+			$scope.guestsnotselected = guestsnotselected;
+		}
+	
+		$scope.getDisplayDate = function(tempDate){
+			return getDisplayDate(tempDate);		
+		
+		}
+		
+		
+			$scope.$watch(function () { return LocationData.getLocation(); },
+                function (value) {
+					if(value != undefined){
+						if($scope.configuration != undefined){
+							$scope.locationdata = value;
+							$scope.maxDate = getMaxEndDate($scope.startDate, $scope.locationdata.maxdays);
+
+							$scope.datePickerMax = getPickerMaxDate($scope.maxDate);
+							$scope.rangeDays = $scope.locationdata.maxdays;
+							if($scope.locationdata.notification != ''){
+								$scope.hasnotification = true;
+							}else{
+								$scope.hasnotification = false;
+							}
+
+							$scope.showLeftArrow();
+							$scope.showRightArrow();
+							LocationData.loadTotalSlotsData($scope.configuration.locationsysid,$scope.startDate, $scope.maxDate);
+						}
+					}
+                }
+            );
+		
+			$scope.$watch(function () { return LocationData.getBookingSlots(); },
+                function (value) {
+					if(value != undefined){
+						$scope.bookingslots = value;
+						if($scope.configuration != undefined){
+							$scope.dateslots = getDateRowData($scope.configuration.todayDate, $scope.bookingslots.result[0].slot);
+							$scope.loadingGrid = false;							
+						}
+					}
+                }
+            );
+		
+	
+			$scope.$watch(function () { return Config.getConfig(); },
+                function (value) {		
+					if(value != undefined){						
+						$scope.configuration = Config.getConfig();
+						if($scope.configuration.locationsysid != undefined){
+					
+							$scope.footer = $scope.configuration.footer;
+							$scope.startDate = new Date($scope.configuration.todayDate);
+							$scope.endDate = getDateTime(new Date($scope.configuration.endDate), 23, 59, 59); 
+
+							loadLocationData($scope.configuration.locationsysid);
+
+							loadBookingSlotsData($scope.configuration.locationsysid, $scope.startDate, $scope.endDate);
+
+							//Get the slots of the first resource so we have dates/times to iterate against.
+							$scope.dateslots = LocationData.getDateSlots();
+
+							$scope.reservation = Reservation.getReservation();	
+							$scope.validbooking = Reservation.getReservation().validbooking;
+							$scope.adults = Reservation.getReservation().adults;
+							$scope.children = Reservation.getReservation().children;
+		
+						}
+					}
+                }
+            );
+		
+			$scope.onLoadValidation = function(){
+				$scope.exceededconsecutivelimit	= Reservation.getReservation().exceededconsecutivelimit;
+			}
+			$scope.onLoadValidation();	
+		
+		});
+	
+	</script>
+
+</j:jelly>]]></xml>
+    </sys_ui_macro>
+</record_update>

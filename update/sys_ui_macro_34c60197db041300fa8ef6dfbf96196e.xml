@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ui_macro">
+    <sys_ui_macro action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <category>general</category>
+        <description/>
+        <media_type/>
+        <name>spa_controller</name>
+        <scoped_name>x_79929_booking_spa_controller</scoped_name>
+        <sys_class_name>sys_ui_macro</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-02-08 05:55:01</sys_created_on>
+        <sys_id>34c60197db041300fa8ef6dfbf96196e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>spa_controller</sys_name>
+        <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
+        <sys_update_name>sys_ui_macro_34c60197db041300fa8ef6dfbf96196e</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-02-08 05:55:01</sys_updated_on>
+        <xml><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+	
+	
+<!-- App Script -->
+<script>
+	$j.ajaxSetup({ cache: false });
+    var app = angular.module('app', ['ui.router', 'ngAnimate', 'ui.bootstrap', 'ngMessages', 'vcRecaptcha','ngSanitize']);
+
+    app.config(['$httpProvider', function($httpProvider) {
+	    //initialize get if not there
+	    if (!$httpProvider.defaults.headers.get) {
+	        $httpProvider.defaults.headers.get = {};    
+	    }    
+	
+	    // Answer edited to include suggestions from comments
+	    // because previous version of code introduced browser-related errors
+	//
+	    //disable IE ajax request caching
+	    $httpProvider.defaults.headers.get['If-Modified-Since'] = 'Mon, 26 Jul 1997 05:00:00 GMT';
+	    // extra
+	    $httpProvider.defaults.headers.get['Cache-Control'] = 'no-cache';
+	    $httpProvider.defaults.headers.get['Pragma'] = 'no-cache';
+	}]);
+	
+		
+    app.config(function($stateProvider, $urlRouterProvider, $compileProvider) {
+    
+	
+    $urlRouterProvider.otherwise("/select?location=paluma")
+
+    $stateProvider		
+        .state('select', { 
+			url: "/select?location",
+            templateUrl: "select.html",
+            controller: 'reservationSelectionsController'
+        })
+        .state('details', {
+            url: "/details",
+            templateUrl: "details.html",
+            controller: 'reservationCustomerDetailsController'
+        })
+        .state('paymentoptions', {
+            url: "/paymentoptions",
+            templateUrl: "paymentoptions.html",
+            controller: 'reservationPaymentOptionsController'
+        })		
+		/* NOTE WE NEED A FRESH RESERVATION OBJECT CREATED FROM THE DATABASE */
+		 .state('paymentresult', {
+            url: "/paymentresult?bkg?tid?code",
+            templateUrl: "paymentresult.html",
+            controller: 'reservationPaymentResultController'	
+        })
+		/* NOTE WE NEED A FRESH RESERVATION OBJECT CREATED FROM THE DATABASE */
+		.state('permit', {
+            url: "/permit",
+            templateUrl: "permit.html",
+            controller: function($scope, $http, $document, $compile, $timeout, $location, $window, Reservation) {
+				$scope.reservation = Reservation.getReservation();
+				$scope.termsandconditions = $scope.reservation.termscontent;  
+            }
+        })
+	/*CAMPSITES DYNAMIC CONTENT FOR POPUP TOOLTIPS*/
+		.state('campsite',{
+		url:"/campsite",
+		templateUrl: "campsite.html",
+            controller: function($scope, $http, $document, $compile, $timeout, $location, $window, Reservation) {
+				$scope.reservation = Reservation.getReservation();
+				$scope.termsandconditions = $scope.reservation.termscontent;  
+            }
+	})
+	
+});
+
+
+	 
+</script>
+	<g:macro_invoke macro="tcc_reservations_selections_controller" />
+	
+	<g:macro_invoke macro="tcc_reservations_customer_details_controller" />
+	<g:macro_invoke macro="tcc_reservations_payment_options_controller" />
+	<g:macro_invoke macro="tcc_reservations_payment_result_controller" />
+	<g:macro_invoke macro="tcc_reservations_service_config" />
+	<g:macro_invoke macro="tcc_reservations_service_location" />
+	<g:macro_invoke macro="tcc_reservations_service_reservation" />
+
+	
+	<!-- Include in the UI Macro with the Angular Payment Gateway Service -->
+	<g:macro_invoke macro="tcc_payment_gateway_ang_service" />
+	
+</j:jelly>]]></xml>
+    </sys_ui_macro>
+</record_update>

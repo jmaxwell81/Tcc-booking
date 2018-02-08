@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ui_macro">
+    <sys_ui_macro action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <category>general</category>
+        <description/>
+        <media_type/>
+        <name>payment_options_controller</name>
+        <scoped_name>x_79929_booking_payment_options_controller</scoped_name>
+        <sys_class_name>sys_ui_macro</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-02-08 05:45:22</sys_created_on>
+        <sys_id>aa848d17db041300fa8ef6dfbf961992</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>payment_options_controller</sys_name>
+        <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
+        <sys_update_name>sys_ui_macro_aa848d17db041300fa8ef6dfbf961992</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-02-08 05:45:22</sys_updated_on>
+        <xml><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+	<script>
+		
+		app.controller('reservationPaymentOptionsController',function($scope, $rootScope, $state, $http, $stateParams, $timeout, $location, $window, LocationData, Reservation, PaymentGatewayService) {
+	
+		//Initial retrieval of the Reservation object.
+				$scope.reservation = Reservation.getReservation();
+		$scope.termsandconditions = $scope.reservation.termscontent;
+//
+				//Check the user has completed the selection page properly and hasn't just modified the url to get to this state.
+				$scope.shouldShowPage = function(){		
+					if($rootScope.selectionspage == undefined || !$rootScope.selectionspage){
+						$scope.checkRedirectBack('selections');	
+					}else if($rootScope.detailspage == undefined || !$rootScope.detailspage){
+						$scope.checkRedirectBack('details');	
+					}else{
+						$scope.showpage = true;
+					}
+				}
+	
+				//Either redirect them to the initial selections page, the details page or hide the page contentif there is no location parameter so they cannot proceed.
+				$scope.checkRedirectBack = function(redirectto){
+					if(redirectto =='selections'){	
+						if($scope.reservation.locationkey != undefined){
+							$state.go('select',{location: $scope.reservation.locationkey})
+						}else{
+							$scope.showpage = false;
+						}
+					}else if(redirectto =='details'){	
+						$state.go('details');
+					}
+				}
+	
+				$scope.shouldShowPage();	
+		
+				// We are through the checks so process the page to be displayed.
+				$scope.locationdata = LocationData.getLocation();
+				$scope.showSummary  = false;
+				//$scope.termsandconditions = Reservation.getTermsContent($scope.reservation.location);
+				//Hide and show the reservation summary table based on the user actions.
+				$scope.toggleShowSummary = function(){
+					if($scope.showSummary){
+						$scope.showSummary = false;
+					}else{
+						$scope.showSummary = true;
+					}
+				}
+		
+				//Call the BPoint Payment Gateway as the user has clicked the PAYNOW button.
+				$scope.processpayment = function(){
+		
+					/*
+					- extract the customer details into the JSON object used by the Payment Gateway Service
+					- assign the crn
+					- set the invoice no
+					- set the redirectURL  
+					*/
+					$scope.billerCode = "1387620";
+					$scope.payment_amount = $scope.reservation.totalprice;
+					$scope.crn1 = $scope.reservation.bookingreference; // Replace with required CRN
+					$scope.crn2 = $scope.reservation.names[0].firstname + " "+ $scope.reservation.names[0].lastname;
+					$scope.crn3 = null;
+					$scope.redirectUrl = 'https://mitownsvilledev.service-now.com/webapps/reservation-bookings.do#/paymentresult?bkg='+$scope.crn1;
+		
+					$scope.customer = {
+						Address : {
+							AddressLine1 : $scope.reservation.postaladdress,
+							AddressLine2 : '',
+							AddressLine3 : '',
+							City : $scope.reservation.state,
+							CountryCode : 'AUS',
+							PostCode : $scope.reservation.postcode,
+							State : $scope.reservation.state
+						},
+						ContactDetails : {
+							EmailAddress : $scope.reservation.email,
+							FaxNumber : '',
+							HomePhoneNumber : $scope.reservation.telephone,
+							MobilePhoneNumber : $scope.reservation.mobile,
+							WorkPhoneNumber : ''
+						},
+						CustomerNumber : '', // We'd want some way of specifying a real customer number
+						PersonalDetails : {
+							DateOfBirth : '',
+							FirstName : $scope.reservation.names[0].firstname,
+							LastName : $scope.reservation.names[0].lastname,
+							MiddleName : '',
+							Salutation : ''
+						}
+					};
+					
+
+					PaymentGatewayService.proceedToPayment($scope.billerCode, $scope.customer, $scope.crn1, $scope.crn2, $scope.crn3, $scope.payment_amount, $scope.redirectUrl);
+		
+				}	
+            		
+		});
+	</script>
+</j:jelly>]]></xml>
+    </sys_ui_macro>
+</record_update>

@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ui_macro">
+    <sys_ui_macro action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <category>general</category>
+        <description/>
+        <media_type/>
+        <name>payment_options_template</name>
+        <scoped_name>x_79929_booking_payment_options_template</scoped_name>
+        <sys_class_name>sys_ui_macro</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-02-08 05:46:08</sys_created_on>
+        <sys_id>1fc44917db041300fa8ef6dfbf96191b</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>payment_options_template</sys_name>
+        <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
+        <sys_update_name>sys_ui_macro_1fc44917db041300fa8ef6dfbf96191b</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-02-08 05:46:08</sys_updated_on>
+        <xml><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+	<script type="text/ng-template" id="paymentoptions.html">
+		
+		
+		<div class="col-lg-3 col-md-2 col-sm-2 hidden-xs"></div>
+		 
+		
+		<div ng-show="!showpage" class="col-lg-6 col-sm-8 col-xs-12">
+				<div ng-show="!selectionspage">
+					You have not completed the selections page. Please make sure:
+					* You have selected the Adults and Childrens fields.
+					* You have selected at least 1 time slot.
+					* You have not selected more {{configuration.consecutiveSlots}} than time slots consecutively.
+					<p>
+						<button type="button" class="btn  btn-default pull-left" ui-sref="select({location:'{{configuration.locationkey}}'})"  >Back</button>
+					</p>
+				</div>
+				<div ng-show="!detailsspage">
+					You have not completed the customer details page. Please make sure:
+					* You have entered a value for all required fields.
+					* You have passed the Recaptcha at the bottom of the page
+					
+					<p>
+						<button type="button" class="btn  btn-default pull-left" ui-sref="details"  >Back</button>
+					</p>
+				</div>
+			</div>
+		
+		
+		
+		
+		<div class="col-lg-6 col-sm-8 col-xs-12">
+			
+			<div class="row payment-secondary">
+				<div class="col-md-8 col-sm-8 col-xs-12">
+					<div class="row">
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<h2>Payment Options</h2>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<div class="payment-options-text">
+								<p>
+									Click the button below to pay by credit card.
+								</p>	
+								<p>
+									You will be sent to the Australia Post website todo the payment,  then you will arrive back here to complete your booking.
+								</p>
+							</div>	
+						</div>
+					</div>	
+					<div class="row">
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<label>Total Price (AUD):</label>{{reservation.totaldisplayprice}}		
+						</div>
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<button type="button" class="btn  btn-success pull-left payment-options-pay-now" ng-click="processpayment()">Pay Now</button>
+						</div>
+					</div>	
+					<div class="row">
+						<div class="col-md-12 col-sm-12 col-xs-12">					
+							<a ng-show="!showSummary" ng-click="toggleShowSummary()">Show Booking Summary</a>
+							<a ng-show="showSummary" ng-click="toggleShowSummary()">Hide Booking Summary</a>
+						</div>
+					</div>	
+				</div>
+				<div class="col-md-4 col-sm-4 col-xs-12 ">
+					<div class="row">
+						<div class="visible-xs col-xs-3 payment-options-icons">
+						</div>
+						<div class="col-md-12 col-sm-12 col-xs-3 payment-options-icons">
+							<i class="fa fa-cc-visa " aria-hidden="true"></i>
+						</div>					
+						<div class="col-md-12 col-sm-12 col-xs-3 payment-options-icons">
+							<i class="fa fa-cc-mastercard" aria-hidden="true"></i>
+						</div>
+						<div class="visible-xs col-xs-3 payment-options-icons">
+						</div>
+					</div>
+				</div>
+			</div>	
+			
+			<div class="row payment-secondary " ng-show="showSummary">
+				<div class="col-md-12 col-sm-12 col-xs-12 ">
+					<div class="row">
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<h4>Booking Summary</h4>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-6 col-sm-6 col-xs-12 ">
+							<label>Location:</label> {{locationdata.title}}							
+						</div>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<label>Booking Reference Number:</label>{{reservation.bookingreference}}						
+						</div>
+					</div>
+										
+					<div class="table-responsive">
+						<table class="table table-bordered">
+							<tr>
+								<th>
+									<label>Resource</label>
+								</th>
+								<th>
+									<label>Start Date</label>
+								</th>
+								<th>
+									<label>End Date</label>
+								</th>
+								<th>
+									<label>Price</label>
+								</th>
+							</tr>
+							
+							<!--   Order by Resource name -->
+							<tr ng-repeat="booking in reservation.bookedresources | orderBy:'resource'">
+								<td>
+									{{booking.resource}}
+								</td>
+								<td>
+									{{booking.starttext}}
+								</td>
+								<td>
+									{{booking.endtext}}
+								</td>
+								<td>
+									{{booking.price}}
+								</td>
+							</tr>
+							
+							<tr>
+								<td colspan="3">
+									<label>Total Price (AUD):</label>
+								</td>
+								<td >
+									<label>{{reservation.totaldisplayprice}}</label>
+								</td>
+							</tr>	
+						</table>	
+					</div>			
+				</div>
+			</div>
+			
+			<div class="row">				
+				<div class="col-md-8 col-sm-8 col-xs-12">
+					<div class="payment-options-text">
+						<h2>Visit us in person</h2>
+						<p>Don't forget to bring this reference number with you. </p>
+						<p>Booking Reference Number: <span class="reservation-booking-reference">{{reservation.bookingreference}}</span></p>
+					</div>
+				</div>
+				<div class="col-md-4 col-sm-4 col-xs-12 payment-options-icons">
+					<i class="fa fa-child fa-5" aria-hidden="true"></i>
+				</div>
+			</div>	
+			<div class="row payment-secondary">
+				<div class="col-md-8 col-sm-8 col-xs-12">
+					<div class="payment-options-text">
+						<h2>48 hour time limit</h2>
+						<p>You have 48 hours to make payment</p>
+						<p>
+							The reason for the 48 hour time limit is because sometimes
+							people book a site and want to pay in person; but later change their minds
+							and simply do not pay. They decide to cancel their booking, but they do not tell us.
+						</p>
+						<p>
+							We want as many people as possible to enjpy camping at Paluma, so if someone does nto want their bookeed camp site
+							anymore, we want to release it back to the pool so someone else can book it.
+						</p>
+						<p>
+							If you do not pay within the 48 hour time limit, we will assume you don't want it anymore. So yur booking will be cancelled, 
+							to free it up for someone else.
+						</p>
+						<p>
+							Please make sure to pay within the 48 hour time limit, to make sure you get a great camping experience at the camp site that you wanted!
+						</p>
+						<div ng-bind-html="termsandconditions">{{reservation.termsandconditions}}</div>
+					</div>
+				</div>
+				
+				<div class="col-md-4 col-sm-4 col-xs-12 payment-options-icons">
+					<i class="fa fa-clock-o fa-5" aria-hidden="true"></i>
+				</div>
+			</div>				
+		</div>
+		<div class="col-lg-3 col-md-2 col-sm-2 hidden-xs"></div>
+		
+				
+		
+	</script>	
+
+</j:jelly>]]></xml>
+    </sys_ui_macro>
+</record_update>

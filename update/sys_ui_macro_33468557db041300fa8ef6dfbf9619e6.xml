@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ui_macro">
+    <sys_ui_macro action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <category>general</category>
+        <description/>
+        <media_type/>
+        <name>service_location</name>
+        <scoped_name>x_79929_booking_service_location</scoped_name>
+        <sys_class_name>sys_ui_macro</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-02-08 05:52:40</sys_created_on>
+        <sys_id>33468557db041300fa8ef6dfbf9619e6</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>service_location</sys_name>
+        <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
+        <sys_update_name>sys_ui_macro_33468557db041300fa8ef6dfbf9619e6</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-02-08 05:52:40</sys_updated_on>
+        <xml><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+	<script>
+		/***************************************
+				
+				LOCATION DATA SERVICE
+		
+		****************************************/
+		app.service('LocationData', function ($http, $q, Reservation) {
+			
+				// Return public API.
+                return({
+                    getLocationData: getLocationData,
+					getLocation:getLocation,
+					loadSlotData: loadSlotData,
+					loadTotalSlotsData: loadTotalSlotsData,
+					getBookingSlots:getBookingSlots,
+					getDateSlots: getDateSlots,
+					getTotalSlots:getTotalSlots
+                });
+		
+				var location = '';
+				var bookingslots = '';
+				var totalslots = '';
+				var dateslots = ''; 
+		
+		
+				// Get all the location information from the database via the REST api
+                function getLocationData(location_sysid) {
+                    var request = $http({
+                        method: "get",
+                        url: '/api/snc/bookings/getLocationDetail/'+ location_sysid,
+                        params: {
+                            action: "get"
+							
+                        }
+                    });
+		
+                    return( request.then( handleLocationSuccess, handleError ));
+                }
+		
+				// Get all the resource and slot information from the database via the REST api
+                function loadSlotData(location_sysid, startDate, endDate) {			
+                    var request = $http({
+                        method: "get",
+                        url: '/api/snc/bookings/getCurrentBookingSlots/'+ location_sysid +'/' + startDate.getTime() +  '/' + endDate.getTime(),
+                        params: {
+                            action: "get"
+                        }
+                    });
+		
+                    return( request.then( handleBookingSlotSuccess, handleError ));
+                }
+		
+				// Get ALL the resource and slot information from the database via the REST api over the entire bookable date range.
+                function loadTotalSlotsData(location_sysid, startDate, endDate) {
+		
+                    var request = $http({
+                        method: "get",
+                        url: '/api/snc/bookings/getCurrentBookingSlots/'+ location_sysid +'/' + startDate.getTime() +  '/' + endDate.getTime(),
+                        params: {
+                            action: "get",
+							headers : { "X-UserToken" : window.g_ck}
+                        }
+                    });
+		
+                    return( request.then( handleTotalSlotSuccess, handleError ));
+                }
+		
+				/*
+					Returns the Location attribute of the Service 
+				*/
+				function getLocation(){
+					return location;
+				}
+				
+				/*
+					Returns the BookingSlots Service attribute for displaying the selection grid
+				*/				
+				function getBookingSlots(){
+					return bookingslots;
+				}
+
+				/*
+					Returns the TotalSlot information object of the Service 
+				*/
+				function getTotalSlots(){
+					return totalslots;
+				}
+
+				/*
+					Returns the DateSlots of the Service attribute for displaying the top date row of the selection grid.
+				*/
+				function getDateSlots(){
+					return dateslots;
+				}
+			
+				/*
+					Generic error callback function for errors occurring from API calls within the Service attribute
+				*/		
+                function handleError( response ) {
+                    // The API response from the server should be returned in a
+                    // normalized format. However, if the request was not handled by the
+                    // server (or what not handles properly - ex. server error), then we
+                    // may have to normalize it on our end, as best we can.
+                    if (
+                        ! angular.isObject( response.data ) ||
+                        ! response.data.message
+                        ) {
+                        return( $q.reject( "An unknown error occurred." ) );
+                    }
+                    // Otherwise, use expected error message.
+                    return( $q.reject( response.data.message ) );
+                }
+		
+				/*
+					Success callback function for the API call to retrieve Location information
+				*/		                
+                function handleLocationSuccess( response ) {
+					location = response.data.result[0];
+                }
+
+				/*
+					Success callback function for the API call to retrieve Booking Slot information
+				*/
+				function handleBookingSlotSuccess( response ) {	
+                    bookingslots =  getSlotUI(response.data, Reservation.getReservation());				
+                }
+
+				/*
+					Success callback function for the API call to retrieve the TotalSlot information
+				*/
+				function handleTotalSlotSuccess(response) {
+					totalslots = getBookableSlotsByDate(response.data); 
+				}
+		
+		});
+	</script>
+
+</j:jelly>]]></xml>
+    </sys_ui_macro>
+</record_update>

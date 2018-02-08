@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ui_macro">
+    <sys_ui_macro action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <category>general</category>
+        <description/>
+        <media_type/>
+        <name>spa_template</name>
+        <scoped_name>x_79929_booking_spa_template</scoped_name>
+        <sys_class_name>sys_ui_macro</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-02-08 05:55:48</sys_created_on>
+        <sys_id>95070597db041300fa8ef6dfbf9619b8</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>spa_template</sys_name>
+        <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
+        <sys_update_name>sys_ui_macro_95070597db041300fa8ef6dfbf9619b8</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-02-08 05:55:48</sys_updated_on>
+        <xml><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+
+<div id="app" ng-app="app">
+	
+	<div class="container-fluid">
+		<div class="row" ui-view="">
+
+		</div>
+	</div>
+<g:evaluate var="jvar_gr" object="true">
+var gr = new GlideRecord("u_booking_location");
+gr.addQuery('sys_id', 'f990adc14f982600d55dc61f0310c71b'); //
+gr.query(); //Execute the query
+</g:evaluate>
+<j:choose>
+	
+<j:when test = "${jvar_gr.active =='true'}">
+	<g:macro_invoke macro="tcc_reservations_selectiongrid_template" />
+	<g:macro_invoke macro="tcc_reservations_customer_details_template" />
+	<g:macro_invoke macro="tcc_reservations_payment_options_template" />
+	<g:macro_invoke macro="tcc_reservations_payment_result_template" />
+	<g:macro_invoke macro="tcc_reservations_permit" />
+	<!--<g:macro_invoke macro="tcc_reservations_Campsite_Map_Template" />-->
+</j:when>
+	
+<j:when test = "${current_page.getURLSuffix()=='FlagPoles'}" >
+	<g:macro_invoke macro="tcc_reservations_selectiongrid_template" />
+	<g:macro_invoke macro="tcc_reservations_customer_details_template" />
+	<g:macro_invoke macro="tcc_reservations_payment_options_template" />
+	<g:macro_invoke macro="tcc_reservations_payment_result_template" />
+	<g:macro_invoke macro="tcc_reservations_permit" />
+	<!--<g:macro_invoke macro="tcc_reservations_Campsite_Map_Template" />-->
+</j:when>
+<j:otherwise>		
+	<g:macro_invoke macro="tcc_reservations_selectiongrid_template" />
+	<g:macro_invoke macro="tcc_reservations_customer_details_template" />
+	<g:macro_invoke macro="tcc_reservations_payment_options_template" />
+	<g:macro_invoke macro="tcc_reservations_payment_result_template" />
+	<g:macro_invoke macro="tcc_reservations_permit" />	
+	<g:macro_invoke macro="tcc_reservations_Campsite_Map_Template" />
+	</j:otherwise>	
+</j:choose>	
+	
+	
+	
+	
+</div><!-- /.container-fluid -->
+	
+	
+	
+</j:jelly>]]></xml>
+    </sys_ui_macro>
+</record_update>

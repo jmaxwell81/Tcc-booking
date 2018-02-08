@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ui_macro">
+    <sys_ui_macro action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <category>general</category>
+        <description/>
+        <media_type/>
+        <name>service_reservation</name>
+        <scoped_name>x_79929_booking_service_reservation</scoped_name>
+        <sys_class_name>sys_ui_macro</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-02-08 05:54:14</sys_created_on>
+        <sys_id>42a68957db041300fa8ef6dfbf96190c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>service_reservation</sys_name>
+        <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
+        <sys_update_name>sys_ui_macro_42a68957db041300fa8ef6dfbf96190c</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-02-08 05:54:14</sys_updated_on>
+        <xml><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+	<script>
+		/***************************************
+				
+				RESERVATION SERVICE
+		
+		****************************************/
+		app.service('Reservation', function ($http, $q) {
+ 
+				var reservation = [{
+					'bookingreference':'',
+					'bookingresult' :'',
+					'bookingsysid':'',
+					'totalprice':'',
+					'totaldisplayprice':'',
+					'transactionno':'',
+					'transactionresult':'',
+					'transactionMessage':'',
+					'paymentdescription':'',
+					'locationkey':'',
+					'locationtitle':'',
+					'location':'',
+					'validbooking': '',
+					'names': '',
+					'postaladdress':'',
+					'state':'',	
+					'postcode' : '',
+					'email': '',
+					'telephone': '',
+					'fax':'',
+					'mobile':'',
+					'driverslicensenumber':'',
+					'vehicleregistrationnumber':'',
+					'adults':'',
+					'children':'',	
+					'exceededconsecutivelimit':'',
+					'bookedresources':[]
+				}];
+						
+				var termscontent =  '';
+				
+		
+				/* 
+				   Add a booked slot/resource
+				*/
+				this.addReservation = function(slotid, resource, startAsNumber, displayStartDate, displayEndDate, price){		
+					reservation[0].bookedresources.push({
+					  "slotid": slotid,
+					  "resource":resource,
+					  "start":startAsNumber,
+					  "starttext" : displayStartDate,
+					  "endtext": displayEndDate, 
+					  "price": price
+					});
+					
+					//sort the array by start.
+					reservation[0].bookedresources = _.sortBy(reservation[0].bookedresources, function(o) { return (new Date(o.start)).getTime(); });
+		
+				}
+		
+				/* 
+				   Remove a booked slot/resource
+				*/
+				this.removeReservation = function(slotid){
+
+					  angular.forEach(reservation[0].bookedresources, function(obj, index){
+						// sourceArray is a reference to the original array passed to ng-repeat, 
+						// rather than the filtered version. 
+						// 1. compare the target object's slotid to the current member of the iterable:
+						if (obj.slotid.toString() === slotid.toString()) {
+						  // remove the matching item from the array
+						  reservation[0].bookedresources.splice(index, 1);
+						  // and exit the loop right away
+						  return;
+						};
+					  });
+
+				}
+		
+		
+				/*
+					Returns a slot onbject from the reservations reserved bookings array based on a given slotid.
+				*/
+				this.getSlot = function(slotid){
+					var temp;
+					angular.forEach(reservation[0].bookedresources, function(obj, index){
+						// sourceArray is a reference to the original array passed to ng-repeat, 
+						// rather than the filtered version. 
+						// 1. compare the target object's slotid to the current member of the iterable:
+						
+						if (obj.slotid.toString() === slotid.toString()) {		
+						  temp = obj;
+						};
+					  });
+					return temp;
+				}
+		
+				/*
+					getReservation: returns the reservation object
+				*/
+				this.getReservation = function () {
+		
+					return reservation[0];
+				}
+		
+				/*
+					return the reservation object
+				*/
+				this.getReservationByRefNo = function (refNo) {
+		
+						var request = $http({
+							method: 'POST',
+							url: '/api/snc/bookings/getReservationByRefNo',   
+							data: {refno: refNo}
+						});
+
+						return( request.then( handleGetReservationSuccess, handleError ));
+				
+				}
+		
+				/*
+					A debugging method only for showing the content of the reservation object in the console.
+				*/
+				this.displayReservation = function(){
+					showReservationInConsole('Service displayReservation ' , this.getReservation());
+				}
+			
+				/*
+					Flag of true or false to trigger UI display as required.
+				*/
+				this.setValidBooking = function(validbooking){
+					reservation[0].validbooking = validbooking;
+				}
+		
+				
+				/*
+					Updates the Reservation object with the selected values and location key
+					so it remains available when toggling between $states.
+				*/
+				this.setSelections = function(locationkey, adults, children){
+					reservation[0].locationkey = locationkey;
+					reservation[0].location = locationkey;
+					reservation[0].adults = adults;
+					reservation[0].children = children;
+				}
+		
+				/*
+					Updates the Service reservation attribute with the current selections and then 
+					triggers the API call to update the ServiceNow tables.
+				*/
+				this.updateReservation = function(reservation){
+					this.reservation = reservation;	
+					return this.submitReservation();
+				}		
+		
+				/*
+					API call to reserve the slots selected by the user
+				*/
+				this.submitReservation = function(){		
+					var request = $http({
+						 method: 'POST',
+						 url: '/api/snc/bookings/setNewBooking',   
+						 data: {reservation: this.reservation}
+					});
+
+					return( request.then( handleSubmitReservationSuccess, handleError ));
+
+				}
+
+				
+
+		
+				/*
+					Process the result returned from the TCC Gateway by making the API call	after confirming
+					the transactionno, bookingno and hash values in the URL provided are not empty.
+				*/	
+				this.updateReservationTransactionResult = function(transactionno, bookingno, resultkey){							console.log('transactionno: '+transactionno);	
+			    console.log('bookingno: '+bookingno);
+				console.log('resultkey: '+resultkey);
+					if(transactionno != undefined){
+
+						if(bookingno != undefined){
+							if(resultkey != undefined){
+								var request = $http({
+									method: 'POST',
+									url: '/api/snc/bookings/confirmBooking',   
+									data: {bookingno: bookingno, transactionno:transactionno, resultkey:resultkey}
+								});
+		
+								return( request.then( handleUpdateReservationTransactionResultSuccess, handleError ));	
+		
+							}else{
+								return false;
+							}
+		
+						}else{
+							return false;
+						}
+					}else{
+						return false;
+					}
+				}
+		
+				/*
+					Makes an API call to retrieve the Terms content that appears on the Permit page.
+					Stored in ServiceNow as a static html content block.
+					This API call can be made from elsewhere to load the Terms content in on the 
+					Terms and Conditions page.
+				*/
+				function getTermsContent(locationkey){
+					var request = $http({
+                        method: "get",
+                        url: '/api/snc/bookings/getTermsContent/'+ locationkey,
+                        params: {
+                            action: "get"
+                        }
+                    });
+		
+						return( request.then( handleTermsSuccess, handleError ));
+				}
+		
+				/*
+					Generic callback method for handling errors that occur from API calls.		
+				*/
+				function handleError( response ) {
+                    // The API response from the server should be returned in a
+                    // normalized format. However, if the request was not handled by the
+                    // server (or what not handles properly - ex. server error), then we
+                    // may have to normalize it on our end, as best we can.
+                    if (
+                        ! angular.isObject( response.data ) ||
+                        ! response.data.message
+                        ) {
+                        return( $q.reject( "An unknown error occurred." ) );
+                    }
+                    // Otherwise, use expected error message.
+                    return( $q.reject( response.data.message ));
+                }
+		
+				/*
+					Callback method for successful Submit Reservation API Calls.
+				*/
+				function handleSubmitReservationSuccess( response ) {
+					reservation[0].bookingreference = response.data.result[0].number;
+					reservation[0].bookingsysid = response.data.result[0].sys_id;
+					reservation[0].bookingresult = response.data.result[0].code;
+					reservation[0].totalprice = response.data.result[0].total_price;
+					reservation[0].totaldisplayprice = getDisplayPrice(response.data.result[0].total_price);
+					return true;
+                }
+		
+						
+				/*
+					Callback method for successful Payment  Reservation API Calls.
+				*/
+				function handleUpdateReservationTransactionResultSuccess( response ) {
+				console.log('RESPONSE: '+response);
+				
+	
+		
+		//transObj = response.data.result;
+		//console.log('UPDATE RES: '+transObj);
+		//var parser = new global.JSONParser();
+		//reservation[0] = transObj[0];	
+		//reservation[0].totaldisplayprice = getDisplayPrice(transObj[0].total_price);
+		//getTermsContent(reservation[0].details.location);
+					reservation[0] = response.data.result[0];	
+					reservation[0].totaldisplayprice = getDisplayPrice(response.data.result[0].total_price);
+				getTermsContent(reservation[0].details.location);
+					return true;
+                }
+		
+		
+				/*
+					Callback method for successful retrieval of the Reservation data from ServiceNow.
+				*/				
+				function handleGetReservationSuccess( response ) {	
+					reservation[0] = response.data.result[0];	
+					reservation[0].totaldisplayprice = getDisplayPrice(response.data.result[0].total_price);
+				
+					return reservation[0];
+                }
+		
+				
+				/*
+					Callback method for successful Terms Content API Calls.
+				*/				
+				function handleTermsSuccess( response ) {					
+					reservation[0].termscontent = response.data.result[0].content;
+					//return this.termscontent;
+                }
+		});
+		
+		
+	</script>
+
+</j:jelly>]]></xml>
+    </sys_ui_macro>
+</record_update>

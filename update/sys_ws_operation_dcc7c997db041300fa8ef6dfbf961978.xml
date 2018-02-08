@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ws_operation">
+    <sys_ws_operation action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <consumes>application/json,application/xml,text/xml</consumes>
+        <consumes_customized>false</consumes_customized>
+        <default_operation_uri/>
+        <enforce_acl/>
+        <http_method>GET</http_method>
+        <name>checkslotavailability</name>
+        <operation_script><![CDATA[(function process(/*RESTAPIRequest*/ request, /*RESTAPIResponse*/ response) {
+	var schedTemplate = String(request.queryParams.schedtemplate);
+	var dateRequested = String(request.queryParams.daterequested);
+	
+    var bookingsHelper = new global.bookingsystem2_ajax();
+	return bookingsHelper.checkSlotAvailabilityServer(schedTemplate, dateRequested);
+})(request, response);]]></operation_script>
+        <operation_uri>/api/x_79929_booking/booking/checkslotavailability</operation_uri>
+        <produces>application/json,application/xml,text/xml</produces>
+        <produces_customized>false</produces_customized>
+        <relative_path>/checkslotavailability</relative_path>
+        <request_example/>
+        <requires_acl_authorization>false</requires_acl_authorization>
+        <requires_authentication>true</requires_authentication>
+        <short_description/>
+        <sys_class_name>sys_ws_operation</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-02-08 05:59:23</sys_created_on>
+        <sys_id>dcc7c997db041300fa8ef6dfbf961978</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>checkslotavailability</sys_name>
+        <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
+        <sys_update_name>sys_ws_operation_dcc7c997db041300fa8ef6dfbf961978</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-02-08 05:59:23</sys_updated_on>
+        <web_service_definition display_value="Booking">bc47c597db041300fa8ef6dfbf961931</web_service_definition>
+        <web_service_version/>
+    </sys_ws_operation>
+</record_update>
