@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_ui_section caption="" section_id="989549e3db401300fa8ef6dfbf9619e2" sys_domain="global" table="x_79929_booking_booking_template" version="3" view="">
+        <sys_ui_annotation action="INSERT_OR_UPDATE">
+            <is_plain_text>false</is_plain_text>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-09 00:43:47</sys_created_on>
+            <sys_id>50490d67db401300fa8ef6dfbf9619f1</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-09 00:43:47</sys_updated_on>
+            <text>&lt;p&gt;Schedule Templates define the baseline Schedules that are automatically generated and against which Reservations are booked. To use:&lt;/p&gt;&lt;ol&gt;&lt;li&gt;Configure the typical Schedule settings in the form below.&lt;/li&gt;&lt;li&gt;Click 'Generate Template Slots' to generate the time slots for the Schedule Template.&lt;/li&gt;&lt;li&gt;Tweak the generated template as necessary to match the normal weekly Schedule.&lt;/li&gt;&lt;li&gt;Click 'Generate Schedule Days' to generate the first actual Schedule.&lt;/li&gt;&lt;/ol&gt;&lt;p&gt;Notes:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;The Schedule Template is &lt;em&gt;not the actual Schedule&lt;/em&gt;. To edit the actual Schedule, use the &lt;strong&gt;Schedule &amp; Availability&lt;/strong&gt; module.&lt;/li&gt;&lt;li&gt;If the Schedule Template is edited, it is necessary to click "Generate Template Slots" before any template slots are updated so that the changes will take effect in future Schedules.&lt;/li&gt;&lt;li&gt;Each night, any missing Schedule days are generated to ensure the correct number of &lt;strong&gt;Days to Schedule&lt;/strong&gt; is maintained. If any template slots are changed, the new settings will take affect for each new day that is scheduled beyond the existing Schedule. You may click "Generate Schedule Days" to overwrite existing Schedule days with the new settings immediately - &lt;em&gt;Doing so will delete all future Schedule slots, starting at the beginning of tomorrow, and regenerate new Schedule slots, attempting to match any existing Reservations to the newly generated Schedule slots. No existing Reservations will be deleted!&lt;/em&gt;&lt;/li&gt;&lt;/ul&gt;</text>
+            <type display_value="Info Box Blue">753f88a80f930000b12e6903cfe01206</type>
+        </sys_ui_annotation>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>50490d67db401300fa8ef6dfbf9619f1</element>
+            <position>0</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-09 00:43:47</sys_created_on>
+            <sys_id>14490d67db401300fa8ef6dfbf9619f1</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_79929_booking_booking_template" sys_domain="global" view="Default view">989549e3db401300fa8ef6dfbf9619e2</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-09 00:43:47</sys_updated_on>
+            <sys_user/>
+            <type>annotation</type>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>title</element>
+            <position>1</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-09 00:43:47</sys_created_on>
+            <sys_id>94490d67db401300fa8ef6dfbf9619f1</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_79929_booking_booking_template" sys_domain="global" view="Default view">989549e3db401300fa8ef6dfbf9619e2</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-09 00:43:47</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>.begin_split</element>
+            <position>2</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-09 00:43:47</sys_created_on>
+            <sys_id>18490d67db401300fa8ef6dfbf9619f1</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_79929_booking_booking_template" sys_domain="global" view="Default view">989549e3db401300fa8ef6dfbf9619e2</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-09 00:43:47</sys_updated_on>
+            <sys_user/>
+            <type>.begin_split</type>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>booking_resource</element>
+            <position>3</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-09 00:43:47</sys_created_on>
+            <sys_id>98490d67db401300fa8ef6dfbf9619f1</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_79929_booking_booking_template" sys_domain="global" view="Default view">989549e3db401300fa8ef6dfbf9619e2</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-09 00:43:47</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>active</element>
+            <position>4</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-09 00:43:47</sys_created_on>
+            <sys_id>1c490d67db401300fa8ef6dfbf9619f1</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_79929_booking_booking_template" sys_domain="global" view="Default view">989549e3db401300fa8ef6dfbf9619e2</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-09 00:43:47</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>start_time</element>
+            <position>5</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-09 00:43:47</sys_created_on>
+            <sys_id>9c490d67db401300fa8ef6dfbf9619f1</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_79929_booking_booking_template" sys_domain="global" view="Default view">989549e3db401300fa8ef6dfbf9619e2</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-09 00:43:47</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>end_time</element>
+            <position>6</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-09 00:43:47</sys_created_on>
+            <sys_id>10490d67db401300fa8ef6dfbf9619f2</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_79929_booking_booking_template" sys_domain="global" view="Default view">989549e3db401300fa8ef6dfbf9619e2</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-09 00:43:47</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>.split</element>
+            <position>7</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-09 00:43:47</sys_created_on>
+            <sys_id>90490d67db401300fa8ef6dfbf9619f2</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_79929_booking_booking_template" sys_domain="global" view="Default view">989549e3db401300fa8ef6dfbf9619e2</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-09 00:43:47</sys_updated_on>
+            <sys_user/>
+            <type>.split</type>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>reservation_length</element>
+            <position>8</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-09 00:43:47</sys_created_on>
+            <sys_id>14490d67db401300fa8ef6dfbf9619f2</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_79929_booking_booking_template" sys_domain="global" view="Default view">989549e3db401300fa8ef6dfbf9619e2</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-09 00:43:47</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>number_of_resources</element>
+            <position>9</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-09 00:43:47</sys_created_on>
+            <sys_id>94490d67db401300fa8ef6dfbf9619f2</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_79929_booking_booking_template" sys_domain="global" view="Default view">989549e3db401300fa8ef6dfbf9619e2</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-09 00:43:47</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>days_to_schedule</element>
+            <position>10</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-09 00:43:47</sys_created_on>
+            <sys_id>18490d67db401300fa8ef6dfbf9619f2</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_79929_booking_booking_template" sys_domain="global" view="Default view">989549e3db401300fa8ef6dfbf9619e2</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-09 00:43:47</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>.end_split</element>
+            <position>11</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-09 00:43:47</sys_created_on>
+            <sys_id>98490d67db401300fa8ef6dfbf9619f2</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_79929_booking_booking_template" sys_domain="global" view="Default view">989549e3db401300fa8ef6dfbf9619e2</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-09 00:43:47</sys_updated_on>
+            <sys_user/>
+            <type>.end_split</type>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>.begin_split</element>
+            <position>12</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-09 00:43:47</sys_created_on>
+            <sys_id>1c490d67db401300fa8ef6dfbf9619f2</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_79929_booking_booking_template" sys_domain="global" view="Default view">989549e3db401300fa8ef6dfbf9619e2</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-09 00:43:47</sys_updated_on>
+            <sys_user/>
+            <type>.begin_split</type>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>monday</element>
+            <position>13</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-09 00:43:47</sys_created_on>
+            <sys_id>9c490d67db401300fa8ef6dfbf9619f2</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_79929_booking_booking_template" sys_domain="global" view="Default view">989549e3db401300fa8ef6dfbf9619e2</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-09 00:43:47</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>tuesday</element>
+            <position>14</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-09 00:43:47</sys_created_on>
+            <sys_id>10490d67db401300fa8ef6dfbf9619f3</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_79929_booking_booking_template" sys_domain="global" view="Default view">989549e3db401300fa8ef6dfbf9619e2</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-09 00:43:47</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>wednesday</element>
+            <position>15</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-09 00:43:47</sys_created_on>
+            <sys_id>90490d67db401300fa8ef6dfbf9619f3</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_79929_booking_booking_template" sys_domain="global" view="Default view">989549e3db401300fa8ef6dfbf9619e2</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-09 00:43:47</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>thursday</element>
+            <position>16</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-09 00:43:47</sys_created_on>
+            <sys_id>14490d67db401300fa8ef6dfbf9619f3</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_79929_booking_booking_template" sys_domain="global" view="Default view">989549e3db401300fa8ef6dfbf9619e2</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-09 00:43:47</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>friday</element>
+            <position>17</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-09 00:43:47</sys_created_on>
+            <sys_id>94490d67db401300fa8ef6dfbf9619f3</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_79929_booking_booking_template" sys_domain="global" view="Default view">989549e3db401300fa8ef6dfbf9619e2</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-09 00:43:47</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>saturday</element>
+            <position>18</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-09 00:43:47</sys_created_on>
+            <sys_id>18490d67db401300fa8ef6dfbf9619f3</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_79929_booking_booking_template" sys_domain="global" view="Default view">989549e3db401300fa8ef6dfbf9619e2</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-09 00:43:47</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>sunday</element>
+            <position>19</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-09 00:43:47</sys_created_on>
+            <sys_id>98490d67db401300fa8ef6dfbf9619f3</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_79929_booking_booking_template" sys_domain="global" view="Default view">989549e3db401300fa8ef6dfbf9619e2</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-09 00:43:47</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>.split</element>
+            <position>20</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-09 00:43:47</sys_created_on>
+            <sys_id>1c490d67db401300fa8ef6dfbf9619f3</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_79929_booking_booking_template" sys_domain="global" view="Default view">989549e3db401300fa8ef6dfbf9619e2</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-09 00:43:47</sys_updated_on>
+            <sys_user/>
+            <type>.split</type>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>monday_price</element>
+            <position>21</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-09 00:43:47</sys_created_on>
+            <sys_id>9c490d67db401300fa8ef6dfbf9619f3</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_79929_booking_booking_template" sys_domain="global" view="Default view">989549e3db401300fa8ef6dfbf9619e2</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-09 00:43:47</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>tuesday_price</element>
+            <position>22</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-09 00:43:47</sys_created_on>
+            <sys_id>10490d67db401300fa8ef6dfbf9619f4</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_79929_booking_booking_template" sys_domain="global" view="Default view">989549e3db401300fa8ef6dfbf9619e2</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-09 00:43:47</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>wednesday_price</element>
+            <position>23</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-09 00:43:47</sys_created_on>
+            <sys_id>90490d67db401300fa8ef6dfbf9619f4</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_79929_booking_booking_template" sys_domain="global" view="Default view">989549e3db401300fa8ef6dfbf9619e2</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-09 00:43:47</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>thursday_price</element>
+            <position>24</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-09 00:43:47</sys_created_on>
+            <sys_id>14490d67db401300fa8ef6dfbf9619f4</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_79929_booking_booking_template" sys_domain="global" view="Default view">989549e3db401300fa8ef6dfbf9619e2</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-09 00:43:47</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>friday_price</element>
+            <position>25</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-09 00:43:47</sys_created_on>
+            <sys_id>94490d67db401300fa8ef6dfbf9619f4</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_79929_booking_booking_template" sys_domain="global" view="Default view">989549e3db401300fa8ef6dfbf9619e2</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-09 00:43:47</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>saturday_price</element>
+            <position>26</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-09 00:43:47</sys_created_on>
+            <sys_id>18490d67db401300fa8ef6dfbf9619f4</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_79929_booking_booking_template" sys_domain="global" view="Default view">989549e3db401300fa8ef6dfbf9619e2</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-09 00:43:47</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>sunday_price</element>
+            <position>27</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-09 00:43:47</sys_created_on>
+            <sys_id>98490d67db401300fa8ef6dfbf9619f4</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_79929_booking_booking_template" sys_domain="global" view="Default view">989549e3db401300fa8ef6dfbf9619e2</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-09 00:43:47</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>.end_split</element>
+            <position>28</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-09 00:43:47</sys_created_on>
+            <sys_id>1c490d67db401300fa8ef6dfbf9619f4</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_79929_booking_booking_template" sys_domain="global" view="Default view">989549e3db401300fa8ef6dfbf9619e2</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-09 00:43:47</sys_updated_on>
+            <sys_user/>
+            <type>.end_split</type>
+        </sys_ui_element>
+        <sys_ui_section action="INSERT_OR_UPDATE">
+            <caption/>
+            <header>false</header>
+            <name>x_79929_booking_booking_template</name>
+            <roles/>
+            <sys_class_name>sys_ui_section</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-09 00:27:41</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>989549e3db401300fa8ef6dfbf9619e2</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>x_79929_booking_booking_template</sys_name>
+            <sys_overrides/>
+            <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
+            <sys_update_name>sys_ui_section_989549e3db401300fa8ef6dfbf9619e2</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-09 00:27:41</sys_updated_on>
+            <sys_user/>
+            <title>true</title>
+            <view display_value="Default view" name="NULL">Default view</view>
+            <view_name/>
+        </sys_ui_section>
+    </sys_ui_section>
+</record_update>

@@ -11,14 +11,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-02-08 05:52:40</sys_created_on>
         <sys_id>33468557db041300fa8ef6dfbf9619e6</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>1</sys_mod_count>
         <sys_name>service_location</sys_name>
         <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
         <sys_policy/>
         <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
         <sys_update_name>sys_ui_macro_33468557db041300fa8ef6dfbf9619e6</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-02-08 05:52:40</sys_updated_on>
+        <sys_updated_on>2018-02-08 23:34:25</sys_updated_on>
         <xml><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
 <j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
 	<script>
@@ -50,7 +50,7 @@
                 function getLocationData(location_sysid) {
                     var request = $http({
                         method: "get",
-                        url: '/api/snc/bookings/getLocationDetail/'+ location_sysid,
+                        url: '/api/x_79929_booking/booking/getLocationDetail/'+ location_sysid,
                         params: {
                             action: "get"
 							
@@ -64,7 +64,7 @@
                 function loadSlotData(location_sysid, startDate, endDate) {			
                     var request = $http({
                         method: "get",
-                        url: '/api/snc/bookings/getCurrentBookingSlots/'+ location_sysid +'/' + startDate.getTime() +  '/' + endDate.getTime(),
+                        url: '/api/x_79929_booking/booking/getCurrentBookingSlots/'+ location_sysid +'/' + startDate.getTime() +  '/' + endDate.getTime(),
                         params: {
                             action: "get"
                         }
@@ -78,7 +78,7 @@
 		
                     var request = $http({
                         method: "get",
-                        url: '/api/snc/bookings/getCurrentBookingSlots/'+ location_sysid +'/' + startDate.getTime() +  '/' + endDate.getTime(),
+                        url: '/api/x_79929_booking/booking/getCurrentBookingSlots/'+ location_sysid +'/' + startDate.getTime() +  '/' + endDate.getTime(),
                         params: {
                             action: "get",
 							headers : { "X-UserToken" : window.g_ck}

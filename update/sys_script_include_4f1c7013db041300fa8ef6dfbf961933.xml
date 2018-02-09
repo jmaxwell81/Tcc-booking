@@ -10,21 +10,900 @@
         <script><![CDATA[var tccBookingReservations = Class.create();
 tccBookingReservations.prototype = {
     initialize: function() {
+			//Global variables
+			//this.variablename = x;
+		this.tccsecret = "2435uhu34hi34";
+    },
+	//
+	
+	getConfig: function(locationkey){
+		var result = [];
+		var config = {};
+		
+		if(locationkey == null || locationkey == ''){
+			locationkey = 'paluma';
+		}
+		
+		var locationsysid = gs.getProperty('x_79929_booking.reservation.sysid.' + locationkey);
+		var consecutiveSlots = gs.getProperty('x_79929_booking.reservation.consecutive.slots.' + locationkey); 
+		var dayIncrement = gs.getProperty('x_79929_booking.reservation.grid.days.' + locationkey);		
+		var footersysid = gs.getProperty('x_79929_booking.reservation.footermenu.sysid.' + locationkey);
+		var googlerecaptchakey = gs.getProperty('x_79929_booking.reservation.recaptcha');
+		var storepaymentrecord = gs.getProperty('x_79929_booking.reservation.record.payment.record');
+		var todayDate  = new GlideDateTime();
+		
+		var endDate = new GlideDateTime();
+		endDate.addDaysLocalTime(dayIncrement - 1);
+				
+		config.locationkey = locationkey;
+		config.locationsysid = locationsysid;
+		config.consecutiveSlots = consecutiveSlots;
+		config.dayIncrement = dayIncrement;
+		config.footer = this.getMenu(footersysid);
+		config.todayDate = todayDate.getNumericValue();
+		config.endDate = endDate.getNumericValue();
+		config.googlerecaptchakey = googlerecaptchakey;
+				
+		result.push(config);
+		return result;
+	},
+
+	setBooking: function(post_response_body){
+		/*
+		Saves the booking details to u_booking_reservation_detail.
+		First checks to make sure all the booking_scedules sys_ids have at least 1 available resource
+		
+		Returns booking reservation detail number and sys_id.
+		*/	
+		var result = [];
+		var res = {};
+		var totalPrice = 0;
+		
+		// **Check all the booking_schedule sys_id's are stll available
+		
+		var stillAvail = true;
+		var booking_schedule_sys_ids = post_response_body.bookedresources;
+		var schedCounter = 0;
+
+		//Loop through each booking_Schedule.sys_id and check it is still available
+		for(schedCounter = 0; schedCounter < booking_schedule_sys_ids.length; schedCounter++){
+
+			var grSched = new GlideRecord('x_79929_booking_booking_schedule'); 
+			grSched.addQuery('sys_id', booking_schedule_sys_ids[schedCounter].slotid);
+			grSched.query();
+			if(grSched.hasNext()){
+				grSched.next();
+				var avail = grSched.getValue('available_capacity');
+				if(parseInt(avail) <= 0){
+					//If no capacity the set flag and stop loops
+					stillAvail = false;
+					break;
+				}
+			}
+		}
+		
+		if(stillAvail){	
+			// **Process reservation
+			// **Create new u_booking_reservation_detail record
+			var resDetail = new GlideRecord('x_79929_booking_booking_reservation_detail');
+			resDetail.initialize();
+						
+			//Set field values
+			resDetail.setValue('x_79929_booking_state','onhold');
+			resDetail.setValue('state_change_date', new GlideDateTime());
+			
+		
+			//Set adult names
+			var nameCounter = 0;
+			
+			for(nameCounter = 0; nameCounter < post_response_body.names.length; nameCounter++){		
+				resDetail.setValue('first_name_' + (parseInt(nameCounter) + 1), post_response_body.names[nameCounter].firstname);
+				resDetail.setValue('last_name_' + (parseInt(nameCounter) + 1), post_response_body.names[nameCounter].lastname);
+			}		
+			
+			//Check values exist before attempting to write them.
+			this.setFieldValue(resDetail, 'drivers_license_number', post_response_body.driverslicensenumber);
+			this.setFieldValue(resDetail, 'email', post_response_body.email);
+			this.setFieldValue(resDetail, 'fax', post_response_body.fax);
+			this.setFieldValue(resDetail, 'mobile', post_response_body.mobile);
+			this.setFieldValue(resDetail, 'number_of_adults', post_response_body.names.length.toString());
+			this.setFieldValue(resDetail, 'number_of_children', post_response_body.children);
+			this.setFieldValue(resDetail, 'post_code', post_response_body.postcode);
+			this.setFieldValue(resDetail, 'postal_address', post_response_body.postaladdress);
+			this.setFieldValue(resDetail, 'geostate', post_response_body.state);
+			this.setFieldValue(resDetail, 'telephone', post_response_body.telephone);
+			this.setFieldValue(resDetail, 'vehicle_registration_number', post_response_body.vehicleregistrationnumber);											
+			this.setFieldValue(resDetail, 'location_short_name', post_response_body.location);
+			
+			resDetail.u_comments = 'Booking placed on-hold from public application.';
+			
+			//Commit
+			resDetail.insert();
+	
+			// ** Create booking_reservation records
+			// ** Decrement booking_schedule records
+			//Loop through each booking_Schedule.sys_id and check it is still available
+			for(schedCounter = 0; schedCounter < booking_schedule_sys_ids.length; schedCounter++){
+
+				var grSch = new GlideRecord('x_79929_booking_booking_schedule'); 
+				grSch.addQuery('sys_id', booking_schedule_sys_ids[schedCounter].slotid);
+				grSch.query();
+				if(grSch.hasNext()){
+					grSch.next();
+					
+					//Update resource availability
+					var available = grSch.getValue('available_capacity');				
+					available--;
+					grSch.setValue('available_capacity', available);					
+					grSch.update();
+					
+					//create booking_reservation record
+					var newReservationGR = new GlideRecord('x_79929_booking_booking_reservation');
+					newReservationGR.initialize();
+					newReservationGR.setValue('state','onhold');
+					newReservationGR.setValue('state_change_date', new GlideDateTime());
+					newReservationGR.setValue('parent', resDetail.getValue('sys_id'));
+					newReservationGR.setValue('start_time', grSch.getValue('start_time'));
+					newReservationGR.setValue('end_time', grSch.getValue('end_time'));
+					newReservationGR.setValue('day_of_week', grSch.getValue('day_of_week'));
+					newReservationGR.setValue('schedule', booking_schedule_sys_ids[schedCounter].slotid);
+					newReservationGR.setValue('schedule_template', grSch.getValue('schedule_template'));
+					newReservationGR.setValue('week_start', grSch.getValue('week_start'));				
+					newReservationGR.update();
+					
+					//Build price
+					totalPrice += parseFloat(grSch.getValue('price'));
+				}
+			}		
+			
+			//Return booking reservation detail number and sys_id
+			res.sys_id = resDetail.getValue('sys_id'); 
+			res.number = resDetail.getValue('number'); 
+			res.code = 'Success';
+			res.total_price = totalPrice;
+		} else {			
+			//Generate error 
+			res.error = 'One or more of the times are unavailable.';
+			res.code = 'Error';
+		}
+		
+		result.push(res);		
+		
+		return result;
+	},
+	
+	setFieldValue: function(glide_record, col_name, field_value){
+		/*
+		Internal function which sets the record value to the field value.
+		*/
+		if(JSUtil.notNil(field_value)){
+			glide_record.setValue(col_name, field_value);
+		}
+		return '';
+	},
+	
+	getReservationByNumber: function(reservation_detail_number){
+		/*
+		Need to confirm first if we have stored a successful payment record for this application 
+		when the result was returned from the Payment Gateway.
+		If so update the record.
+		*/
+		var bh = new PaymentGatewayBpointHandler();   
+		if(!bh.hasSuccessTransactionRecord(reservation_detail_number)){
+			//If not then return an error message
+			var result = {};
+			result.status = 'Error';
+
+			//Return vague message to increase security
+			result.message = 'The reservation that was requested to be updated is not valid.';
+			returnArray.push(result);
+		}else{		
+			var result1= [];
+			//Look up u_booking_reservation by reference number
+			var grbrd = new GlideRecord('u_booking_reservation_detail');
+			grbrd.addQuery('u_number', reservation_detail_number);
+			grbrd.query();
+
+			if(grbrd.hasNext()){
+				grbrd.next();
+				gs.log('SC INCL getReservationByNumber grbrd.getValue(sys_id) ' + grbrd.getValue('sys_id'));
+				return this.getReservationDetails(grbrd.getValue('sys_id'));
+			}
+			return result1;
+		}
+		
+		
+	},
+	
+	
+	
+	getReservationDetails: function(booking_reservation_detail_sys_id){
+		/*
+		Takes a u_booking_reservation_detail_sys_id and returns all the details
+		*/
+		var result = [];
+		var booking = {};
+		
+		//Look up u_booking_reservation_detail
+		var grbrd = new GlideRecord('u_booking_reservation_detail');
+		grbrd.addQuery('sys_id', booking_reservation_detail_sys_id);
+		grbrd.query();
+		
+		if(grbrd.hasNext()){
+			grbrd.next();
+			var details = {};
+			//Add reservation details
+			details.number = grbrd.getValue('u_number');
+			details.sys_id = grbrd.getValue('sys_id');
+			details.state = grbrd.u_state.getDisplayValue();
+			details.comments = grbrd.getValue('u_comments'); //<------ check
+			details.drivers_license_number  = this.getFieldValue(grbrd, 'u_drivers_license_number');
+			details.email  = this.getFieldValue(grbrd, 'u_email');
+			details.fax = this.getFieldValue(grbrd, 'u_fax');
+						
+			var names = [];
+			var name = {};			
+			name.firstname = this.getFieldValue(grbrd, 'u_first_name_1');
+			name.lastname =  this.getFieldValue(grbrd, 'u_last_name_1');
+			name.no = 1;
+			names.push(name);
+			
+			if(this.getFieldValue(grbrd, 'u_first_name_2') != ''){
+				name = {};
+				name.firstname = this.getFieldValue(grbrd, 'u_first_name_2');
+				name.lastname =  this.getFieldValue(grbrd, 'u_last_name_2');
+				name.no = 2;
+				names.push(name);
+			}
+			
+			if(this.getFieldValue(grbrd, 'u_first_name_3') != ''){
+				name = {};
+				name.firstname = this.getFieldValue(grbrd, 'u_first_name_3');
+				name.lastname =  this.getFieldValue(grbrd, 'u_last_name_3');
+				name.no = 3;
+				names.push(name);
+			}
+			
+			if(this.getFieldValue(grbrd, 'u_first_name_4') != ''){
+				name = {};
+				name.firstname = this.getFieldValue(grbrd, 'u_first_name_4');
+				name.lastname =  this.getFieldValue(grbrd, 'u_last_name_4');
+				name.no = 4;
+				names.push(name);
+			}
+			
+			if(this.getFieldValue(grbrd, 'u_first_name_5') != ''){
+				name = {};
+				name.firstname = this.getFieldValue(grbrd, 'u_first_name_5');
+				name.lastname =  this.getFieldValue(grbrd, 'u_last_name_5');
+				name.no = 5;
+				names.push(name);
+			}
+			
+			if(this.getFieldValue(grbrd, 'u_first_name_6') != ''){
+				name = {};
+				name.firstname = this.getFieldValue(grbrd, 'u_first_name_6');
+				name.lastname =  this.getFieldValue(grbrd, 'u_last_name_6');
+				name.no = 6;
+				names.push(name);
+			}
+			
+			if(this.getFieldValue(grbrd, 'u_first_name_7') != ''){
+				name = {};
+				name.firstname = this.getFieldValue(grbrd, 'u_first_name_7');
+				name.lastname =  this.getFieldValue(grbrd, 'u_last_name_7');
+				name.no = 7;
+				names.push(name);
+			}
+			
+			if(this.getFieldValue(grbrd, 'u_first_name_8') != ''){
+				name = {};
+				name.firstname = this.getFieldValue(grbrd, 'u_first_name_8');
+				name.lastname =  this.getFieldValue(grbrd, 'u_last_name_8');
+				name.no = 8;
+				names.push(name);
+			}
+									
+			details.names = names;
+			
+			details.location = this.getFieldValue(grbrd, 'u_location_short_name');
+			details.mobile = this.getFieldValue(grbrd, 'u_mobile');
+			details.number_of_adults = grbrd.u_number_of_adults.getDisplayValue();
+			details.number_of_children = this.getFieldValue(grbrd, 'u_number_of_children');
+			details.post_code = this.getFieldValue(grbrd, 'u_post_code');
+			details.postal_address = this.getFieldValue(grbrd, 'u_postal_address');
+			details.geostate = grbrd.u_geostate.getDisplayValue();
+			details.telephone = this.getFieldValue(grbrd, 'u_telephone');
+			details.transaction_number = this.getFieldValue(grbrd, 'u_transaction_number');
+			details.vehicle_registration_number = this.getFieldValue(grbrd, 'u_vehicle_registration_number');
+			
+			booking.details = details;
+		
+			// If there is a matching record then also get all the booking_reservation record whose parent 
+			//  is the booking_reservation_detail_sys_id also. 
+			var grRes = new GlideRecord('booking_reservation');
+			grRes.addQuery('u_parent', booking_reservation_detail_sys_id);
+			grRes.query();
+
+			var slots = [];
+			var totalPrice = 0;
+
+			while(grRes.next()){
+				var slot = {};
+				//Add slot details
+				slot.state = grRes.state.getDisplayValue();
+				slot.start = grRes.getValue('start_time');
+				slot.end = grRes.getValue('end_time');
+				slot.sys_id = grRes.getValue('sys_id');
+				
+				var grScheduleForPrice = new GlideRecord('booking_schedule');
+				grScheduleForPrice.addQuery('sys_id', grRes.getValue('schedule'));
+				grScheduleForPrice.query();
+				if(grScheduleForPrice.hasNext()){
+					grScheduleForPrice.next();
+					slot.price = this.getDisplayPrice(grScheduleForPrice.getValue('u_price'));
+					totalPrice += parseFloat(grScheduleForPrice.getValue('u_price'));
+					slot.resource = grScheduleForPrice.getDisplayValue('schedule_template.u_booking_resource');
+				}
+				slots.push(slot);
+			}
+			booking.total_price = totalPrice;
+			booking.slot = slots;
+			
+			
+			//Get Reservation detail parent location information
+			var location_short_name = this.getFieldValue(grbrd, 'u_location_short_name');
+			if(location_short_name != ''){
+				var locationsysid = gs.getProperty('booking.reservation.sysid.' + location_short_name);
+				if(locationsysid != ''){
+					booking.parentlocation = this.getLocationDetails(locationsysid);
+				}
+			}
+		}
+		
+		result.push(booking);
+		
+		return result;
+	},
+	
+	
+	
+	getDisplayPrice: function(price){	
+		return '$' + this.CurrencyFormatted(price);
+	},
+
+	CurrencyFormatted: function(amount)
+	{
+		var i = parseFloat(amount);
+		if(isNaN(i)) { i = 0.00; }
+		var minus = '';
+		if(i < 0) { minus = '-'; }
+		i = Math.abs(i);
+		i = parseInt((i + 0.005) * 100);
+		i = i / 100;
+		s = new String(i);
+		if(s.indexOf('.') < 0) { s += '.00'; }
+		if(s.indexOf('.') == (s.length - 2)) { s += '0'; }
+		s = minus + s;
+		return s;
+	},
+
+	
+	getFieldValue: function(glide_record, field_name){
+		/*
+		Internal function which gets the field value from the glide record and returns an empty string
+		if the field is NULL.
+		*/
+		var field_value = glide_record.getValue(field_name);
+		if(JSUtil.nil(field_value)){
+			field_value = '';
+		}
+		return field_value;
+	},
+	
+	checkSlotAvailability: function(list_booking_schedule_sys_id){
+		var result = [];
+		
+		//Split up sys_ids based on ',' and add to array
+		var arrSysID = list_booking_schedule_sys_id.split(',');
+	
+		//Iterate through array (might be just one object)
+		for(var counter = 0; counter<arrSysID.length; counter++){
+			//Find out if the resource is still available
+			var slot_avail = this.checkSingleSlotAvailability(arrSysID[counter]);
+			
+			//Build response item including status and sys_id
+			var resp = {};
+			resp.sys_id = arrSysID[counter];
+			resp.status = slot_avail;
+			result.push(resp);
+		}
+		return result;
+	},
+	
+	checkSingleSlotAvailability: function(booking_schedule_sys_id){
+		var status = 'Error: Bookingschedule.sys_id not found.';
+		
+		//Look up the booking schedule sys_id
+		var bookSchedule = new GlideRecord('booking_schedule');
+		bookSchedule.addActiveQuery();
+		bookSchedule.addQuery('sys_id', booking_schedule_sys_id);
+		bookSchedule.query();
+		if(bookSchedule.hasNext()){
+			bookSchedule.next();
+			var avail = bookSchedule.getValue('available_capacity');
+			if(parseInt(avail) > 0){
+				//Available
+				status = 'Success';
+			} else {
+				//Not available
+				status = 'Failure';
+			}
+		}
+	
+		return status;
+	},
+	
+	getLocationDetails: function(booking_location_sys_id){
+		/*
+		Takes the sys_id for a booking location and returns the title and notification for the location
+		*/
+		
+		var result = [];
+		var now = new GlideDateTime(); //Defaults to now
+		
+		//Look up the resource location record 
+		var grLoc = new GlideRecord('u_booking_location');
+		grLoc.addQuery('sys_id', booking_location_sys_id);
+		grLoc.query();
+		
+		if(grLoc.hasNext()){
+			grLoc.next();
+			var loc = {};
+			
+			//Populate resource location title
+			loc.title = grLoc.getValue('u_name');
+			loc.paymenttype = grLoc.getValue('u_payment_type');
+			loc.paymentdescription = grLoc.getValue('u_payment_description');
+			
+			//Only populate notification if the current date/time is between the notifications start/end dates.
+			var note = '';
+			var startDateTime = new GlideDateTime(grLoc.getValue('u_notification_start'));
+			var endDateTime = new GlideDateTime(grLoc.getValue('u_notification_end'));
+			
+			//If the notification is current then append.
+			if(JSUtil.notNil(startDateTime) && JSUtil.notNil(endDateTime)){
+				if(startDateTime.getNumericValue() < now.getNumericValue() && endDateTime.getNumericValue() > now.getNumericValue()){
+					note = grLoc.getValue('u_notification_text');
+				}
+			}
+						
+			loc.notification = note;
+			
+			//Grab the maximum number of days in advance that a resource can be booked.
+			var maxdays = '';
+			
+			//Grab the first active template for the location and return its scheduled_days value
+			var grTemp = new GlideRecord('booking_template');
+			grTemp.addActiveQuery();
+			grTemp.addQuery('u_booking_resource.u_location.sys_id', booking_location_sys_id);
+			grTemp.setLimit(1);
+			grTemp.query();
+						
+			if(grTemp.hasNext()){
+				grTemp.next();
+				maxdays = grTemp.getValue('schedule_days');
+			} else {
+				maxdays = 'Error: no booking template found for this booking resource.';
+			}
+			
+			loc.maxdays = maxdays;
+			
+			//Append to return result
+			result.push(loc);
+		}
+		
+		return result;
+	},
+	
+	getBookingResources: function(booking_resource_sys_id){
+		/*
+		Takes a booking location sys_id and returns all the active booking resources for that location.
+		
+		e.g for Paluma camp ground it takes they sys_id of this u_booking_location and returns all the active campsites
+		*/
+		var result = [];
+		
+		//Select records
+		var resGR = new GlideRecord('u_booking_resources');
+		resGR.addQuery('u_active', true);
+		resGR.addQuery('u_location', booking_resource_sys_id);
+		resGR.orderBy('u_name');
+		resGR.query();
+		
+		//Loop through records and build return object
+		while(resGR.next()){
+			var bookres = {};
+			bookres.name = resGR.getValue('u_name');
+			bookres.desc = resGR.getValue('u_description');
+			bookres.sys_id = resGR.getValue('sys_id');
+			result.push(bookres);
+		}
+		
+		return result;
+	},
+	
+	getBookingResourceFeatures: function(booking_resource_sys_id){
+		/*
+		Takes a booking resource sys_id and returns an array of all the booking resource features.
+		
+		e.g. for Paluma Campsite 2 it returns feature 'Fireplace' and 'Car park'
+		*/
+		var result = [];
+		
+		//Select records
+		var featGR = new GlideRecord('u_booking_resource_features');
+		featGR.addQuery('u_active', true);
+		featGR.addQuery('u_parent_resource', booking_resource_sys_id);
+		featGR.query();
+		
+		//Loop through records and build return object
+		while(featGR.next()){
+			var feat = {};
+			feat.name = featGR.u_feature.getDisplayValue();
+			feat.sys_id = featGR.getValue('sys_id');
+			result.push(feat);
+		}	
+		return result;
+	},
+	
+	getResourceScheduleRecords: function(booking_resource_sys_id, startDateTime, endDateTime){	
+		/*
+		Grabs all the schedule items for a booking resource 
+		
+		booking_location_sys_id - Sys_id of the booking_location to return results for
+		startDateTime - Booking slots returned will have a start date after this
+		endDateTime - Booking slots returned will have a start date before this
+		
+		e.g. for Paluma Campground Campsite 2 it returns all the scheduled slots which start after the startDateTime
+		and before the endStartTime.
+		*/
+		var result = [];
+		
+		//Select records
+		var bookSchedule = new GlideRecord('booking_schedule');
+		bookSchedule.addActiveQuery();
+		bookSchedule.addQuery('schedule_template.u_booking_resource', booking_resource_sys_id);
+		bookSchedule.addQuery('start_time', '>=', startDateTime);
+		bookSchedule.addQuery('start_time', '<', endDateTime);
+		bookSchedule.orderBy('start_time');
+		bookSchedule.query();
+	
+		//Loop through records and build return object
+		while(bookSchedule.next()){
+			var item = {};			
+			item.sys_id = bookSchedule.getValue('sys_id');
+			item.day_of_week = this.fixDayofWeek(bookSchedule.getValue('day_of_week'));
+			//item.day_of_week = bookSchedule.getValue('day_of_week');
+			item.start = new GlideDateTime(bookSchedule.getValue('start_time')).getNumericValue();
+			item.end = new GlideDateTime(bookSchedule.getValue('end_time')).getNumericValue();
+			item.avail = bookSchedule.getValue('available_capacity');
+			item.price = bookSchedule.getValue('u_price');
+			//item.name = bookSchedule.getValue('name');
+			result.push(item);
+		}	
+		return result;
+		
+	},
+	
+
+	fixDayofWeek: function(day_of_week){
+		/*
+		ServiceNow does not use the standard day_of_week numbering.  This fixes it.
+		*/
+		var result = parseInt(day_of_week);
+		result++;
+		if(result == 8){
+			result = 1;
+		}
+	
+		return result.toString();
+	},
+
+	
+	getCurrentBookingSlots: function(booking_location_sys_id, startDateTime, endDateTime){
+		/*
+		booking_location_sys_id - Sys_id of the booking_location to return results for
+		startDateTime - Booking slots returned will have a start date after this
+		endDateTime - Booking slots returned will have a start date before this
+		*/
+		
+		var result = [];	
+
+		//Get all the u_booking_resources records with location = current_booking_location_sys_id
+		var bookResources = this.getBookingResources(booking_location_sys_id);
+		
+		var modStartDateTime = new GlideDateTime(startDateTime);
+		if(bookResources.length > 0){
+			//Check if the first active resource at this location is a full day schedule duration
+			var bookTemplates = new GlideRecord('booking_template');
+			bookTemplates.addActiveQuery();
+			bookTemplates.addQuery('u_booking_resource', bookResources[1].sys_id);
+			bookTemplates.query();
+			bookTemplates.next();
+
+			if(bookTemplates.getValue('reservation_length') == '1439'){
+				//1439 = 1 day in minutes -1
+				
+				//If time is not already 00:00:00 local time (14:00:00) server time
+				var time = new GlideDateTime(modStartDateTime).getTime().getDisplayValue();
+	
+				if(time != '00:00:00'){
+					//If so set the start time 00:00:00 local time
+					//Reset to local time
+					modStartDateTime.addSeconds(36000);
+
+					//Set start time to 00:00:00
+					var temp = new GlideDateTime(modStartDateTime).getDate().toString();
+					temp = temp + ' 00:00:00';
+
+					//Convert back to system time
+					modStartDateTime  = new GlideDateTime(temp);
+					modStartDateTime.addSeconds(-36000);
+				}			
+			} 
+		}
+		
+		for(var countRes = 0; countRes < bookResources.length; countRes++){			
+			//Build resource
+			var curResource = {};
+			curResource.sys_id = bookResources[countRes].sys_id;
+			curResource.name = bookResources[countRes].name;
+			curResource.desc = bookResources[countRes].desc;
+	
+			//Get all the resource features for the current resource
+			curResource.features = this.getBookingResourceFeatures(bookResources[countRes].sys_id);
+
+			//Get all the booking schedules for the current resource
+			curResource.slot = this.getResourceScheduleRecords(bookResources[countRes].sys_id, modStartDateTime, endDateTime);
+		
+			result.push(curResource);
+		}
+		
+		return result;
+	},
+	
+	
+		
+	 /**
+     * Gets the navigation menu items to construct the CMS menus.  
+     *
+     * @menu_sysid    The sys_id of a Navigation Menu
+     * @return        An object contain the menu 
+     */
+    getMenu: function (menu_sysid) {
+        // Default value for includeMyAccount if none is passed
+        if (typeof menu_sysid === 'undefined') {
+            return;
+        }
+
+        var menuSections = this.getNavigationSectionItems(menu_sysid);
+        var menuItems = [];
+
+        for (var i = 0; i < menuSections.length; i++) {
+            var menuSection = menuSections[i];
+
+            menuItems.push(menuSection);
+        }
+
+        return menuItems; 
     },
 
+    /*
+     * Get the Navigation Menu items
+     *
+     * @navigation_menu_sysid   Required - The sys_id of a navigation menu
+     * return                   An array of menu objects
+     */
+    getNavigationSectionItems: function (navigation_menu_sysid) {
+		
+        if (typeof navigation_menu_sysid === 'undefined' || navigation_menu_sysid == '') {
+            return [];
+        }
+
+        var menuRec = new GlideRecord('menu_section');
+        menuRec.addActiveQuery();
+        menuRec.addQuery('content_block_menu', navigation_menu_sysid);
+        menuRec.orderBy('order');
+        menuRec.query();
+
+        var menuItems = [];
+
+        while (menuRec.next()) {
+           
+			var item = {};
+
+			item.sys_id = menuRec.sys_id.toString();
+			item.name = menuRec.name.getDisplayValue();
+			item.image = menuRec.image.getDisplayValue();
+			item.image_right = menuRec.image_right.getDisplayValue();
+			item.db_left_menu_image = menuRec.db_left_menu_image.getDisplayValue();
+			item.db_right_menu_image = menuRec.db_right_menu_image.getDisplayValue();
+			item.second_level_text = menuRec.second_level_text.toString();
+			item.menu_section_color = menuRec.menu_section_color.toString();
+			item.url = menuRec.getValue('url');
+			item.tag = menuRec.tag.toString();
+			item.logged_on = menuRec.logged_on.toString();
+			item.category = menuRec.category.toString();
+			item.css_class = menuRec.u_css_class.toString();
+
+			// Get the item target
+			if (menuRec.target == '_blank') {
+				item.target = '_blank';
+			} else if (menuRec.target == 'iframe') {
+				item.target = menuRec.iframe.toString();
+			} else {
+				item.target = '';
+			}
+
+			menuItems.push(item);
+           
+        }
+
+        return menuItems;
+    },
+	
+	confirmBooking: function(reservation_detail_number, transactionNum, resultkey){
+		
+		/*
+		Takes a booking_reservation_detail number and a third party transaction ID and then updates
+		the booking_reservation_detail record which matches.
+		First it checks the record is status = onhold and if so updates the status to confirmed.
+		Secondly it adds the transaction number for the third party.
+		*/
+		
+		/*
+		Need to confirm first if we have stored a successful payment record for this application 
+		when the result was returned from the Payment Gateway.
+		If so update the record.
+		*/
+		
+			var bh = new PaymentGatewayBpointHandler();   
+	
+		gs.log('hasSuccessTransactionRecord: '+!bh.hasSuccessTransactionRecord(reservation_detail_number));
+		gs.log('reservation_detail_number: '+reservation_detail_number);
+		gs.log('transactionNum: '+transactionNum);
+		gs.log('resultkey: '+resultkey);
+		
+			if(!bh.hasSuccessTransactionRecord(reservation_detail_number)){
+				//If not then return an error message
+					var result = {};
+					result.status = 'Error';
+
+					//Return vague message to increase security
+					result.message = 'The reservation that was requested to be updated is not valid.';
+					returnArray.push(result);
+			}else{
+				var returnArray = [];
+				var reservation_detail_sys_id = '';
+
+				//Check booking_reservation_detail record exists and is status = onhold
+				//This should only fail if the request is not legitimate
+				var grDetail = new GlideRecord('u_booking_reservation_detail');
+				grDetail.addQuery('u_number', reservation_detail_number);
+				grDetail.addQuery('u_state', 'onhold');
+				grDetail.query();
+
+				if(grDetail.hasNext()){
+					//If so then set status = confirmed and populate transaction Number
+					grDetail.next();
+					grDetail.u_state = 'confirmed';
+					grDetail.u_transaction_number = transactionNum;
+					grDetail.u_comments = 'Booking confirmed on transaction number "' + transactionNum + '".';
+					grDetail.update();
+gs.log('STATE: '+grDetail.u_state);
+gs.log('TXNO: '+grDetail.u_transaction_number);					
+					
+					
+					
+					//Grab the Reservation detail record sys_id
+					reservation_detail_sys_id = grDetail.getValue('sys_id');
+
+					//Also make children booking_reservation records confirmed.
+					var grChild = new GlideRecord('booking_reservation');
+					grChild.addQuery('u_parent', reservation_detail_sys_id);
+					grChild.query();
+					while(grChild.next()){
+						grChild.state = 'confirmed';
+						grChild.update();
+					}
+
+					returnArray = this.getReservationDetails(reservation_detail_sys_id);
+
+				} else {
+				
+					//Check if the reservation has been updated already. If so then return the reservation details object.Otherwise return an error.
+					grDetail = new GlideRecord('u_booking_reservation_detail');
+					grDetail.addQuery('u_number', reservation_detail_number);
+					grDetail.addQuery('u_state', 'confirmed');
+					grDetail.query();
+
+					if(grDetail.hasNext()){
+						grDetail.next();
+						//Grab the Reservation detail record sys_id
+						reservation_detail_sys_id = grDetail.getValue('sys_id');
+						returnArray = this.getReservationDetails(reservation_detail_sys_id);
+
+					}else{
+
+						//If not then return an error message
+						var result1 = {};
+						result1.status = 'Error';
+
+						//Return vague message to increase security
+						result1.message = 'The reservation that was requested to be updated is not valid.';
+						returnArray.push(result1);
+					}
+				}
+		gs.log('CONFIRM BOOKING: '+reservation_detail_number+': '+ transactionNum+': '+ resultkey );
+				
+		gs.log('CONFIRM BOOKING: '+returnArray);
+		return returnArray;
+			}
+		
+
+		
+	},
+	
+	confirmHash: function(reservation_detail_number, transactionNum, hash){
+
+		var validHash = false;	
+		var md5 = new Md5();
+		var temp = reservation_detail_number + transactionNum;
+		var ourHash = (md5.hex_hmac_md5(temp,this.tccsecret)).substring(0,12);
+		gs.log('confirmHash OURHASH ' + ourHash);
+		
+		gs.log('confirmHash MD5 HEX  hex_md5 ' + md5.hex_md5('123598762435uhu34hi34').substring(0,12));
+		gs.log('confirmHash MD5 BASE b64_md5 ' + md5.b64_md5('123598762435uhu34hi34').substring(0,12));
+
+		
+		if(new String(ourHash).valueOf() == new String(hash).valueOf()){
+			validHash = true;
+		}
+		
+		return validHash;
+	},
+	
+	
+	getTermsContent: function(location){
+		var result = [];
+		var termsGR = new GlideRecord('content_block_static');
+		termsGR.addQuery('u_active', true);
+		termsGR.addQuery('name', 'tcc_reservations_terms_' + location);
+		termsGR.query();
+		if(termsGR.next()){
+			var item = {};
+			var content = termsGR.static_content.toString();
+			item.content = content;			
+			result.push(item);
+		}
+		
+		return result;
+	},
+		
     type: 'tccBookingReservations'
 };]]></script>
         <sys_class_name>sys_script_include</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-02-08 05:08:51</sys_created_on>
         <sys_id>4f1c7013db041300fa8ef6dfbf961933</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>4</sys_mod_count>
         <sys_name>tccBookingReservations</sys_name>
         <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
         <sys_update_name>sys_script_include_4f1c7013db041300fa8ef6dfbf961933</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-02-08 05:08:51</sys_updated_on>
+        <sys_updated_on>2018-02-08 23:56:44</sys_updated_on>
     </sys_script_include>
 </record_update>

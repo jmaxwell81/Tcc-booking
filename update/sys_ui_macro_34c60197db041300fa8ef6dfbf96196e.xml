@@ -11,14 +11,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-02-08 05:55:01</sys_created_on>
         <sys_id>34c60197db041300fa8ef6dfbf96196e</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>2</sys_mod_count>
         <sys_name>spa_controller</sys_name>
         <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
         <sys_policy/>
         <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
         <sys_update_name>sys_ui_macro_34c60197db041300fa8ef6dfbf96196e</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-02-08 05:55:01</sys_updated_on>
+        <sys_updated_on>2018-02-08 23:16:09</sys_updated_on>
         <xml><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
 <j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
 	
@@ -54,23 +54,23 @@
         .state('select', { 
 			url: "/select?location",
             templateUrl: "select.html",
-            controller: 'reservationSelectionsController'
+            controller: 'bookingsSelectionsController'
         })
         .state('details', {
             url: "/details",
             templateUrl: "details.html",
-            controller: 'reservationCustomerDetailsController'
+            controller: 'bookingsCustomerDetailsController'
         })
         .state('paymentoptions', {
             url: "/paymentoptions",
             templateUrl: "paymentoptions.html",
-            controller: 'reservationPaymentOptionsController'
+            controller: 'bookingsPaymentOptionsController'
         })		
 		/* NOTE WE NEED A FRESH RESERVATION OBJECT CREATED FROM THE DATABASE */
 		 .state('paymentresult', {
             url: "/paymentresult?bkg?tid?code",
             templateUrl: "paymentresult.html",
-            controller: 'reservationPaymentResultController'	
+            controller: 'bookingsPaymentResultController'	
         })
 		/* NOTE WE NEED A FRESH RESERVATION OBJECT CREATED FROM THE DATABASE */
 		.state('permit', {
@@ -96,14 +96,14 @@
 
 	 
 </script>
-	<g:macro_invoke macro="tcc_reservations_selections_controller" />
+	<g:macro_invoke macro="x_79929_booking_selections_controller" />
 	
-	<g:macro_invoke macro="tcc_reservations_customer_details_controller" />
-	<g:macro_invoke macro="tcc_reservations_payment_options_controller" />
-	<g:macro_invoke macro="tcc_reservations_payment_result_controller" />
-	<g:macro_invoke macro="tcc_reservations_service_config" />
-	<g:macro_invoke macro="tcc_reservations_service_location" />
-	<g:macro_invoke macro="tcc_reservations_service_reservation" />
+	<g:macro_invoke macro="x_79929_booking_customer_details_controller" />
+	<g:macro_invoke macro="x_79929_booking_payment_options_controller" />
+	<g:macro_invoke macro="x_79929_booking_payment_result_controller" />
+	<g:macro_invoke macro="x_79929_booking_service_config" />
+	<g:macro_invoke macro="x_79929_booking_service_location" />
+	<g:macro_invoke macro="x_79929_booking_service_reservation" />
 
 	
 	<!-- Include in the UI Macro with the Angular Payment Gateway Service -->

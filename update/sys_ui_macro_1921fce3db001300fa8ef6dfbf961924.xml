@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ui_macro">
+    <sys_ui_macro action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <category>general</category>
+        <description/>
+        <media_type/>
+        <name>payment_result_controller</name>
+        <scoped_name>x_79929_booking_payment_result_controller</scoped_name>
+        <sys_class_name>sys_ui_macro</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-02-08 22:58:56</sys_created_on>
+        <sys_id>1921fce3db001300fa8ef6dfbf961924</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>payment_result_controller</sys_name>
+        <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
+        <sys_update_name>sys_ui_macro_1921fce3db001300fa8ef6dfbf961924</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-02-08 23:29:49</sys_updated_on>
+        <xml><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+	<script>
+	
+		app.controller('bookingsPaymentResultController',function($scope, $http, $stateParams, $state, $timeout, $location, $window, Reservation, PaymentGatewayService) {
+				
+				//Extract the result key appended to the redirectURL by BPoint.
+				//$scope.resultkey = $stateParams.ResultKey;
+		//
+	var responseCode = $location.search()['ResponseCode'];
+	var responseText = $location.search()['ResponseText'];
+	var resultkey = $location.search()['ResultKey'];
+		console.log('responseCode: '+responseCode);
+		console.log('responseText: '+responseText);
+		console.log('RESULTKEY: '+resultkey);
+		//console.log('RESULTKEY: '+$scope.resultkey);
+		
+		//$scope.termsandconditions = Reservation.getTermsContent($scope.reservation.details.location);
+				/*
+					  Navigate to the permit state. 
+				*/
+				$scope.showPermit = function(){
+					 $state.go('permit');
+				}
+	
+	
+				/*
+					GET THE TRANSACTION RESULT FROM THE GATEWAY.
+				*/
+		if (responseCode == '0') {
+			PaymentGatewayService.setTransResult(resultkey)
+				.then(function(data){
+		var transResult = PaymentGatewayService.getTransResult(resultkey);
+		console.log('TRANSRESULT: '+transResult);
+		processTXNResponse(transResult);
+		
+		var reference_no = transResult.TxnResp.Crn1;
+		console.log('REFERENCE_NO: '+reference_no);	
+		console.log('CRN2: '+transResult.TxnResp.Crn2);
+		console.log('RECEIPTNo: '+transResult.TxnResp.ReceiptNumber);
+		console.log('ResponseCode: '+transResult.TxnResp.ResponseCode);
+		console.log('BankResponseCode: '+transResult.TxnResp.BankResponseCode);
+		//Update transaction log table on sucess
+		//var bh = new PaymentGatewayBpointHandler();
+		//bh.writeTransactionRecord(reference_no,resultkey);
+		
+		
+		if (transResult.TxnResp.ResponseCode == "0") {
+							$scope.reference_no = transResult.TxnResp.Crn1;
+							$scope.receiptNumber =  transResult.TxnResp.ReceiptNumber;
+							$scope.trans_amount = getDisplayPrice(parseInt(transResult.TxnResp.Amount) / 100);
+							$scope.isTransactionSuccessful = true;
+							$scope.approved = true;
+							$scope.rejected = false;
+							$scope.reservation = Reservation.getReservation();
+					}else{
+							$scope.receiptNumber =  transResult.TxnResp.ReceiptNumber;
+							$scope.trans_amount = getDisplayPrice(parseInt(transResult.TxnResp.Amount) / 100);
+							$scope.isTransactionSuccessful = false;
+							$scope.approved = false;
+							$scope.rejected = true;
+							$scope.reason = transResult.TxnResp.ResponseText;
+					};
+		
+		
+		
+		
+		
+		},function(error) {
+					// Promise to add registration task was rejected.
+					$scope.error = true;
+					$scope.invalidKey = true;
+					console.log('error', error);
+				});
+				
+		} else {
+			$scope.error = true;
+			$scope.responseError = true;
+		};
+		
+				/*
+					Watch for our transObj in the PaymentGatewayService to be returned from BPoint and then process that result as per the apps
+					requirements.
+		
+				
+				$scope.$watch(function () { return PaymentGatewayService.getTransResult(); },
+				function (value) {
+						if(value != undefined){
+							if(value != ''){
+								if(Reservation.getReservation().details == undefined || Reservation.getReservation().details.transaction_number == undefined){
+									processTXNResponse();
+								}
+							}
+						}
+					}
+				);
+		
+				$scope.$watch(function () { return Reservation.getReservation(); },
+					function (value) {
+						if(value != undefined){
+							if(value != ''){
+								$scope.reservation = Reservation.getReservation();
+							}
+						}
+					}
+				);
+				*/
+		
+				/*
+					Custom function for retrieving and preparing information about the transaction 
+					result to suit the requirements of the application. 
+				*/
+				function processTXNResponse(transResult){
+		//var processTXNResponse= function(transResult){
+					
+					// Determine what to show the user based on the Response Code
+					// of the transaction. We're doing a simple test for response
+					// code 0 here, but note that there are other response codes
+					// that are also considered approved, such as code 11 which is
+					// Approved VIP.
+					if (transResult.TxnResp.BankResponseCode == "00") {
+						if(Reservation.updateReservationTransactionResult(transResult.TxnResp.ReceiptNumber,transResult.TxnResp.Crn1,  $location.search()['ResultKey'])){
+							$scope.reference_no = transResult.TxnResp.Crn1;
+							$scope.receiptNumber =  transResult.TxnResp.ReceiptNumber;
+							$scope.trans_amount = getDisplayPrice(parseInt(transResult.TxnResp.Amount) / 100);
+							$scope.isTransactionSuccessful = true;
+							$scope.approved = true;
+							$scope.rejected = false;
+		console.log('$scope.reference_no: '+$scope.reference_no);
+		console.log('$scope.receiptNumber: '+$scope.receiptNumber);
+		console.log('$scope.trans_amount: '+$scope.trans_amount);
+		console.log('HASH: '+resultkey);
+	
+						}
+					} else {
+						$scope.receiptNumber =  transResult.TxnResp.ReceiptNumber;
+						$scope.trans_amount = getDisplayPrice(parseInt(transResult.TxnResp.Amount) / 100);
+						$scope.isTransactionSuccessful = false;
+						$scope.approved = false;
+						$scope.rejected = true;
+						$scope.reason = transResult.TxnResp.ResponseText;
+					}
+				}
+		
+            });
+	
+	</script>
+</j:jelly>]]></xml>
+    </sys_ui_macro>
+</record_update>
