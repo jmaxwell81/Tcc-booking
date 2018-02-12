@@ -25,16 +25,26 @@ tccBookingReservations.prototype = {
 		}
 		
 		var locationsysid = gs.getProperty('x_79929_booking.reservation.sysid.' + locationkey);
+		gs.info('LOCATION KEY: '+locationkey);
+		gs.info('LOCATION SYSID: '+locationsysid);
 		var consecutiveSlots = gs.getProperty('x_79929_booking.reservation.consecutive.slots.' + locationkey); 
-		var dayIncrement = gs.getProperty('x_79929_booking.reservation.grid.days.' + locationkey);		
+		gs.info('CONSECUTIVE SLOTS: '+consecutiveSlots);
+		var dayIncrement = gs.getProperty('x_79929_booking.reservation.grid.days.' + locationkey);	
+		gs.info('DAY INCREMENT: '+dayIncrement);
 		var footersysid = gs.getProperty('x_79929_booking.reservation.footermenu.sysid.' + locationkey);
+		gs.info('FOOTER SYSID: '+footersysid);
 		var googlerecaptchakey = gs.getProperty('x_79929_booking.reservation.recaptcha');
+		gs.info('RECAPTCHA: '+googlerecaptchakey);
 		var storepaymentrecord = gs.getProperty('x_79929_booking.reservation.record.payment.record');
+		gs.info('STOREPAYMENTRECORD: '+storepaymentrecord);
 		var todayDate  = new GlideDateTime();
-		
+		gs.info('DATE: '+todayDate);
 		var endDate = new GlideDateTime();
-		endDate.addDaysLocalTime(dayIncrement - 1);
-				
+		endDate.addDaysLocalTime(dayIncrement - 1);  
+		gs.info('END DATE: '+endDate);		
+		
+		
+		
 		config.locationkey = locationkey;
 		config.locationsysid = locationsysid;
 		config.consecutiveSlots = consecutiveSlots;
@@ -45,6 +55,8 @@ tccBookingReservations.prototype = {
 		config.googlerecaptchakey = googlerecaptchakey;
 				
 		result.push(config);
+		gs.info('CONFIG.RESULT: '+result);
+		
 		return result;
 	},
 
@@ -200,8 +212,8 @@ tccBookingReservations.prototype = {
 		}else{		
 			var result1= [];
 			//Look up u_booking_reservation by reference number
-			var grbrd = new GlideRecord('u_booking_reservation_detail');
-			grbrd.addQuery('u_number', reservation_detail_number);
+			var grbrd = new GlideRecord('x_79929_booking_booking_reservation_detail');
+			grbrd.addQuery('number', reservation_detail_number);
 			grbrd.query();
 
 			if(grbrd.hasNext()){
@@ -225,7 +237,7 @@ tccBookingReservations.prototype = {
 		var booking = {};
 		
 		//Look up u_booking_reservation_detail
-		var grbrd = new GlideRecord('u_booking_reservation_detail');
+		var grbrd = new GlideRecord('x_79929_booking_booking_reservation_detail');
 		grbrd.addQuery('sys_id', booking_reservation_detail_sys_id);
 		grbrd.query();
 		
@@ -233,96 +245,96 @@ tccBookingReservations.prototype = {
 			grbrd.next();
 			var details = {};
 			//Add reservation details
-			details.number = grbrd.getValue('u_number');
+			details.number = grbrd.getValue('number');
 			details.sys_id = grbrd.getValue('sys_id');
-			details.state = grbrd.u_state.getDisplayValue();
-			details.comments = grbrd.getValue('u_comments'); //<------ check
-			details.drivers_license_number  = this.getFieldValue(grbrd, 'u_drivers_license_number');
-			details.email  = this.getFieldValue(grbrd, 'u_email');
-			details.fax = this.getFieldValue(grbrd, 'u_fax');
+			details.state = grbrd.x_79929_geostate.getDisplayValue();
+			details.comments = grbrd.getValue('comments'); //<------ check
+			details.drivers_license_number  = this.getFieldValue(grbrd, 'drivers_license_number');
+			details.email  = this.getFieldValue(grbrd, 'email');
+			details.fax = this.getFieldValue(grbrd, 'fax');
 						
 			var names = [];
 			var name = {};			
-			name.firstname = this.getFieldValue(grbrd, 'u_first_name_1');
-			name.lastname =  this.getFieldValue(grbrd, 'u_last_name_1');
+			name.firstname = this.getFieldValue(grbrd, 'first_name_1');
+			name.lastname =  this.getFieldValue(grbrd, 'last_name_1');
 			name.no = 1;
 			names.push(name);
 			
-			if(this.getFieldValue(grbrd, 'u_first_name_2') != ''){
+			if(this.getFieldValue(grbrd, 'first_name_2') != ''){
 				name = {};
-				name.firstname = this.getFieldValue(grbrd, 'u_first_name_2');
-				name.lastname =  this.getFieldValue(grbrd, 'u_last_name_2');
+				name.firstname = this.getFieldValue(grbrd, 'first_name_2');
+				name.lastname =  this.getFieldValue(grbrd, 'last_name_2');
 				name.no = 2;
 				names.push(name);
 			}
 			
-			if(this.getFieldValue(grbrd, 'u_first_name_3') != ''){
+			if(this.getFieldValue(grbrd, 'first_name_3') != ''){
 				name = {};
-				name.firstname = this.getFieldValue(grbrd, 'u_first_name_3');
-				name.lastname =  this.getFieldValue(grbrd, 'u_last_name_3');
+				name.firstname = this.getFieldValue(grbrd, 'first_name_3');
+				name.lastname =  this.getFieldValue(grbrd, 'last_name_3');
 				name.no = 3;
 				names.push(name);
 			}
 			
-			if(this.getFieldValue(grbrd, 'u_first_name_4') != ''){
+			if(this.getFieldValue(grbrd, 'first_name_4') != ''){
 				name = {};
-				name.firstname = this.getFieldValue(grbrd, 'u_first_name_4');
-				name.lastname =  this.getFieldValue(grbrd, 'u_last_name_4');
+				name.firstname = this.getFieldValue(grbrd, 'first_name_4');
+				name.lastname =  this.getFieldValue(grbrd, 'last_name_4');
 				name.no = 4;
 				names.push(name);
 			}
 			
-			if(this.getFieldValue(grbrd, 'u_first_name_5') != ''){
+			if(this.getFieldValue(grbrd, 'first_name_5') != ''){
 				name = {};
-				name.firstname = this.getFieldValue(grbrd, 'u_first_name_5');
-				name.lastname =  this.getFieldValue(grbrd, 'u_last_name_5');
+				name.firstname = this.getFieldValue(grbrd, 'first_name_5');
+				name.lastname =  this.getFieldValue(grbrd, 'last_name_5');
 				name.no = 5;
 				names.push(name);
 			}
 			
-			if(this.getFieldValue(grbrd, 'u_first_name_6') != ''){
+			if(this.getFieldValue(grbrd, 'first_name_6') != ''){
 				name = {};
-				name.firstname = this.getFieldValue(grbrd, 'u_first_name_6');
-				name.lastname =  this.getFieldValue(grbrd, 'u_last_name_6');
+				name.firstname = this.getFieldValue(grbrd, 'first_name_6');
+				name.lastname =  this.getFieldValue(grbrd, 'last_name_6');
 				name.no = 6;
 				names.push(name);
 			}
 			
-			if(this.getFieldValue(grbrd, 'u_first_name_7') != ''){
+			if(this.getFieldValue(grbrd, 'first_name_7') != ''){
 				name = {};
-				name.firstname = this.getFieldValue(grbrd, 'u_first_name_7');
-				name.lastname =  this.getFieldValue(grbrd, 'u_last_name_7');
+				name.firstname = this.getFieldValue(grbrd, 'first_name_7');
+				name.lastname =  this.getFieldValue(grbrd, 'last_name_7');
 				name.no = 7;
 				names.push(name);
 			}
 			
-			if(this.getFieldValue(grbrd, 'u_first_name_8') != ''){
+			if(this.getFieldValue(grbrd, 'first_name_8') != ''){
 				name = {};
-				name.firstname = this.getFieldValue(grbrd, 'u_first_name_8');
-				name.lastname =  this.getFieldValue(grbrd, 'u_last_name_8');
+				name.firstname = this.getFieldValue(grbrd, 'first_name_8');
+				name.lastname =  this.getFieldValue(grbrd, 'last_name_8');
 				name.no = 8;
 				names.push(name);
 			}
 									
 			details.names = names;
 			
-			details.location = this.getFieldValue(grbrd, 'u_location_short_name');
-			details.mobile = this.getFieldValue(grbrd, 'u_mobile');
-			details.number_of_adults = grbrd.u_number_of_adults.getDisplayValue();
-			details.number_of_children = this.getFieldValue(grbrd, 'u_number_of_children');
-			details.post_code = this.getFieldValue(grbrd, 'u_post_code');
-			details.postal_address = this.getFieldValue(grbrd, 'u_postal_address');
-			details.geostate = grbrd.u_geostate.getDisplayValue();
-			details.telephone = this.getFieldValue(grbrd, 'u_telephone');
-			details.transaction_number = this.getFieldValue(grbrd, 'u_transaction_number');
-			details.vehicle_registration_number = this.getFieldValue(grbrd, 'u_vehicle_registration_number');
+			details.location = this.getFieldValue(grbrd, 'location_short_name');
+			details.mobile = this.getFieldValue(grbrd, 'mobile');
+			details.number_of_adults = grbrd.number_of_adults.getDisplayValue();
+			details.number_of_children = this.getFieldValue(grbrd, 'number_of_children');
+			details.post_code = this.getFieldValue(grbrd, 'post_code');
+			details.postal_address = this.getFieldValue(grbrd, 'postal_address');
+			details.geostate = grbrd.x_79929_geostate.getDisplayValue();
+			details.telephone = this.getFieldValue(grbrd, 'telephone');
+			details.transaction_number = this.getFieldValue(grbrd, 'transaction_number');
+			details.vehicle_registration_number = this.getFieldValue(grbrd, 'vehicle_registration_number');
 			
 			booking.details = details;
 		
 			// If there is a matching record then also get all the booking_reservation record whose parent 
 			//  is the booking_reservation_detail_sys_id also. 
-			var grRes = new GlideRecord('booking_reservation');
-			grRes.addQuery('u_parent', booking_reservation_detail_sys_id);
+			var grRes = new GlideRecord('x_79929_booking_booking_reservation');
+			grRes.addQuery('parent', booking_reservation_detail_sys_id);
 			grRes.query();
 
 			var slots = [];
@@ -336,14 +348,14 @@ tccBookingReservations.prototype = {
 				slot.end = grRes.getValue('end_time');
 				slot.sys_id = grRes.getValue('sys_id');
 				
-				var grScheduleForPrice = new GlideRecord('booking_schedule');
+				var grScheduleForPrice = new GlideRecord('x_79929_booking_booking_schedule');
 				grScheduleForPrice.addQuery('sys_id', grRes.getValue('schedule'));
 				grScheduleForPrice.query();
 				if(grScheduleForPrice.hasNext()){
 					grScheduleForPrice.next();
-					slot.price = this.getDisplayPrice(grScheduleForPrice.getValue('u_price'));
-					totalPrice += parseFloat(grScheduleForPrice.getValue('u_price'));
-					slot.resource = grScheduleForPrice.getDisplayValue('schedule_template.u_booking_resource');
+					slot.price = this.getDisplayPrice(grScheduleForPrice.getValue('price'));
+					totalPrice += parseFloat(grScheduleForPrice.getValue('price'));
+					slot.resource = grScheduleForPrice.getDisplayValue('schedule_template.booking_resource');
 				}
 				slots.push(slot);
 			}
@@ -352,9 +364,9 @@ tccBookingReservations.prototype = {
 			
 			
 			//Get Reservation detail parent location information
-			var location_short_name = this.getFieldValue(grbrd, 'u_location_short_name');
+			var location_short_name = this.getFieldValue(grbrd, 'location_short_name');
 			if(location_short_name != ''){
-				var locationsysid = gs.getProperty('booking.reservation.sysid.' + location_short_name);
+				var locationsysid = gs.getProperty('x_79929_booking.reservation.sysid.sysid.' + location_short_name);
 				if(locationsysid != ''){
 					booking.parentlocation = this.getLocationDetails(locationsysid);
 				}
@@ -425,7 +437,7 @@ tccBookingReservations.prototype = {
 		var status = 'Error: Bookingschedule.sys_id not found.';
 		
 		//Look up the booking schedule sys_id
-		var bookSchedule = new GlideRecord('booking_schedule');
+		var bookSchedule = new GlideRecord('x_79929_booking_booking_schedule');
 		bookSchedule.addActiveQuery();
 		bookSchedule.addQuery('sys_id', booking_schedule_sys_id);
 		bookSchedule.query();
@@ -453,7 +465,7 @@ tccBookingReservations.prototype = {
 		var now = new GlideDateTime(); //Defaults to now
 		
 		//Look up the resource location record 
-		var grLoc = new GlideRecord('u_booking_location');
+		var grLoc = new GlideRecord('x_79929_booking_booking_location');
 		grLoc.addQuery('sys_id', booking_location_sys_id);
 		grLoc.query();
 		
@@ -462,19 +474,19 @@ tccBookingReservations.prototype = {
 			var loc = {};
 			
 			//Populate resource location title
-			loc.title = grLoc.getValue('u_name');
-			loc.paymenttype = grLoc.getValue('u_payment_type');
-			loc.paymentdescription = grLoc.getValue('u_payment_description');
+			loc.title = grLoc.getValue('name');
+			loc.paymenttype = grLoc.getValue('payment_type');
+			loc.paymentdescription = grLoc.getValue('payment_description');
 			
 			//Only populate notification if the current date/time is between the notifications start/end dates.
 			var note = '';
-			var startDateTime = new GlideDateTime(grLoc.getValue('u_notification_start'));
-			var endDateTime = new GlideDateTime(grLoc.getValue('u_notification_end'));
+			var startDateTime = new GlideDateTime(grLoc.getValue('notification_start'));
+			var endDateTime = new GlideDateTime(grLoc.getValue('notification_end'));
 			
 			//If the notification is current then append.
 			if(JSUtil.notNil(startDateTime) && JSUtil.notNil(endDateTime)){
 				if(startDateTime.getNumericValue() < now.getNumericValue() && endDateTime.getNumericValue() > now.getNumericValue()){
-					note = grLoc.getValue('u_notification_text');
+					note = grLoc.getValue('notification_text');
 				}
 			}
 						
@@ -484,9 +496,9 @@ tccBookingReservations.prototype = {
 			var maxdays = '';
 			
 			//Grab the first active template for the location and return its scheduled_days value
-			var grTemp = new GlideRecord('booking_template');
+			var grTemp = new GlideRecord('x_79929_booking_booking_template');
 			grTemp.addActiveQuery();
-			grTemp.addQuery('u_booking_resource.u_location.sys_id', booking_location_sys_id);
+			grTemp.addQuery('x_79929_booking_booking_resources.location.sys_id', booking_location_sys_id);
 			grTemp.setLimit(1);
 			grTemp.query();
 						
@@ -515,17 +527,17 @@ tccBookingReservations.prototype = {
 		var result = [];
 		
 		//Select records
-		var resGR = new GlideRecord('u_booking_resources');
-		resGR.addQuery('u_active', true);
-		resGR.addQuery('u_location', booking_resource_sys_id);
-		resGR.orderBy('u_name');
+		var resGR = new GlideRecord('x_79929_booking_booking_resources');
+		resGR.addQuery('active', true);
+		resGR.addQuery('location', booking_resource_sys_id);
+		resGR.orderBy('name');
 		resGR.query();
 		
 		//Loop through records and build return object
 		while(resGR.next()){
 			var bookres = {};
-			bookres.name = resGR.getValue('u_name');
-			bookres.desc = resGR.getValue('u_description');
+			bookres.name = resGR.getValue('name');
+			bookres.desc = resGR.getValue('description');
 			bookres.sys_id = resGR.getValue('sys_id');
 			result.push(bookres);
 		}
@@ -542,15 +554,15 @@ tccBookingReservations.prototype = {
 		var result = [];
 		
 		//Select records
-		var featGR = new GlideRecord('u_booking_resource_features');
-		featGR.addQuery('u_active', true);
-		featGR.addQuery('u_parent_resource', booking_resource_sys_id);
+		var featGR = new GlideRecord('x_79929_booking_booking_resource_features');
+		featGR.addQuery('active', true);
+		featGR.addQuery('parent_resource', booking_resource_sys_id);
 		featGR.query();
 		
 		//Loop through records and build return object
 		while(featGR.next()){
 			var feat = {};
-			feat.name = featGR.u_feature.getDisplayValue();
+			feat.name = featGR.feature.getDisplayValue();
 			feat.sys_id = featGR.getValue('sys_id');
 			result.push(feat);
 		}	
@@ -571,9 +583,9 @@ tccBookingReservations.prototype = {
 		var result = [];
 		
 		//Select records
-		var bookSchedule = new GlideRecord('booking_schedule');
+		var bookSchedule = new GlideRecord('x_79929_booking_booking_schedule');
 		bookSchedule.addActiveQuery();
-		bookSchedule.addQuery('schedule_template.u_booking_resource', booking_resource_sys_id);
+		bookSchedule.addQuery('schedule_template.booking_resource', booking_resource_sys_id);
 		bookSchedule.addQuery('start_time', '>=', startDateTime);
 		bookSchedule.addQuery('start_time', '<', endDateTime);
 		bookSchedule.orderBy('start_time');
@@ -626,9 +638,9 @@ tccBookingReservations.prototype = {
 		var modStartDateTime = new GlideDateTime(startDateTime);
 		if(bookResources.length > 0){
 			//Check if the first active resource at this location is a full day schedule duration
-			var bookTemplates = new GlideRecord('booking_template');
+			var bookTemplates = new GlideRecord('x_79929_booking_booking_template');
 			bookTemplates.addActiveQuery();
-			bookTemplates.addQuery('u_booking_resource', bookResources[1].sys_id);
+			bookTemplates.addQuery('booking_resource', bookResources[1].sys_id);
 			bookTemplates.query();
 			bookTemplates.next();
 
@@ -770,10 +782,10 @@ tccBookingReservations.prototype = {
 		
 			var bh = new PaymentGatewayBpointHandler();   
 	
-		gs.log('hasSuccessTransactionRecord: '+!bh.hasSuccessTransactionRecord(reservation_detail_number));
-		gs.log('reservation_detail_number: '+reservation_detail_number);
-		gs.log('transactionNum: '+transactionNum);
-		gs.log('resultkey: '+resultkey);
+		gs.info('hasSuccessTransactionRecord: '+!bh.hasSuccessTransactionRecord(reservation_detail_number));
+		gs.info('reservation_detail_number: '+reservation_detail_number);
+		gs.info('transactionNum: '+transactionNum);
+		gs.info('resultkey: '+resultkey);
 		
 			if(!bh.hasSuccessTransactionRecord(reservation_detail_number)){
 				//If not then return an error message
@@ -789,20 +801,20 @@ tccBookingReservations.prototype = {
 
 				//Check booking_reservation_detail record exists and is status = onhold
 				//This should only fail if the request is not legitimate
-				var grDetail = new GlideRecord('u_booking_reservation_detail');
-				grDetail.addQuery('u_number', reservation_detail_number);
-				grDetail.addQuery('u_state', 'onhold');
+				var grDetail = new GlideRecord('x_79929_booking_booking_reservation_detail');
+				grDetail.addQuery('number', reservation_detail_number);
+				grDetail.addQuery('state', 'onhold');
 				grDetail.query();
 
 				if(grDetail.hasNext()){
 					//If so then set status = confirmed and populate transaction Number
 					grDetail.next();
-					grDetail.u_state = 'confirmed';
-					grDetail.u_transaction_number = transactionNum;
-					grDetail.u_comments = 'Booking confirmed on transaction number "' + transactionNum + '".';
+					grDetail.state = 'confirmed';
+					grDetail.transaction_number = transactionNum;
+					grDetail.comments = 'Booking confirmed on transaction number "' + transactionNum + '".';
 					grDetail.update();
-gs.log('STATE: '+grDetail.u_state);
-gs.log('TXNO: '+grDetail.u_transaction_number);					
+gs.info('STATE: '+grDetail.state);
+gs.info('TXNO: '+grDetail.transaction_number);					
 					
 					
 					
@@ -810,8 +822,8 @@ gs.log('TXNO: '+grDetail.u_transaction_number);
 					reservation_detail_sys_id = grDetail.getValue('sys_id');
 
 					//Also make children booking_reservation records confirmed.
-					var grChild = new GlideRecord('booking_reservation');
-					grChild.addQuery('u_parent', reservation_detail_sys_id);
+					var grChild = new GlideRecord('x_79929_booking_booking_reservation');
+					grChild.addQuery('parent', reservation_detail_sys_id);
 					grChild.query();
 					while(grChild.next()){
 						grChild.state = 'confirmed';
@@ -823,9 +835,9 @@ gs.log('TXNO: '+grDetail.u_transaction_number);
 				} else {
 				
 					//Check if the reservation has been updated already. If so then return the reservation details object.Otherwise return an error.
-					grDetail = new GlideRecord('u_booking_reservation_detail');
-					grDetail.addQuery('u_number', reservation_detail_number);
-					grDetail.addQuery('u_state', 'confirmed');
+					grDetail = new GlideRecord('x_79929_booking_booking_reservation_detail');
+					grDetail.addQuery('number', reservation_detail_number);
+					grDetail.addQuery('x_79929_booking_state', 'confirmed');
 					grDetail.query();
 
 					if(grDetail.hasNext()){
@@ -845,9 +857,9 @@ gs.log('TXNO: '+grDetail.u_transaction_number);
 						returnArray.push(result1);
 					}
 				}
-		gs.log('CONFIRM BOOKING: '+reservation_detail_number+': '+ transactionNum+': '+ resultkey );
+		gs.info('CONFIRM BOOKING: '+reservation_detail_number+': '+ transactionNum+': '+ resultkey );
 				
-		gs.log('CONFIRM BOOKING: '+returnArray);
+		gs.info('CONFIRM BOOKING: '+returnArray);
 		return returnArray;
 			}
 		
@@ -861,10 +873,10 @@ gs.log('TXNO: '+grDetail.u_transaction_number);
 		var md5 = new Md5();
 		var temp = reservation_detail_number + transactionNum;
 		var ourHash = (md5.hex_hmac_md5(temp,this.tccsecret)).substring(0,12);
-		gs.log('confirmHash OURHASH ' + ourHash);
+		gs.info('confirmHash OURHASH ' + ourHash);
 		
-		gs.log('confirmHash MD5 HEX  hex_md5 ' + md5.hex_md5('123598762435uhu34hi34').substring(0,12));
-		gs.log('confirmHash MD5 BASE b64_md5 ' + md5.b64_md5('123598762435uhu34hi34').substring(0,12));
+		gs.info('confirmHash MD5 HEX  hex_md5 ' + md5.hex_md5('123598762435uhu34hi34').substring(0,12));
+		gs.info('confirmHash MD5 BASE b64_md5 ' + md5.b64_md5('123598762435uhu34hi34').substring(0,12));
 
 		
 		if(new String(ourHash).valueOf() == new String(hash).valueOf()){
@@ -878,7 +890,7 @@ gs.log('TXNO: '+grDetail.u_transaction_number);
 	getTermsContent: function(location){
 		var result = [];
 		var termsGR = new GlideRecord('content_block_static');
-		termsGR.addQuery('u_active', true);
+		termsGR.addQuery('active', true);
 		termsGR.addQuery('name', 'tcc_reservations_terms_' + location);
 		termsGR.query();
 		if(termsGR.next()){
@@ -897,13 +909,13 @@ gs.log('TXNO: '+grDetail.u_transaction_number);
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-02-08 05:08:51</sys_created_on>
         <sys_id>4f1c7013db041300fa8ef6dfbf961933</sys_id>
-        <sys_mod_count>4</sys_mod_count>
+        <sys_mod_count>16</sys_mod_count>
         <sys_name>tccBookingReservations</sys_name>
         <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
         <sys_update_name>sys_script_include_4f1c7013db041300fa8ef6dfbf961933</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-02-08 23:56:44</sys_updated_on>
+        <sys_updated_on>2018-02-11 23:49:56</sys_updated_on>
     </sys_script_include>
 </record_update>
