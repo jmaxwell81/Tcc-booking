@@ -12,7 +12,7 @@
 	var schedTemplate = String(request.queryParams.schedtemplate);
 	var timeRequested = String(request.queryParams.timerequested);
 	
-    var bookingsHelper = new global.bookingsystem2_ajax();
+    var bookingsHelper = new bookingsystem2_ajax();
 	return bookingsHelper.checkSingleSlotAvailabilityServer(schedTemplate, timeRequested);
 })(request, response);]]></operation_script>
         <operation_uri>/api/x_79929_booking/booking/checksingleslotavailability</operation_uri>
@@ -21,20 +21,20 @@
         <relative_path>/checksingleslotavailability</relative_path>
         <request_example/>
         <requires_acl_authorization>false</requires_acl_authorization>
-        <requires_authentication>true</requires_authentication>
+        <requires_authentication>false</requires_authentication>
         <short_description/>
         <sys_class_name>sys_ws_operation</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-02-08 05:58:29</sys_created_on>
         <sys_id>09870197db041300fa8ef6dfbf96199a</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>2</sys_mod_count>
         <sys_name>checksingleslotavailability</sys_name>
         <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
         <sys_policy/>
         <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
         <sys_update_name>sys_ws_operation_09870197db041300fa8ef6dfbf96199a</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-02-08 05:58:29</sys_updated_on>
+        <sys_updated_on>2018-02-12 00:53:32</sys_updated_on>
         <web_service_definition display_value="Booking">bc47c597db041300fa8ef6dfbf961931</web_service_definition>
         <web_service_version/>
     </sys_ws_operation>
