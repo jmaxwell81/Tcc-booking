@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <record_update>
-    <sys_documentation element="number_of_resources" label="Number of resources" language="en" table="x_79929_booking_booking_template">
+    <sys_documentation element="capacity" label="Number of resources" language="en" table="x_79929_booking_booking_template">
         <sys_documentation action="INSERT_OR_UPDATE">
-            <element>number_of_resources</element>
+            <element>capacity</element>
             <help/>
             <hint/>
             <label>Number of resources</label>
@@ -11,16 +11,16 @@
             <plural>Number of resources</plural>
             <sys_class_name>sys_documentation</sys_class_name>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-02-08 00:10:12</sys_created_on>
-            <sys_id>62f7b7cbdb401300fa8ef6dfbf961908</sys_id>
+            <sys_created_on>2018-02-13 04:45:07</sys_created_on>
+            <sys_id>e2d6e630db901300fa8ef6dfbf96190b</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_name>Number of resources</sys_name>
             <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
             <sys_policy/>
             <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
-            <sys_update_name>sys_documentation_x_79929_booking_booking_template_number_of_resources_en</sys_update_name>
+            <sys_update_name>sys_documentation_x_79929_booking_booking_template_capacity_en</sys_update_name>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-02-08 00:10:12</sys_updated_on>
+            <sys_updated_on>2018-02-13 04:45:07</sys_updated_on>
             <url/>
             <url_target/>
         </sys_documentation>

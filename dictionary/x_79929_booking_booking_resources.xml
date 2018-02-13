@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <database>
     <element label="Booking Resources" max_length="40" name="x_79929_booking_booking_resources" type="collection">
-        <element default="true" label="Active" max_length="40" name="active" type="boolean"/>
-        <element label="Description" max_length="400" name="description" type="string"/>
-        <element label="Location" mandatory="true" max_length="40" name="location" reference="x_79929_booking_booking_location" reference_qual="active=true^EQ" reference_qual_condition="active=true^EQ" type="reference"/>
-        <element label="Name" max_length="1000" name="name" type="string"/>
         <element label="Order" max_length="40" name="order" type="integer"/>
         <element default="0.00" label="Price" max_length="15" name="price" type="currency"/>
+        <element default="true" label="Active" max_length="40" name="u_active" type="boolean"/>
+        <element label="Description" max_length="4000" name="u_description" type="string"/>
+        <element label="Location" max_length="32" name="u_location" reference="x_79929_booking_booking_location" type="reference"/>
+        <element label="Name" max_length="1000" name="u_name" type="string"/>
+        <index name="index">
+            <element name="u_location"/>
+        </index>
     </element>
 </database>

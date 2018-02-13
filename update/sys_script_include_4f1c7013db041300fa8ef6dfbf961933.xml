@@ -377,7 +377,7 @@ tccReservations.prototype = {
 			//Get Reservation detail parent location information
 			var location_short_name = this.getFieldValue(grbrd, 'location_short_name');
 			if(location_short_name != ''){
-				var locationsysid = gs.getProperty('x_79929_booking.reservation.sysid.sysid.' + location_short_name);
+				var locationsysid = gs.getProperty('x_79929_booking.reservation.sysid.' + location_short_name);
 				if(locationsysid != ''){
 					booking.parentlocation = this.getLocationDetails(locationsysid);
 				}
@@ -495,12 +495,21 @@ tccReservations.prototype = {
 			var endDateTime = new GlideDateTime(grLoc.getValue('notification_end'));
 			
 			//If the notification is current then append.
-			if(JSUtil.notNil(startDateTime) && JSUtil.notNil(endDateTime)){
+			if(startDateTime && endDateTime){
 				if(startDateTime.getNumericValue() < now.getNumericValue() && endDateTime.getNumericValue() > now.getNumericValue()){
 					note = grLoc.getValue('notification_text');
 				}
 			}
 						
+			
+						/*If the notification is current then append.
+			if(JSUtil.notNil(startDateTime) && JSUtil.notNil(endDateTime)){
+				if(startDateTime.getNumericValue() < now.getNumericValue() && endDateTime.getNumericValue() > now.getNumericValue()){
+					note = grLoc.getValue('notification_text');
+				}
+			}*/
+			
+			
 			loc.notification = note;
 			
 			//Grab the maximum number of days in advance that a resource can be booked.
@@ -920,13 +929,13 @@ gs.info('TXNO: '+grDetail.transaction_number);
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-02-08 05:08:51</sys_created_on>
         <sys_id>4f1c7013db041300fa8ef6dfbf961933</sys_id>
-        <sys_mod_count>29</sys_mod_count>
+        <sys_mod_count>31</sys_mod_count>
         <sys_name>tccReservations</sys_name>
         <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
         <sys_update_name>sys_script_include_4f1c7013db041300fa8ef6dfbf961933</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-02-12 00:53:04</sys_updated_on>
+        <sys_updated_on>2018-02-13 03:56:20</sys_updated_on>
     </sys_script_include>
 </record_update>

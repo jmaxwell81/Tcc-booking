@@ -17,12 +17,12 @@ bookingsystem2_ajax.prototype = Object.extendsObject(AbstractAjaxProcessor, {
 		return this.checkSlotAvailabilityServer(schedTemplate, dateRequested);
 	},
 	checkSlotAvailabilityServer: function(schedTemplate, dateRequested){
-		var resBuffer = -1 * gs.getProperty("booking.reservation.buffer");
+		var resBuffer = -1 * gs.getProperty("x_79929_booking.reservation.buffer");
 		var openSlots = []; //Array to hold open slots
 		var now = gs.nowDateTime();
 		var dateInternal = new GlideDate();
 		dateInternal.Value(dateRequested);
-		var openSlot = new GlideRecord("booking_schedule");
+		var openSlot = new GlideRecord("x_79929_booking_booking_schedule");
 		openSlot.addQuery("start_time", "CONTAINS", dateInternal.toString());
 		openSlot.addEncodedQuery("start_time>=javascript:gs.minutesAgoStart(" + resBuffer + ")");
 		openSlot.addQuery("schedule_template", schedTemplate);
@@ -65,7 +65,7 @@ bookingsystem2_ajax.prototype = Object.extendsObject(AbstractAjaxProcessor, {
 	
 	//Check if slot is still available before processing
 	_slotAvailable: function(slotTime, schedTemplate){
-		var slot = new GlideRecord("booking_schedule");
+		var slot = new GlideRecord("x_79929_booking_booking_schedule");
 		slot.addQuery("start_time", slotTime);
 		slot.addQuery("schedule_template", schedTemplate);
 		slot.addQuery("available_capacity", ">", 0);
@@ -93,13 +93,13 @@ bookingsystem2_ajax.prototype = Object.extendsObject(AbstractAjaxProcessor, {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-02-08 05:07:21</sys_created_on>
         <sys_id>f6cb38dfdbc01300fa8ef6dfbf961945</sys_id>
-        <sys_mod_count>2</sys_mod_count>
+        <sys_mod_count>3</sys_mod_count>
         <sys_name>system2_ajax</sys_name>
         <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
         <sys_update_name>sys_script_include_f6cb38dfdbc01300fa8ef6dfbf961945</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-02-12 01:31:13</sys_updated_on>
+        <sys_updated_on>2018-02-13 03:20:19</sys_updated_on>
     </sys_script_include>
 </record_update>

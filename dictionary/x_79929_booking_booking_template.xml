@@ -2,14 +2,12 @@
 <database>
     <element label="Booking Template" max_length="40" name="x_79929_booking_booking_template" type="collection">
         <element default="true" label="Active" max_length="40" name="active" type="boolean"/>
-        <element label="Booking resource" mandatory="true" max_length="40" name="booking_resource" reference="x_79929_booking_booking_resources" reference_qual="active=true^EQ" reference_qual_condition="active=true^EQ" type="reference"/>
-        <element label="Days to schedule" max_length="40" name="days_to_schedule" type="integer"/>
+        <element default="1" label="Number of resources" max_length="40" name="capacity" type="integer"/>
         <element label="End time" max_length="40" name="end_time" type="glide_time"/>
         <element label="Friday" max_length="40" name="friday" type="boolean"/>
         <element label="Friday price" max_length="15" name="friday_price" type="currency"/>
         <element label="Monday" max_length="40" name="monday" type="boolean"/>
         <element label="Monday price" max_length="15" name="monday_price" type="currency"/>
-        <element default="1" label="Number of resources" max_length="40" name="number_of_resources" type="integer"/>
         <element choice="1" label="Reservation length" mandatory="true" max_length="40" name="reservation_length" type="choice">
             <choice>
                 <element label="15 minutes" sequence="0" value="15"/>
@@ -22,6 +20,7 @@
         </element>
         <element label="Saturday" max_length="40" name="saturday" type="boolean"/>
         <element label="Saturday price" max_length="15" name="saturday_price" type="currency"/>
+        <element label="Days to schedule" max_length="40" name="schedule_days" type="integer"/>
         <element label="Start time" max_length="40" name="start_time" type="glide_time"/>
         <element label="Sunday" max_length="40" name="sunday" type="boolean"/>
         <element label="Sunday price" max_length="15" name="sunday_price" type="currency"/>
@@ -30,7 +29,11 @@
         <element label="Title" max_length="80" name="title" type="string"/>
         <element label="Tuesday" max_length="40" name="tuesday" type="boolean"/>
         <element label="Tuesday price" max_length="15" name="tuesday_price" type="currency"/>
+        <element label="Booking resource" max_length="32" name="u_booking_resource" reference="x_79929_booking_booking_resources" type="reference"/>
         <element label="Wednesday" max_length="40" name="wednesday" type="boolean"/>
         <element label="Wednesday price" max_length="15" name="wednesday_price" type="currency"/>
+        <index name="index">
+            <element name="u_booking_resource"/>
+        </index>
     </element>
 </database>

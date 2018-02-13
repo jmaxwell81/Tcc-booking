@@ -2,114 +2,128 @@
 <record_update>
     <sys_ui_section caption="" section_id="93c5c1e3db401300fa8ef6dfbf961978" sys_domain="global" table="x_79929_booking_booking_resources" version="3" view="">
         <sys_ui_element action="INSERT_OR_UPDATE">
-            <element>name</element>
+            <element>.begin_split</element>
             <position>0</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-02-09 00:33:37</sys_created_on>
-            <sys_id>93e60927db401300fa8ef6dfbf9619c5</sys_id>
+            <sys_created_on>2018-02-13 05:25:26</sys_created_on>
+            <sys_id>0110f674db901300fa8ef6dfbf96190a</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_79929_booking_booking_resources" sys_domain="global" view="Default view">93c5c1e3db401300fa8ef6dfbf961978</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-02-09 00:33:37</sys_updated_on>
+            <sys_updated_on>2018-02-13 05:25:26</sys_updated_on>
+            <sys_user/>
+            <type>.begin_split</type>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>u_name</element>
+            <position>1</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-13 05:25:26</sys_created_on>
+            <sys_id>8110f674db901300fa8ef6dfbf96190a</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_79929_booking_booking_resources" sys_domain="global" view="Default view">93c5c1e3db401300fa8ef6dfbf961978</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-13 05:25:26</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
-            <element>location</element>
-            <position>1</position>
+            <element>u_location</element>
+            <position>2</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-02-09 00:33:37</sys_created_on>
-            <sys_id>17e60927db401300fa8ef6dfbf9619c5</sys_id>
+            <sys_created_on>2018-02-13 05:25:26</sys_created_on>
+            <sys_id>0510f674db901300fa8ef6dfbf96190a</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_79929_booking_booking_resources" sys_domain="global" view="Default view">93c5c1e3db401300fa8ef6dfbf961978</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-02-09 00:33:37</sys_updated_on>
+            <sys_updated_on>2018-02-13 05:25:26</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>.split</element>
-            <position>2</position>
+            <position>3</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-02-09 00:33:37</sys_created_on>
-            <sys_id>97e60927db401300fa8ef6dfbf9619c5</sys_id>
+            <sys_created_on>2018-02-13 05:25:26</sys_created_on>
+            <sys_id>c11032b4db901300fa8ef6dfbf961920</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_79929_booking_booking_resources" sys_domain="global" view="Default view">93c5c1e3db401300fa8ef6dfbf961978</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-02-09 00:33:37</sys_updated_on>
+            <sys_updated_on>2018-02-13 05:25:26</sys_updated_on>
             <sys_user/>
             <type>.split</type>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
-            <element>active</element>
-            <position>3</position>
+            <element>u_active</element>
+            <position>4</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-02-09 00:33:37</sys_created_on>
-            <sys_id>1be60927db401300fa8ef6dfbf9619c5</sys_id>
+            <sys_created_on>2018-02-13 05:25:26</sys_created_on>
+            <sys_id>451032b4db901300fa8ef6dfbf961920</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_79929_booking_booking_resources" sys_domain="global" view="Default view">93c5c1e3db401300fa8ef6dfbf961978</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-02-09 00:33:37</sys_updated_on>
+            <sys_updated_on>2018-02-13 05:25:26</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>.end_split</element>
-            <position>4</position>
+            <position>5</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-02-09 00:33:37</sys_created_on>
-            <sys_id>9be60927db401300fa8ef6dfbf9619c5</sys_id>
+            <sys_created_on>2018-02-13 05:25:26</sys_created_on>
+            <sys_id>c51032b4db901300fa8ef6dfbf961920</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_79929_booking_booking_resources" sys_domain="global" view="Default view">93c5c1e3db401300fa8ef6dfbf961978</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-02-09 00:33:37</sys_updated_on>
+            <sys_updated_on>2018-02-13 05:25:26</sys_updated_on>
             <sys_user/>
             <type>.end_split</type>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
-            <element>description</element>
-            <position>5</position>
+            <element>u_description</element>
+            <position>6</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-02-09 00:33:37</sys_created_on>
-            <sys_id>1fe60927db401300fa8ef6dfbf9619c5</sys_id>
+            <sys_created_on>2018-02-13 05:25:26</sys_created_on>
+            <sys_id>491032b4db901300fa8ef6dfbf961920</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_79929_booking_booking_resources" sys_domain="global" view="Default view">93c5c1e3db401300fa8ef6dfbf961978</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-02-09 00:33:37</sys_updated_on>
+            <sys_updated_on>2018-02-13 05:25:26</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>price</element>
-            <position>6</position>
+            <position>7</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-02-09 00:33:37</sys_created_on>
-            <sys_id>9fe60927db401300fa8ef6dfbf9619c5</sys_id>
+            <sys_created_on>2018-02-13 05:25:26</sys_created_on>
+            <sys_id>c91032b4db901300fa8ef6dfbf961920</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_79929_booking_booking_resources" sys_domain="global" view="Default view">93c5c1e3db401300fa8ef6dfbf961978</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-02-09 00:33:37</sys_updated_on>
+            <sys_updated_on>2018-02-13 05:25:26</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>order</element>
-            <position>7</position>
+            <position>8</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-02-09 00:33:37</sys_created_on>
-            <sys_id>13e60927db401300fa8ef6dfbf9619c6</sys_id>
+            <sys_created_on>2018-02-13 05:25:26</sys_created_on>
+            <sys_id>4d1032b4db901300fa8ef6dfbf961920</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_79929_booking_booking_resources" sys_domain="global" view="Default view">93c5c1e3db401300fa8ef6dfbf961978</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-02-09 00:33:37</sys_updated_on>
+            <sys_updated_on>2018-02-13 05:25:26</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>

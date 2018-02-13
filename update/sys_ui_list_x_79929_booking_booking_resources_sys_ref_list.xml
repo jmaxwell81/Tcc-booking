@@ -3,18 +3,93 @@
     <sys_ui_list parent="" relationship="" sys_domain="global" table="x_79929_booking_booking_resources" version="2" view="sys_ref_list">
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
-            <element>name</element>
-            <list_id display_value="x_79929_booking_booking_resources" element="NULL" name="x_79929_booking_booking_resources" parent="NULL" relationship="NULL" sys_domain="global" view="f1893062f822030059a64c78fda74a68">56594967db401300fa8ef6dfbf96195d</list_id>
+            <element>u_name</element>
+            <list_id display_value="x_79929_booking_booking_resources" element="NULL" name="x_79929_booking_booking_resources" parent="NULL" relationship="NULL" sys_domain="global" view="f1893062f822030059a64c78fda74a68">46d0b6b4db901300fa8ef6dfbf9619e0</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>0</position>
             <sum>false</sum>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-02-09 00:44:12</sys_created_on>
-            <sys_id>da594967db401300fa8ef6dfbf96195d</sys_id>
+            <sys_created_on>2018-02-13 05:28:47</sys_created_on>
+            <sys_id>0ed0b6b4db901300fa8ef6dfbf9619e0</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-02-09 00:44:12</sys_updated_on>
+            <sys_updated_on>2018-02-13 05:28:47</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>order</element>
+            <list_id display_value="x_79929_booking_booking_resources" element="NULL" name="x_79929_booking_booking_resources" parent="NULL" relationship="NULL" sys_domain="global" view="f1893062f822030059a64c78fda74a68">46d0b6b4db901300fa8ef6dfbf9619e0</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>1</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-13 05:28:47</sys_created_on>
+            <sys_id>8ed0b6b4db901300fa8ef6dfbf9619e0</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-13 05:28:47</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>price</element>
+            <list_id display_value="x_79929_booking_booking_resources" element="NULL" name="x_79929_booking_booking_resources" parent="NULL" relationship="NULL" sys_domain="global" view="f1893062f822030059a64c78fda74a68">46d0b6b4db901300fa8ef6dfbf9619e0</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>2</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-13 05:28:47</sys_created_on>
+            <sys_id>8ed0f6b4db901300fa8ef6dfbf9619c0</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-13 05:28:47</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>u_active</element>
+            <list_id display_value="x_79929_booking_booking_resources" element="NULL" name="x_79929_booking_booking_resources" parent="NULL" relationship="NULL" sys_domain="global" view="f1893062f822030059a64c78fda74a68">46d0b6b4db901300fa8ef6dfbf9619e0</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>3</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-13 05:28:47</sys_created_on>
+            <sys_id>02d0f6b4db901300fa8ef6dfbf9619c1</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-13 05:28:47</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>u_description</element>
+            <list_id display_value="x_79929_booking_booking_resources" element="NULL" name="x_79929_booking_booking_resources" parent="NULL" relationship="NULL" sys_domain="global" view="f1893062f822030059a64c78fda74a68">46d0b6b4db901300fa8ef6dfbf9619e0</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>4</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-13 05:28:47</sys_created_on>
+            <sys_id>82d0f6b4db901300fa8ef6dfbf9619c1</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-13 05:28:47</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>u_location</element>
+            <list_id display_value="x_79929_booking_booking_resources" element="NULL" name="x_79929_booking_booking_resources" parent="NULL" relationship="NULL" sys_domain="global" view="f1893062f822030059a64c78fda74a68">46d0b6b4db901300fa8ef6dfbf9619e0</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>5</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-13 05:28:47</sys_created_on>
+            <sys_id>06d0f6b4db901300fa8ef6dfbf9619c1</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-13 05:28:47</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list action="INSERT_OR_UPDATE">
             <average_value>false</average_value>

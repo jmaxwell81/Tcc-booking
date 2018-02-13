@@ -48,19 +48,19 @@ ScheduleHelper.prototype = {
 		oldSlots.deleteMultiple();
 		
 		if (schedTemplate.monday == true)
-			this._generateDayScheduleTemplateSlots('1', schedTemplate, schedTemplate.u_monday_price);
+			this._generateDayScheduleTemplateSlots('1', schedTemplate, schedTemplate.monday_price);
 		if (schedTemplate.tuesday == true)
-			this._generateDayScheduleTemplateSlots('2', schedTemplate, schedTemplate.u_tuesday_price);
+			this._generateDayScheduleTemplateSlots('2', schedTemplate, schedTemplate.tuesday_price);
 		if (schedTemplate.wednesday == true)
-			this._generateDayScheduleTemplateSlots('3', schedTemplate, schedTemplate.u_wednesday_price);
+			this._generateDayScheduleTemplateSlots('3', schedTemplate, schedTemplate.wednesday_price);
 		if (schedTemplate.thursday == true)
-			this._generateDayScheduleTemplateSlots('4', schedTemplate, schedTemplate.u_thursday_price);
+			this._generateDayScheduleTemplateSlots('4', schedTemplate, schedTemplate.thursday_price);
 		if (schedTemplate.friday == true)
-			this._generateDayScheduleTemplateSlots('5', schedTemplate, schedTemplate.u_friday_price);
+			this._generateDayScheduleTemplateSlots('5', schedTemplate, schedTemplate.friday_price);
 		if (schedTemplate.saturday == true)
-			this._generateDayScheduleTemplateSlots('6', schedTemplate, schedTemplate.u_saturday_price);
+			this._generateDayScheduleTemplateSlots('6', schedTemplate, schedTemplate.saturday_price);
 		if (schedTemplate.sunday == true)
-			this._generateDayScheduleTemplateSlots('7', schedTemplate, schedTemplate.u_sunday_price);
+			this._generateDayScheduleTemplateSlots('7', schedTemplate, schedTemplate.sunday_price);
 	},
 	
 	//Set old Reservations to no-show
@@ -138,7 +138,7 @@ ScheduleHelper.prototype = {
 		newSlot.schedule_template_slot = schedTemplateSlot.sys_id.toString();
 		
 		//Add Price
-		newSlot.u_price = schedTemplateSlot.u_price;
+		newSlot.u_price = schedTemplateSlot.price;
 		
 		var newSlotID = newSlot.insert();
 		
@@ -168,7 +168,7 @@ ScheduleHelper.prototype = {
 			var slotBegin = (new GlideDateTime(slotRec.getValue('start_time'))).getNumericValue(); 
 			var slotEnd = (new GlideDateTime(slotRec.getValue('end_time'))).getNumericValue(); 
 			//Generate query string to gather related reservations
-			var query = 'start_time>=' + slotBegin + '^start_time<' + slotEnd + '^schedule_template=' + slotRec.schedule_template.sys_id.toString() + '^state=reserved^NQend_time<=' + slotEnd + '^end_time>' + slotBegin + '^schedule_template=' + slotRec.schedule_template.sys_id.toString() + '^state=reserved';
+			var query = 'start_time>=' + slotBegin + '^start_time<' + slotEnd + '^schedule_template=' + slotRec.schedule_template.sys_id.toString() + '^x_79929_booking_state=reserved^NQend_time<=' + slotEnd + '^end_time>' + slotBegin + '^schedule_template=' + slotRec.schedule_template.sys_id.toString() + '^x_79929_booking_state=reserved';
 			var existingReso = new GlideRecord("x_79929_booking_booking_reservation");
 			existingReso.addEncodedQuery(query);
 			existingReso.query();
@@ -224,13 +224,13 @@ ScheduleHelper.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-02-08 05:06:29</sys_created_on>
         <sys_id>718b7413db041300fa8ef6dfbf96193f</sys_id>
-        <sys_mod_count>6</sys_mod_count>
+        <sys_mod_count>7</sys_mod_count>
         <sys_name>ScheduleHelper</sys_name>
         <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
         <sys_update_name>sys_script_include_718b7413db041300fa8ef6dfbf96193f</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-02-09 01:30:31</sys_updated_on>
+        <sys_updated_on>2018-02-13 04:23:42</sys_updated_on>
     </sys_script_include>
 </record_update>
