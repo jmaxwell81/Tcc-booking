@@ -3,18 +3,138 @@
     <sys_ui_list parent="" relationship="" sys_domain="global" table="x_79929_booking_booking_location" version="2" view="sys_ref_list">
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
-            <element>name</element>
-            <list_id display_value="x_79929_booking_booking_location" element="NULL" name="x_79929_booking_booking_location" parent="NULL" relationship="NULL" sys_domain="global" view="f1893062f822030059a64c78fda74a68">dc078527db401300fa8ef6dfbf9619e8</list_id>
+            <element>u_name</element>
+            <list_id display_value="x_79929_booking_booking_location" element="NULL" name="x_79929_booking_booking_location" parent="NULL" relationship="NULL" sys_domain="global" view="f1893062f822030059a64c78fda74a68">9f24264ddb181300fa8ef6dfbf96193d</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>0</position>
             <sum>false</sum>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-02-09 00:33:57</sys_created_on>
-            <sys_id>94078527db401300fa8ef6dfbf9619e9</sys_id>
+            <sys_created_on>2018-02-13 23:11:55</sys_created_on>
+            <sys_id>5724264ddb181300fa8ef6dfbf96193e</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-02-09 00:33:57</sys_updated_on>
+            <sys_updated_on>2018-02-13 23:11:55</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>u_active</element>
+            <list_id display_value="x_79929_booking_booking_location" element="NULL" name="x_79929_booking_booking_location" parent="NULL" relationship="NULL" sys_domain="global" view="f1893062f822030059a64c78fda74a68">9f24264ddb181300fa8ef6dfbf96193d</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>1</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-13 23:11:55</sys_created_on>
+            <sys_id>d724264ddb181300fa8ef6dfbf96193e</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-13 23:11:55</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>u_latitude</element>
+            <list_id display_value="x_79929_booking_booking_location" element="NULL" name="x_79929_booking_booking_location" parent="NULL" relationship="NULL" sys_domain="global" view="f1893062f822030059a64c78fda74a68">9f24264ddb181300fa8ef6dfbf96193d</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>2</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-13 23:11:55</sys_created_on>
+            <sys_id>5b24264ddb181300fa8ef6dfbf96193e</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-13 23:11:55</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>u_longitude</element>
+            <list_id display_value="x_79929_booking_booking_location" element="NULL" name="x_79929_booking_booking_location" parent="NULL" relationship="NULL" sys_domain="global" view="f1893062f822030059a64c78fda74a68">9f24264ddb181300fa8ef6dfbf96193d</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>3</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-13 23:11:55</sys_created_on>
+            <sys_id>db24264ddb181300fa8ef6dfbf96193e</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-13 23:11:55</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>u_notification_end</element>
+            <list_id display_value="x_79929_booking_booking_location" element="NULL" name="x_79929_booking_booking_location" parent="NULL" relationship="NULL" sys_domain="global" view="f1893062f822030059a64c78fda74a68">9f24264ddb181300fa8ef6dfbf96193d</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>4</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-13 23:11:55</sys_created_on>
+            <sys_id>5f24264ddb181300fa8ef6dfbf96193e</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-13 23:11:55</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>u_notification_start</element>
+            <list_id display_value="x_79929_booking_booking_location" element="NULL" name="x_79929_booking_booking_location" parent="NULL" relationship="NULL" sys_domain="global" view="f1893062f822030059a64c78fda74a68">9f24264ddb181300fa8ef6dfbf96193d</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>5</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-13 23:11:55</sys_created_on>
+            <sys_id>df24264ddb181300fa8ef6dfbf96193e</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-13 23:11:55</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>u_notification_text</element>
+            <list_id display_value="x_79929_booking_booking_location" element="NULL" name="x_79929_booking_booking_location" parent="NULL" relationship="NULL" sys_domain="global" view="f1893062f822030059a64c78fda74a68">9f24264ddb181300fa8ef6dfbf96193d</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>6</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-13 23:11:55</sys_created_on>
+            <sys_id>5324264ddb181300fa8ef6dfbf96193f</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-13 23:11:55</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>u_payment_description</element>
+            <list_id display_value="x_79929_booking_booking_location" element="NULL" name="x_79929_booking_booking_location" parent="NULL" relationship="NULL" sys_domain="global" view="f1893062f822030059a64c78fda74a68">9f24264ddb181300fa8ef6dfbf96193d</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>7</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-13 23:11:55</sys_created_on>
+            <sys_id>d324264ddb181300fa8ef6dfbf96193f</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-13 23:11:55</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>u_payment_type</element>
+            <list_id display_value="x_79929_booking_booking_location" element="NULL" name="x_79929_booking_booking_location" parent="NULL" relationship="NULL" sys_domain="global" view="f1893062f822030059a64c78fda74a68">9f24264ddb181300fa8ef6dfbf96193d</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>8</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-13 23:11:55</sys_created_on>
+            <sys_id>5724264ddb181300fa8ef6dfbf96193f</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-13 23:11:55</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list action="INSERT_OR_UPDATE">
             <average_value>false</average_value>

@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <record_update>
-    <sys_documentation element="notification_end" label="Notification end" language="en" table="x_79929_booking_booking_location">
+    <sys_documentation element="u_payment_type" label="Payment Type" language="en" table="x_79929_booking_booking_location">
         <sys_documentation action="INSERT_OR_UPDATE">
-            <element>notification_end</element>
+            <element>u_payment_type</element>
             <help/>
             <hint/>
-            <label>Notification end</label>
+            <label>Payment Type</label>
             <language>en</language>
             <name>x_79929_booking_booking_location</name>
-            <plural>Notification ends</plural>
+            <plural>Payment Types</plural>
             <sys_class_name>sys_documentation</sys_class_name>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-02-08 00:14:27</sys_created_on>
-            <sys_id>74f8ffcbdb401300fa8ef6dfbf961975</sys_id>
+            <sys_created_on>2018-02-13 22:37:23</sys_created_on>
+            <sys_id>ed4c5e09db181300fa8ef6dfbf96192d</sys_id>
             <sys_mod_count>0</sys_mod_count>
-            <sys_name>Notification end</sys_name>
+            <sys_name>Payment Type</sys_name>
             <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
             <sys_policy/>
             <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
-            <sys_update_name>sys_documentation_x_79929_booking_booking_location_notification_end_en</sys_update_name>
+            <sys_update_name>sys_documentation_x_79929_booking_booking_location_u_payment_type_en</sys_update_name>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-02-08 00:14:27</sys_updated_on>
+            <sys_updated_on>2018-02-13 22:37:23</sys_updated_on>
             <url/>
             <url_target/>
         </sys_documentation>
