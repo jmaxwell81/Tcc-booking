@@ -30,7 +30,7 @@ ScheduleHelper.prototype = {
 		var now = new GlideDateTime();
 		//Iterate through the next numDays, creating a schedule if it doesn't already exist
 		for (var i = 0; i < numDays; i++) {
-			var todayOfWeek = now.getDayOfWeek();
+			var todayOfWeek = now.getDayOfWeekLocalTime();
 			var todayDateMidnight = now.getInternalMidnight(todayOfWeek);
 			todayDateMidnight.subtract(1000); //Need to adjust down 1 second for even number
 			this._generateScheduleDay(schedTemplate, todayOfWeek, todayDateMidnight);
@@ -46,7 +46,7 @@ ScheduleHelper.prototype = {
 		var oldSlots = new GlideRecord("x_79929_booking_booking_template_slot");
 		oldSlots.addQuery("schedule_template", schedTemplate.sys_id.toString());
 		oldSlots.deleteMultiple();
-		
+		//	gs.info(': '+);
 		if (schedTemplate.monday == true)
 			this._generateDayScheduleTemplateSlots('1', schedTemplate, schedTemplate.monday_price);
 		if (schedTemplate.tuesday == true)
@@ -104,10 +104,10 @@ ScheduleHelper.prototype = {
 	//Generate individual schedule slot
 	_generateScheduleSlot: function(schedTemplateSlot, dateMidnight, day, startOfWeek){
 		//Get numeric value of start time from template (always at 01/01/1970 non-DST)
-		//var startTimeTemplate = schedTemplateSlot.start_time.getGlideObject().getNumericValue();
-		//var endTimeTemplate = schedTemplateSlot.end_time.getGlideObject().getNumericValue();
-		var startTimeTemplate = (new GlideDateTime(schedTemplateSlot.getValue('start_time'))).getNumericValue();
-		var endTimeTemplate = (new GlideDateTime(schedTemplateSlot.getValue('end_time'))).getNumericValue(); 
+		var startTimeTemplate = schedTemplateSlot.start_time.getGlideObject().getNumericValue();
+		var endTimeTemplate = schedTemplateSlot.end_time.getGlideObject().getNumericValue();
+		//var startTimeTemplate = (new GlideDateTime(schedTemplateSlot.getValue('start_time'))).getNumericValue();
+		//var endTimeTemplate = (new GlideDateTime(schedTemplateSlot.getValue('end_time'))).getNumericValue(); 
 		
 		
 		
@@ -138,7 +138,7 @@ ScheduleHelper.prototype = {
 		newSlot.schedule_template_slot = schedTemplateSlot.sys_id.toString();
 		
 		//Add Price
-		newSlot.u_price = schedTemplateSlot.price;
+		newSlot.u_price = schedTemplateSlot.u_price;
 		
 		var newSlotID = newSlot.insert();
 		
@@ -194,8 +194,6 @@ ScheduleHelper.prototype = {
 		//Gather start & end variables in milliseconds
 		//var timeStart = schedTemplate.start_time.getGlideObject().getNumericValue();
 		//var timeEnd = schedTemplate.end_time.getGlideObject().getNumericValue();
-		
-		
 		var timeStart = (new GlideDateTime(schedTemplate.getValue('start_time'))).getNumericValue(); 
 		var timeEnd = (new GlideDateTime(schedTemplate.getValue('end_time'))).getNumericValue(); 
 		
@@ -223,14 +221,16 @@ ScheduleHelper.prototype = {
         <sys_class_name>sys_script_include</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-02-08 05:06:29</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>718b7413db041300fa8ef6dfbf96193f</sys_id>
-        <sys_mod_count>7</sys_mod_count>
+        <sys_mod_count>14</sys_mod_count>
         <sys_name>ScheduleHelper</sys_name>
         <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
         <sys_policy>read</sys_policy>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
         <sys_update_name>sys_script_include_718b7413db041300fa8ef6dfbf96193f</sys_update_name>
-        <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-02-13 04:23:42</sys_updated_on>
+        <sys_updated_by>lzs@townsville.qld.gov.au</sys_updated_by>
+        <sys_updated_on>2018-02-14 05:55:13</sys_updated_on>
     </sys_script_include>
 </record_update>

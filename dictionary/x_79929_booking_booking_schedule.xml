@@ -14,5 +14,11 @@
         <element label="Schedule template slot" max_length="40" name="schedule_template_slot" read_only="true" reference="booking_template_slot" type="reference"/>
         <element label="Start time" max_length="40" name="start_time" type="glide_date_time"/>
         <element label="Week start on" max_length="40" name="week_start" type="string"/>
+        <index name="index">
+            <element name="schedule_template_slot"/>
+        </index>
+        <index name="index2">
+            <element name="schedule_template"/>
+        </index>
     </element>
 </database>

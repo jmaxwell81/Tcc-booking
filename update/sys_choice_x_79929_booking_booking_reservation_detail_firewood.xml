@@ -83,11 +83,13 @@
             <sys_class_name>sys_choice_set</sys_class_name>
             <sys_created_by>admin</sys_created_by>
             <sys_created_on>2018-02-08 03:18:43</sys_created_on>
-            <sys_id>0c236c53dbc01300fa8ef6dfbf961947</sys_id>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_id>9255ae05db9c170073ab787dbf9619da</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_name>firewood</sys_name>
             <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
             <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
             <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
             <sys_update_name>sys_choice_x_79929_booking_booking_reservation_detail_firewood</sys_update_name>
             <sys_updated_by>admin</sys_updated_by>

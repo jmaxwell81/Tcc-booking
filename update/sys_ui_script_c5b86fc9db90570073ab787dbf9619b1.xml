@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ui_script">
+    <sys_ui_script action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <description/>
+        <global>false</global>
+        <name>x_79929_booking.tcc_reservations</name>
+        <script><![CDATA[/*
+
+	Utility functions used by the Registration Bookings application
+
+*/
+
+/*	
+  DATE UTILITY FUNCTIONS
+*/
+function isDateToday(todayDte, tempDate){	
+	if(getDateOnly(new Date(todayDte)).toDateString() == getDateOnly(tempDate).toDateString()){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+function isFutureDate(todayDte,startDate){
+	if(getDateOnly(new Date(todayDte)) >= getDateOnly(startDate)){
+		return false;
+	}else{
+		return true;
+	}
+}
+
+function isDateEndOfRange(todayDte, startDate, days, dayIncrement){
+		
+	var maxEndDate= getMaxEndDate(todayDte, days); //todays date + days (E.g. 60) in the future 
+	rangeEndDate = getDateTime(new Date(startDate.getFullYear(),startDate.getMonth(),startDate.getDate()+parseInt(dayIncrement),23,59,59));				  
+	
+	if(rangeEndDate > maxEndDate){		
+		return true;
+	}else{
+		return false;
+	}
+}
+
+function isLastStartDate(startDate, maxEndDate, dayIncrement){
+	var nextStartDate =  getDateOnly(new Date(startDate.getFullYear(),startDate.getMonth(),startDate.getDate()+(parseInt(dayIncrement)+1)));
+	
+	if(nextStartDate > maxEndDate){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+
+function getRangeStartDate(startDate){
+	rangeStartDate = getDateOnly(new Date(startDate.getFullYear(),startDate.getMonth(),startDate.getDate()));
+	return rangeStartDate;
+}
+
+function getRangeEndDate(startDate,dayIncrement){	
+	var rangeDays = dayIncrement;
+	rangeEndDate = getDateTime(new Date(startDate.getFullYear(),startDate.getMonth(),startDate.getDate()+parseInt(rangeDays)),23,59,59);	
+	return rangeEndDate;
+}
+
+function getPickerMaxDate(tmpDate){	
+	pickerMaxDate = getDateTime(new Date(tmpDate.getFullYear(),tmpDate.getMonth(),tmpDate.getDate()-parseInt(1)),23,59,59);
+	return pickerMaxDate;
+}
+
+function getMaxEndDate(todayDte, days){
+	var today = new Date(todayDte);
+	var maxEndDate=getDateTime(new Date(today.getFullYear(),today.getMonth(),today.getDate()+parseInt(days)),23,59,59); //todays date + days (E.g. 60) in the future 
+	return maxEndDate;
+}
+
+function incrementStartDate(todayDte, tempDate, dayIncrement, maxDays){
+	
+	/*
+		if the new start date doesnt cover a full 12 day period, set the new start date to be maxenddate - 12 days
+	*/
+	var maxEndDate = getMaxEndDate(todayDte, maxDays);	
+	var lastPermittedStartDate = new Date(maxEndDate.getFullYear(),maxEndDate.getMonth(),maxEndDate.getDate()- parseInt(dayIncrement));
+	var newStartDate = new Date(tempDate.getFullYear(),tempDate.getMonth(),tempDate.getDate() + parseInt(dayIncrement));
+	
+	
+	if(newStartDate > lastPermittedStartDate){
+		return getDateOnly(lastPermittedStartDate);	 
+	}else{
+		return getDateOnly(newStartDate);	
+	}
+				
+}
+
+function decrementStartDate(todayDte, tempDate, dayIncrement){
+	var today = new Date(todayDte);
+	var newDate = new Date(tempDate.getFullYear(),tempDate.getMonth(),tempDate.getDate()- parseInt(dayIncrement));
+	if(newDate > today){
+		return getDateOnly(newDate);	 
+	}else{
+		return getDateOnly(today);	
+	}	
+}
+
+
+function getDateOnly(tempDate){
+        tempDate.setHours(0);
+        tempDate.setMinutes(0);
+        tempDate.setSeconds(0);
+	return tempDate;
+}
+
+function getDateTime(tempDate, hrs, mins, sec){
+        tempDate.setHours(hrs);
+        tempDate.setMinutes(mins);
+        tempDate.setSeconds(sec);
+	return tempDate;
+}
+
+
+function getDisplayDate(tempDate){
+	var newDate = new Date(tempDate);	
+	//Increment the month by 1 so it displays correctly
+	return newDate.getDate() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getFullYear();
+}
+
+function getPriceAsCents(price){
+	return price * 100;
+}
+
+function getDisplayPrice(price){	
+	return '$' + CurrencyFormatted(price);
+}
+
+function CurrencyFormatted(amount)
+{
+	var i = parseFloat(amount);
+	if(isNaN(i)) { i = 0.00; }
+	var minus = '';
+	if(i < 0) { minus = '-'; }
+	i = Math.abs(i);
+	i = parseInt((i + 0.005) * 100);
+	i = i / 100;
+	s = new String(i);
+	if(s.indexOf('.') < 0) { s += '.00'; }
+	if(s.indexOf('.') == (s.length - 2)) { s += '0'; }
+	s = minus + s;
+	return s;
+}
+
+
+function getMonthAsString(tempDate){
+	
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+	return months[tempDate.getMonth()];
+}
+
+function getDayAsText(dayOfWeek){
+	var days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+	var dayPos = dayOfWeek - 1;
+	return days[dayPos];
+}
+
+function getDay(tempDate){
+	return tempDate.getDate();
+}
+
+/*
+	GRID UTILITY FUNCTIONS
+*/
+function getDateRowData(todayDte, dateArray){
+	
+	var formattedArray = [];
+	var thisDate;
+	for(var x = 0; x < dateArray.length; x++){
+		var temp = {};		
+		thisDate = new Date(dateArray[x].start);		
+		temp.date = getDay(thisDate);
+		temp.day = getDayAsText(dateArray[x].day_of_week);
+		temp.month = getMonthAsString(thisDate);
+		temp.today  = isDateToday(todayDte, thisDate);
+		temp.currentdayclass = applyCurrentDayClass(todayDte, thisDate);
+		temp.weekendclass = applyWeekendClass(dateArray[x].day_of_week);
+		formattedArray.push(temp);
+	}
+	
+	return formattedArray;
+}
+
+
+function getSlotUI(slotsArray, reservationsArray){
+				
+	var thisDate;
+	for(var x = 0; x < slotsArray.result.length; x++){		
+		slotsArray.result[x].rowclass = applyRowClass(x);
+		
+		for(var y = 0; y < slotsArray.result[x].slot.length; y++){
+			thisDate = new Date(slotsArray.result[x].slot[y].start);
+			slotsArray.result[x].slot[y].slotclass = applySlotClass(slotsArray.result[x].slot[y], reservationsArray);
+			slotsArray.result[x].slot[y].displayText = getSlotText(slotsArray.result[x].slot[y]);
+		}
+	}
+	
+	return slotsArray;
+}
+
+function updateSlotClass(slotsArray, reservationsArray, slotid){
+	//locate the slot based on the sysid
+	var slotno = -1;
+	
+	for(var x = 0; x < slotsArray.result.length; x++){	
+		slotno = _.findIndex(slotsArray.result[x].slot, function(o){return o.sys_id == slotid; });
+
+		if(slotno != -1){
+			slotsArray.result[x].slot[slotno].slotclass = applySlotClass(slotsArray.result[x].slot[slotno], reservationsArray);	
+			break;
+		}	
+	}
+	return slotsArray;
+}
+
+function applySlotClass(slot, reservationsArray){
+	var slotclasses = '';
+	
+	if(slot.avail == 0){
+		slotclasses = "selector-grid-slot-unavailable"; 
+	}else if(isSlotSelected(slot, reservationsArray)){
+		slotclasses = "selector-grid-slot-selected";
+	}else{
+		slotclasses = applyWeekendClass(slot.day_of_week);
+	}	
+		
+	return slotclasses;	
+}
+
+function applyCurrentDayClass(todayDte, thisDate){
+	if(isDateToday(todayDte, thisDate)){
+		return "selector-grid-col-current-date";
+	}else{
+		return "";
+	}
+}
+
+function applyWeekendClass(dayofweek){
+	if (dayofweek == 1 || dayofweek == 7){
+		return "selector-grid-slot-weekend";
+	}else{
+		return "";
+	}
+}
+
+
+function applyRowClass(iValue){
+	if(iValue % 2 > 0){
+		return "selector-grid-secondary";
+	}else{
+		return "selector-grid-primary";
+	}
+}
+
+function isSlotSelected(slot, reservationsArray){
+	
+	var bookingno = -1;
+	if(reservationsArray != undefined){
+		if(reservationsArray.bookedresources != undefined){			
+			if(reservationsArray.bookedresources.length > 0){
+				bookingno = _.findIndex(reservationsArray.bookedresources, function(o){return o.slotid == slot.sys_id; });
+				if(bookingno > -1){
+					return true;
+				}else{
+					return false;
+				}
+			}else{
+				
+				return false;
+			}
+		}
+	}else{		
+		return false;
+	}
+}
+
+function getSlotText(slot){
+	if(slot.avail == 0){
+		return '';
+	}else{
+		return '$'+slot.price;
+	}
+}
+
+
+function showReservationInConsole(source, reservationsArray){
+	if(reservationsArray == undefined){return;}
+	if(reservationsArray.bookedresources == undefined){return;}
+	console.log(source + ' ' + reservationsArray.bookedresources.length);
+	
+	for(var x = 0; x < reservationsArray.bookedresources.length; x++){	
+		console.log(source + ' ' + 'booked slotid ' + reservationsArray.bookedresources[x].slotid);
+	}
+}
+
+function validBookings(reservationsArray, slotsArray ,consecutiveSlots){
+	var sValid = '';
+	if(reservationsArray.bookedresources.length > 0){
+		if(validConsecutiveBookings(reservationsArray,slotsArray ,consecutiveSlots)){	
+			sValid = 'true';
+		}
+	}
+	return sValid;
+}
+
+/*
+	Note: The Reservation array has been sorted by startdate so they are in the same time based order as our master timeslot array.
+		
+	reservationIndex = 0
+		
+	newTimeslotIndex = getIndexInTimeslotArray(reservation sysid, prevTimeslotCol) 
+	prevTimeslotIndex = newTimeslotIndex;
+	consecutiveCounter = 0	
+		
+	while reservationIndex < Reservation array length 
+			
+			reservationIndex = getNextConsecutiveReservation(Reservation array[reservationIndex])
+						
+			newTimeslotIndex = getIndexInTimeslotArray(reservation sysid,prevTimeslotIndex) 
+				if((prevTimeslotIndex + 1)  == newTimeslotIndex)
+					consecutiveCounter ++
+					prevTimeslotIndex = newTimeslotIndex
+					if the consecutive counter > the number permitted
+					return false;
+				else
+					//The next reservation was not the next consecutive time slot
+					consecutiveCounter = 1
+								
+	end while
+*/
+function validConsecutiveBookings(reservationsArray, totalSlotsArray ,consecutiveSlots){
+				
+	if(reservationsArray.bookedresources.length <= consecutiveSlots){
+		return true;
+	}else{
+
+		var reservationIndex = 0;
+		
+		//Get position of first reservation in the totalSlotsArray
+		var newTimeslotIndex = getIndexInTimeslotArray(reservationsArray.bookedresources[reservationIndex].slotid, prevTimeslotIndex, totalSlotsArray);
+		var prevTimeslotIndex = newTimeslotIndex;
+		var consecutiveCounter = 1;	
+
+		//Iterate through our reservations checking how many are booked consecutively
+		while (reservationIndex < reservationsArray.bookedresources.length){
+
+			reservationIndex = getNextConsecutiveReservation(reservationsArray, reservationIndex);
+			
+			if(reservationIndex < reservationsArray.bookedresources.length){
+				newTimeslotIndex = getIndexInTimeslotArray(reservationsArray.bookedresources[reservationIndex].slotid, prevTimeslotIndex, totalSlotsArray);
+					
+				if((prevTimeslotIndex + 1)  == newTimeslotIndex){					
+					consecutiveCounter = consecutiveCounter + 1;					
+					prevTimeslotIndex = newTimeslotIndex;
+					if(consecutiveCounter > consecutiveSlots){
+						return false;
+					}
+				}else{
+					prevTimeslotIndex = newTimeslotIndex;
+					consecutiveCounter = 1;
+				}
+			}else{
+				return true;
+			}
+		}
+	}		
+}
+
+/*
+	Our reservation array may have more than one slot for the same time period.
+	We need to locate the next reservation in that array for a different timeslot
+	so we can then check if it is a consecutive selection or not.
+*/
+function getNextConsecutiveReservation(reservationsArray, reservationIndex){
+		
+	var slotstart = reservationsArray.bookedresources[reservationIndex].start;
+	var count = 0;
+	
+	while(reservationIndex < reservationsArray.bookedresources.length  && slotstart == reservationsArray.bookedresources[reservationIndex].start && count <= 100){
+		reservationIndex = reservationIndex + 1;
+				
+		//prevent an infinite loop
+		if(reservationIndex >= reservationsArray.bookedresources.length){
+			reservationIndex = reservationsArray.bookedresources.length;			
+		}
+		
+		count = count + 1;
+	}
+	
+	return reservationIndex;
+	
+}
+
+function getIndexInTimeslotArray(slotid, prevTimeslotIndex, totalSlotsArray){
+		
+	var index;
+	var col;
+	
+	for(var x = 0; x < totalSlotsArray.length; x++){
+		index = _.findIndex(totalSlotsArray[x].sysids, function(o){return o.sysid == slotid; });
+		
+		if(index != -1){			
+			col = x;
+			break;
+		}
+	}
+	
+	return col;
+	
+}
+
+/*
+	Create an array that contains a list of slot sys_ids for each time period.
+	
+*/
+function getBookableSlotsByDate(slotsArray){
+	var slotColArray = [];
+		var sSys_ids = '';
+		var slotcol = 0; 
+		var bContinue = true;
+		
+		while (bContinue){
+			var tempCol = {};
+				tempCol.colno = slotcol;
+				tempCol.sysids = [];
+			for(var x = 0; x < slotsArray.result.length; x++){
+				if(slotsArray.result[x].slot[slotcol] != undefined){
+					var tempsysid = {};
+					tempsysid.sysid = slotsArray.result[x].slot[slotcol].sys_id;
+					tempCol.sysids.push(tempsysid);
+				}
+			}
+			slotColArray.push(tempCol);
+			
+			slotcol = slotcol + 1;
+			if(slotcol >= slotsArray.result[0].slot.length){
+				bContinue = false;
+			}		
+		}
+	
+	return slotColArray;
+}
+
+
+function getReqNames(adults){
+
+	if(adults>= 8){
+		return 8;
+	}else{
+		return parseInt(adults);
+	}
+}
+	
+
+function prepareNameFields(reqNames){
+	var result = [];
+	
+	if(reqNames > 0){
+		for(var x = 0; x < reqNames; x++){
+			var temp = {};
+			temp.firstname = '';
+			temp.lastname = '';
+			temp.no = (x+1);
+			result.push(temp);
+		}
+	}else{
+		var temp = {};
+		result.push(temp);
+	}
+	
+	return result;		
+}
+
+function getReqNamesText(reqNames){
+	if(reqNames == 1){
+		return 'Please enter the first and last name of the adult that the reservation is for.'
+	}else{
+		return 'Please enter the first and last names of ' + reqNames + ' adults that the reservation is for.';
+	}
+	
+	
+}
+
+
+]]></script>
+        <script_name>tcc_reservations</script_name>
+        <sys_class_name>sys_ui_script</sys_class_name>
+        <sys_created_by>lzs@townsville.qld.gov.au</sys_created_by>
+        <sys_created_on>2018-02-14 04:11:38</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>c5b86fc9db90570073ab787dbf9619b1</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_79929_booking.tcc_reservations</sys_name>
+        <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
+        <sys_update_name>sys_ui_script_c5b86fc9db90570073ab787dbf9619b1</sys_update_name>
+        <sys_updated_by>lzs@townsville.qld.gov.au</sys_updated_by>
+        <sys_updated_on>2018-02-14 04:11:38</sys_updated_on>
+        <use_scoped_format>false</use_scoped_format>
+    </sys_ui_script>
+</record_update>

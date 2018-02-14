@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <record_update>
-    <sys_documentation element="price" label="Price" language="en" table="x_79929_booking_booking_template_slot">
+    <sys_documentation element="u_price" label="Price" language="en" table="x_79929_booking_booking_template_slot">
         <sys_documentation action="INSERT_OR_UPDATE">
-            <element>price</element>
+            <element>u_price</element>
             <help/>
             <hint/>
             <label>Price</label>
@@ -10,17 +10,19 @@
             <name>x_79929_booking_booking_template_slot</name>
             <plural>Prices</plural>
             <sys_class_name>sys_documentation</sys_class_name>
-            <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-02-08 00:11:54</sys_created_on>
-            <sys_id>e358bbcbdb401300fa8ef6dfbf961904</sys_id>
+            <sys_created_by>lzs@townsville.qld.gov.au</sys_created_by>
+            <sys_created_on>2018-02-14 05:09:01</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_id>9ae5b34ddbd0570073ab787dbf961913</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_name>Price</sys_name>
             <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
             <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
             <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
-            <sys_update_name>sys_documentation_x_79929_booking_booking_template_slot_price_en</sys_update_name>
-            <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-02-08 00:11:54</sys_updated_on>
+            <sys_update_name>sys_documentation_x_79929_booking_booking_template_slot_u_price_en</sys_update_name>
+            <sys_updated_by>lzs@townsville.qld.gov.au</sys_updated_by>
+            <sys_updated_on>2018-02-14 05:09:01</sys_updated_on>
             <url/>
             <url_target/>
         </sys_documentation>

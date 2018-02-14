@@ -36,12 +36,12 @@
 	<link href="714e2063db001300fa8ef6dfbf9619ea.cssdbx" rel="stylesheet" type="text/css"></link>
 	<link href="d16e6063db001300fa8ef6dfbf961989.cssdbx" rel="stylesheet" type="text/css"></link>
 		
-	<g:requires name="lodash.jsdbx" /> 
-	<g:requires name="tcc_reservations.jsdbx" /> 
+	<g:requires name="x_79929_booking.lodash.jsdbx" /> 
+	<g:requires name="x_79929_booking.tcc_reservations.jsdbx" /> 
 	
 	<!-- Include the JS ReCaptcha API -->
     <script src="https://www.google.com/recaptcha/api.js?onload=vcRecaptchaApiLoaded${AND}render=explicit" async="true" defer="true"></script>
-	<g:requires name="angular-recaptcha.jsdbx" /> 
+	<g:requires name="x_79929_booking.angular-recaptcha.jsdbx" /> 
 		
 	<!-- include the controller macro -->
 	<g:macro_invoke macro="x_79929_booking_spa_template" />
@@ -59,15 +59,17 @@
         <sys_class_name>content_block_programmatic</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-02-08 04:41:29</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>a8e5fc9bdbc01300fa8ef6dfbf96197c</sys_id>
-        <sys_mod_count>7</sys_mod_count>
+        <sys_mod_count>8</sys_mod_count>
         <sys_name>tcc_booking_app</sys_name>
         <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
         <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
         <sys_update_name>content_block_programmatic_a8e5fc9bdbc01300fa8ef6dfbf96197c</sys_update_name>
-        <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-02-09 02:04:05</sys_updated_on>
+        <sys_updated_by>lzs@townsville.qld.gov.au</sys_updated_by>
+        <sys_updated_on>2018-02-14 04:13:58</sys_updated_on>
         <two_phase>false</two_phase>
     </content_block_programmatic>
 </record_update>

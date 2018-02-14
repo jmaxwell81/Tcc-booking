@@ -16,16 +16,17 @@
         <sys_class_name>sys_embedded_help_content</sys_class_name>
         <sys_created_by>system</sys_created_by>
         <sys_created_on>2018-02-08 05:01:10</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>f89afcdfdbc01300fa8ef6dfbf9619c0</sys_id>
         <sys_mod_count>0</sys_mod_count>
         <sys_name>sc_cat_item_content_list-normal</sys_name>
         <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
         <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
         <sys_update_name>sys_embedded_help_content_f89afcdfdbc01300fa8ef6dfbf9619c0</sys_update_name>
         <sys_updated_by>system</sys_updated_by>
         <sys_updated_on>2018-02-08 05:01:10</sys_updated_on>
         <version>j</version>
     </sys_embedded_help_content>
-    <sys_translated_text action="delete_multiple" query="documentkey=f89afcdfdbc01300fa8ef6dfbf9619c0"/>
 </record_update>

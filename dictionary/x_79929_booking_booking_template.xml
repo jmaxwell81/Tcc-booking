@@ -20,7 +20,7 @@
         </element>
         <element label="Saturday" max_length="40" name="saturday" type="boolean"/>
         <element label="Saturday price" max_length="15" name="saturday_price" type="currency"/>
-        <element label="Days to schedule" max_length="40" name="schedule_days" type="integer"/>
+        <element default="60" label="Days to schedule" max_length="40" name="schedule_days" type="integer"/>
         <element label="Start time" max_length="40" name="start_time" type="glide_time"/>
         <element label="Sunday" max_length="40" name="sunday" type="boolean"/>
         <element label="Sunday price" max_length="15" name="sunday_price" type="currency"/>

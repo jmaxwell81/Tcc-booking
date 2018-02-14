@@ -10,15 +10,17 @@
         <sys_class_name>sys_ui_macro</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-02-08 05:50:28</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>9ab58557db041300fa8ef6dfbf9619e1</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>2</sys_mod_count>
         <sys_name>selectiongrid_template</sys_name>
         <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
         <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
         <sys_update_name>sys_ui_macro_9ab58557db041300fa8ef6dfbf9619e1</sys_update_name>
-        <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-02-08 05:50:28</sys_updated_on>
+        <sys_updated_by>lzs@townsville.qld.gov.au</sys_updated_by>
+        <sys_updated_on>2018-02-14 04:35:46</sys_updated_on>
         <xml><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
 <j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
 <script type="text/ng-template" id="select.html">
@@ -156,7 +158,7 @@
 										<div class="col-md-9 col-sm-9 col-xs-12">									
 											<div class="row">
 												<!-- dynamic date -->
-												<div ng-repeat="slot in dateslots | orderBy:'order'" class="col-md-1 col-sm-1 col-xs-1 selector-grid-col selector-grid-col-date center-block {{slot.currentdayclass}} {{slot.weekendclass}}"> 
+												<div ng-repeat="slot in dateslots | orderBy:'u_order'" class="col-md-1 col-sm-1 col-xs-1 selector-grid-col selector-grid-col-date center-block {{slot.currentdayclass}} {{slot.weekendclass}}"> 
 													<div class="selector-grid-col-date-text">{{slot.time}}</div>
 													<div class="selector-grid-col-date-text">{{slot.day}}</div>
 													<div class="selector-grid-col-date-num">{{slot.date}}</div>
@@ -168,7 +170,7 @@
 
 									</div>
 
-									<div ng-repeat="resource in bookingslots.result | orderBy:'order'"  class="row {{resource.rowclass}}">
+									<div ng-repeat="resource in bookingslots.result | orderBy:'u_order'"  class="row {{resource.rowclass}}">
 										<div class="col-md-3 col-sm-3 col-xs-12 selector-grid-col selector-grid-col-resource">
 											<span class="selector-grid-resource-text"><a ui-sref="campsite" target="_blank">{{resource.name}}</a></span>
 											
@@ -208,7 +210,7 @@
 						<!--<div class="row selector-grid-row component-spacer-row">-->	
 							<div class="col-md-12 col-sm-12 col-xs-12">
 								<button ng-click="storeSelections()" class="btn btn-sm btn-success pull-right" style="margin-right:15px;" ng-disabled="reservationGridForm.$invalid">
-									Next >
+									Next 
 								</button>
 							</div>
 						<!--</div>-->

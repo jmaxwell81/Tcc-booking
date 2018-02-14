@@ -53,7 +53,7 @@ tccReservations.prototype = {
 		config.consecutiveSlots = consecutiveSlots;
 		config.dayIncrement = dayIncrement;
 		
-		//config.footer = this.getMenu(footersysid);	
+		config.footer = this.getMenu(footersysid);	
 	
 		try{
 		config.todayDate = todayDate.getNumericValue();
@@ -620,7 +620,7 @@ tccReservations.prototype = {
 			item.start = new GlideDateTime(bookSchedule.getValue('start_time')).getNumericValue();
 			item.end = new GlideDateTime(bookSchedule.getValue('end_time')).getNumericValue();
 			item.avail = bookSchedule.getValue('available_capacity');
-			item.price = bookSchedule.getValue('u_price');
+			item.price = bookSchedule.getValue('price');
 			//item.name = bookSchedule.getValue('name');
 			result.push(item);
 		}	
@@ -767,7 +767,8 @@ tccReservations.prototype = {
 			item.tag = menuRec.tag.toString();
 			item.logged_on = menuRec.logged_on.toString();
 			item.category = menuRec.category.toString();
-			item.css_class = menuRec.u_css_class.toString();
+			//item.css_class = menuRec.u_css_class.toString();
+		
 
 			// Get the item target
 			if (menuRec.target == '_blank') {
@@ -928,14 +929,16 @@ gs.info('TXNO: '+grDetail.transaction_number);
         <sys_class_name>sys_script_include</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-02-08 05:08:51</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>4f1c7013db041300fa8ef6dfbf961933</sys_id>
-        <sys_mod_count>33</sys_mod_count>
+        <sys_mod_count>36</sys_mod_count>
         <sys_name>tccReservations</sys_name>
         <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
         <sys_policy>read</sys_policy>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
         <sys_update_name>sys_script_include_4f1c7013db041300fa8ef6dfbf961933</sys_update_name>
-        <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-02-13 22:51:01</sys_updated_on>
+        <sys_updated_by>lzs@townsville.qld.gov.au</sys_updated_by>
+        <sys_updated_on>2018-02-14 05:58:00</sys_updated_on>
     </sys_script_include>
 </record_update>

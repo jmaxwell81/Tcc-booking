@@ -9,5 +9,8 @@
                 <element label="Parking space" sequence="1" value="parkingspace"/>
             </choice>
         </element>
+        <index name="index">
+            <element name="parent_resource"/>
+        </index>
     </element>
 </database>

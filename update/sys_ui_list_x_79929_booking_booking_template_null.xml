@@ -119,6 +119,7 @@
             <sys_class_name>sys_ui_list</sys_class_name>
             <sys_created_by>admin</sys_created_by>
             <sys_created_on>2018-02-13 22:55:52</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
             <sys_id>8880aac9db181300fa8ef6dfbf9619ea</sys_id>
@@ -126,6 +127,7 @@
             <sys_name>x_79929_booking_booking_template</sys_name>
             <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
             <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
             <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
             <sys_update_name>sys_ui_list_x_79929_booking_booking_template_null</sys_update_name>
             <sys_updated_by>admin</sys_updated_by>

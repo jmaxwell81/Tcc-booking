@@ -5,11 +5,13 @@
         <sys_class_name>sys_properties_category</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-02-08 04:44:57</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>d8d6305fdbc01300fa8ef6dfbf9619c7</sys_id>
         <sys_mod_count>1</sys_mod_count>
         <sys_name>Booking</sys_name>
         <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
         <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
         <sys_update_name>sys_properties_category_d8d6305fdbc01300fa8ef6dfbf9619c7</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>

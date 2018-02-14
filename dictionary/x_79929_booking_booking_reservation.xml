@@ -85,5 +85,14 @@
         <index name="index">
             <element name="parent"/>
         </index>
+        <index name="index2">
+            <element name="schedule"/>
+        </index>
+        <index name="index3">
+            <element name="schedule_template"/>
+        </index>
+        <index name="index4">
+            <element name="user"/>
+        </index>
     </element>
 </database>

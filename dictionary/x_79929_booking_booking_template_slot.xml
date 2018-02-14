@@ -15,8 +15,11 @@
         </element>
         <element label="End time" max_length="40" name="end_time" type="glide_time"/>
         <element label="Name" max_length="80" name="name" type="string"/>
-        <element label="Price" max_length="40" name="price" type="currency"/>
         <element label="Schedule template" mandatory="true" max_length="32" name="schedule_template" read_only="true" reference="x_79929_booking_booking_template" type="reference"/>
         <element label="Start time" max_length="40" name="start_time" type="glide_time"/>
+        <element label="Price" max_length="20" name="u_price" type="currency"/>
+        <index name="index">
+            <element name="schedule_template"/>
+        </index>
     </element>
 </database>
