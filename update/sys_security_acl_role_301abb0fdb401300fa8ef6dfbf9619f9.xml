@@ -4,13 +4,11 @@
         <sys_class_name>sys_security_acl_role</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-02-08 00:19:21</sys_created_on>
-        <sys_customer_update>false</sys_customer_update>
         <sys_id>301abb0fdb401300fa8ef6dfbf9619f9</sys_id>
         <sys_mod_count>0</sys_mod_count>
         <sys_name>x_79929_booking_booking_resources.x_79929_booking.booking_resources_user</sys_name>
         <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
         <sys_policy/>
-        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
         <sys_security_acl display_value="x_79929_booking_booking_resources">281abb0fdb401300fa8ef6dfbf9619f6</sys_security_acl>
         <sys_update_name>sys_security_acl_role_301abb0fdb401300fa8ef6dfbf9619f9</sys_update_name>

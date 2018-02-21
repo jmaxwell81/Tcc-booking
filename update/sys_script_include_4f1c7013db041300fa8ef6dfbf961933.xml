@@ -54,7 +54,7 @@ tccReservations.prototype = {
 		config.dayIncrement = dayIncrement;
 		
 		config.footer = this.getMenu(footersysid);	
-	
+		//config.footer = this.getMenu('9c93c1a3db401300fa8ef6dfbf961911');	
 		try{
 		config.todayDate = todayDate.getNumericValue();
 		config.endDate = endDate.getNumericValue();
@@ -560,8 +560,9 @@ tccReservations.prototype = {
 			bookres.desc = resGR.getValue('description');
 			bookres.sys_id = resGR.getValue('sys_id');
 			result.push(bookres);
+					gs.info('BOOKRES: '+bookres);
 		}
-		
+
 		return result;
 	},
 	
@@ -649,7 +650,9 @@ tccReservations.prototype = {
 		startDateTime - Booking slots returned will have a start date after this
 		endDateTime - Booking slots returned will have a start date before this
 		*/
-		
+		gs.info('LOCATION_SYSID: '+booking_location_sys_id);
+		gs.info('STARTTIME1: '+startDateTime);
+		gs.info('ENDTIME1: '+endDateTime);
 		var result = [];	
 
 		//Get all the u_booking_resources records with location = current_booking_location_sys_id
@@ -713,15 +716,16 @@ tccReservations.prototype = {
      * @menu_sysid    The sys_id of a Navigation Menu
      * @return        An object contain the menu 
      */
-    getMenu: function (menu_sysid) {
+    getMenu: function(menu_sysid) {
         // Default value for includeMyAccount if none is passed
         if (typeof menu_sysid === 'undefined') {
+			gs.info('MENU_SYSID_TRUE: '+menu_sysid);
             return;
         }
 
         var menuSections = this.getNavigationSectionItems(menu_sysid);
         var menuItems = [];
-
+gs.info('MENU_SYSID_FALSE: '+menu_sysid);
         for (var i = 0; i < menuSections.length; i++) {
             var menuSection = menuSections[i];
 
@@ -762,7 +766,7 @@ tccReservations.prototype = {
 			item.db_left_menu_image = menuRec.db_left_menu_image.getDisplayValue();
 			item.db_right_menu_image = menuRec.db_right_menu_image.getDisplayValue();
 			item.second_level_text = menuRec.second_level_text.toString();
-			item.menu_section_color = menuRec.menu_section_color.toString();
+			//item.menu_section_color = menuRec.menu_section_color.toString();
 			item.url = menuRec.getValue('url');
 			item.tag = menuRec.tag.toString();
 			item.logged_on = menuRec.logged_on.toString();
@@ -929,16 +933,14 @@ gs.info('TXNO: '+grDetail.transaction_number);
         <sys_class_name>sys_script_include</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-02-08 05:08:51</sys_created_on>
-        <sys_customer_update>false</sys_customer_update>
         <sys_id>4f1c7013db041300fa8ef6dfbf961933</sys_id>
-        <sys_mod_count>36</sys_mod_count>
+        <sys_mod_count>59</sys_mod_count>
         <sys_name>tccReservations</sys_name>
         <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
         <sys_policy>read</sys_policy>
-        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
         <sys_update_name>sys_script_include_4f1c7013db041300fa8ef6dfbf961933</sys_update_name>
-        <sys_updated_by>lzs@townsville.qld.gov.au</sys_updated_by>
-        <sys_updated_on>2018-02-14 05:58:00</sys_updated_on>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-02-21 06:15:30</sys_updated_on>
     </sys_script_include>
 </record_update>

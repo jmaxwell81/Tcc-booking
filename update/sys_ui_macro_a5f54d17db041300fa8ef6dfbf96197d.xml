@@ -10,17 +10,15 @@
         <sys_class_name>sys_ui_macro</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-02-08 05:51:21</sys_created_on>
-        <sys_customer_update>false</sys_customer_update>
         <sys_id>a5f54d17db041300fa8ef6dfbf96197d</sys_id>
-        <sys_mod_count>6</sys_mod_count>
+        <sys_mod_count>7</sys_mod_count>
         <sys_name>selections_controller</sys_name>
         <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
         <sys_policy/>
-        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
         <sys_update_name>sys_ui_macro_a5f54d17db041300fa8ef6dfbf96197d</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-02-11 23:14:45</sys_updated_on>
+        <sys_updated_on>2018-02-21 04:15:52</sys_updated_on>
         <xml><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
 <j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
 		
@@ -276,6 +274,7 @@
 						$scope.bookingslots = value;
 						if($scope.configuration != undefined){
 							$scope.dateslots = getDateRowData($scope.configuration.todayDate, $scope.bookingslots.result[0].slot);
+		console.log('DATESLOTS: '+$scope.dateslots);
 							$scope.loadingGrid = false;							
 						}
 					}

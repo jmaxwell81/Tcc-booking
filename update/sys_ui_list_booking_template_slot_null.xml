@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_ui_list parent="" relationship="" sys_domain="global" table="booking_template_slot" version="2" view="">
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>schedule_template</element>
+            <list_id display_value="booking_template_slot" element="NULL" name="booking_template_slot" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">254c9ddb0176210002adb94da6e1bda0</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>0</position>
+            <sum>false</sum>
+            <sys_created_by>keystone.benc</sys_created_by>
+            <sys_created_on>2016-05-30 05:35:18</sys_created_on>
+            <sys_id>294255884f3b5200aab4a3b11310c783</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>keystone.benc</sys_updated_by>
+            <sys_updated_on>2016-05-30 05:35:18</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>day_of_week</element>
+            <list_id display_value="booking_template_slot" element="NULL" name="booking_template_slot" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">254c9ddb0176210002adb94da6e1bda0</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>1</position>
+            <sum>false</sum>
+            <sys_created_by>keystone.benc</sys_created_by>
+            <sys_created_on>2016-05-30 05:35:18</sys_created_on>
+            <sys_id>694255884f3b5200aab4a3b11310c783</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>keystone.benc</sys_updated_by>
+            <sys_updated_on>2016-05-30 05:35:18</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>start_time</element>
+            <list_id display_value="booking_template_slot" element="NULL" name="booking_template_slot" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">254c9ddb0176210002adb94da6e1bda0</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>2</position>
+            <sum>false</sum>
+            <sys_created_by>keystone.benc</sys_created_by>
+            <sys_created_on>2016-05-30 05:35:18</sys_created_on>
+            <sys_id>a94255884f3b5200aab4a3b11310c783</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>keystone.benc</sys_updated_by>
+            <sys_updated_on>2016-05-30 05:35:18</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>end_time</element>
+            <list_id display_value="booking_template_slot" element="NULL" name="booking_template_slot" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">254c9ddb0176210002adb94da6e1bda0</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>3</position>
+            <sum>false</sum>
+            <sys_created_by>keystone.benc</sys_created_by>
+            <sys_created_on>2016-05-30 05:35:18</sys_created_on>
+            <sys_id>e94255884f3b5200aab4a3b11310c783</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>keystone.benc</sys_updated_by>
+            <sys_updated_on>2016-05-30 05:35:18</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>capacity</element>
+            <list_id display_value="booking_template_slot" element="NULL" name="booking_template_slot" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">254c9ddb0176210002adb94da6e1bda0</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>4</position>
+            <sum>false</sum>
+            <sys_created_by>keystone.benc</sys_created_by>
+            <sys_created_on>2016-05-30 05:35:18</sys_created_on>
+            <sys_id>2d4255884f3b5200aab4a3b11310c783</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>keystone.benc</sys_updated_by>
+            <sys_updated_on>2016-05-30 05:35:18</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>u_price</element>
+            <list_id display_value="booking_template_slot" element="NULL" name="booking_template_slot" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">254c9ddb0176210002adb94da6e1bda0</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>5</position>
+            <sum>false</sum>
+            <sys_created_by>keystone.benc</sys_created_by>
+            <sys_created_on>2016-05-30 05:35:18</sys_created_on>
+            <sys_id>6d4255884f3b5200aab4a3b11310c783</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>keystone.benc</sys_updated_by>
+            <sys_updated_on>2016-05-30 05:35:18</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element/>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <name>booking_template_slot</name>
+            <parent/>
+            <position/>
+            <relationship/>
+            <sum>false</sum>
+            <sys_class_name>sys_ui_list</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-21 05:12:00</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>86b9fb9bdb901300fa8ef6dfbf961956</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name/>
+            <sys_package/>
+            <sys_policy/>
+            <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
+            <sys_update_name/>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-21 05:12:00</sys_updated_on>
+            <sys_user display_value="System Administrator">6816f79cc0a8016401c5a33be04be441</sys_user>
+            <view display_value="Default view" name="NULL">Default view</view>
+            <view_name/>
+        </sys_ui_list>
+    </sys_ui_list>
+</record_update>
