@@ -11,7 +11,7 @@
 ScheduleHelper.prototype = {
 	//
 	initialize: function() {
-		this.debug = 0; //1=logging enabled, 0=logging disabled
+		this.debug = 1; //1=logging enabled, 0=logging disabled
 	},
 	
 	//Generate schedule weeks
@@ -28,6 +28,7 @@ ScheduleHelper.prototype = {
 		var dayInms = 86400000;  //1 day in milliseconds
 		var numDays = schedTemplate.schedule_days;
 		var now = new GlideDateTime();
+		gs.info('NOW: '+now);
 		//Iterate through the next numDays, creating a schedule if it doesn't already exist
 		for (var i = 0; i < numDays; i++) {
 			var todayOfWeek = now.getDayOfWeek();
@@ -41,7 +42,7 @@ ScheduleHelper.prototype = {
 	//Generate full schedule template
 	generateScheduleTemplateSlots: function(schedTemplate){
 		if (this.debug == 1)
-			gs.log('**** Starting generation of slots for - ' + schedTemplate.title);
+			gs.info('**** Starting generation of slots for - ' + schedTemplate.title);
 		//Delete any existing template slots
 		var oldSlots = new GlideRecord("x_79929_booking_booking_template_slot");
 		oldSlots.addQuery("schedule_template", schedTemplate.sys_id.toString());
@@ -65,7 +66,7 @@ ScheduleHelper.prototype = {
 	
 	//Set old Reservations to no-show
 	setOldResoNoShow: function(){
-		var oldReso = new GlideRecord("booking_reservation");
+		var oldReso = new GlideRecord("x_79929_booking_booking_reservation");
 		oldReso.addEncodedQuery("end_time<javascript:gs.daysAgoStart(0)^state=reserved");
 		oldReso.query();
 		while (oldReso.next()) {
@@ -77,7 +78,7 @@ ScheduleHelper.prototype = {
 	//Generate schedule for the given day and date
 	_generateScheduleDay: function(schedTemplate, day, dateMidnight){
 		if (this.debug == 1)
-			gs.log('**** Generating schedule for day ' + dateMidnight.toString().split(" ")[0] + '(' + schedTemplate.start_time.getDisplayValue() + ' - ' + schedTemplate.end_time.getDisplayValue() + ')');
+			gs.info('**** Generating schedule for day ' + dateMidnight.toString().split(" ")[0] + '(' + schedTemplate.start_time.getDisplayValue() + ' - ' + schedTemplate.end_time.getDisplayValue() + ')');
 		//Get start of week date
 		var multiplier = day - 1;
 		var msToSubtract = multiplier*86400000; //multipler * 1 day in milliseconds
@@ -109,13 +110,13 @@ ScheduleHelper.prototype = {
 		var startTimeTemplate = (new GlideDateTime(schedTemplateSlot.getValue('start_time'))).getNumericValue();
 		var endTimeTemplate = (new GlideDateTime(schedTemplateSlot.getValue('end_time'))).getNumericValue(); 
 		
-		//Check if currently DST - if so, adjust
+		/*Check if currently DST - if so, adjust
 		if (dateMidnight.isDST() == true){
 			var adjustment = 3600000; //1 hour in milliseconds
 			startTimeTemplate -= adjustment;
 			endTimeTemplate -= adjustment;
 		}
-		
+		*/
 		//Generate today dates at midnight
 		var startDateTime = new GlideDateTime(dateMidnight);
 		var endDateTime = new GlideDateTime(dateMidnight);
@@ -128,15 +129,22 @@ ScheduleHelper.prototype = {
 		var newSlot = new GlideRecord("x_79929_booking_booking_schedule");
 		newSlot.initialize();
 		newSlot.capacity = schedTemplateSlot.capacity;
+		gs.info('CAPACITY: '+newSlot.capacity);
 		newSlot.start_time = startDateTime;
+		gs.info('START_TIME2: '+newSlot.start_time);		
 		newSlot.end_time = endDateTime;
+		gs.info('END_TIME2: '+newSlot.end_time);
 		newSlot.day_of_week = day;
+		gs.info('DAY_OF_WEEK: '+newSlot.day_of_week);
 		newSlot.week_start = startOfWeek;
+		gs.info('WEEK_START: '+newSlot.week_start);
 		newSlot.schedule_template = schedTemplateSlot.schedule_template.sys_id.toString();
+		gs.info('TEMPLATE: '+newSlot.schedule_template);
 		newSlot.schedule_template_slot = schedTemplateSlot.sys_id.toString();
+		gs.info('TEMPLATE_SLOT: '+newSlot.schedule_template_slot);
 		
 		//Add Price
-		newSlot.u_price = schedTemplateSlot.u_price;
+		newSlot.price = schedTemplateSlot.u_price;
 		
 		var newSlotID = newSlot.insert();
 		
@@ -182,7 +190,7 @@ ScheduleHelper.prototype = {
 	//Generate individual day schedule template
 	_generateDayScheduleTemplateSlots: function(day, schedTemplate, price){
 		if (this.debug == 1){
-			gs.log('**** Generating template slots for day ' + day + '(' + schedTemplate.start_time.getDisplayValue() + ' - ' + schedTemplate.end_time.getDisplayValue() + ')');
+			gs.info('**** Generating template slots for day ' + day + '(' + schedTemplate.start_time.getDisplayValue() + ' - ' + schedTemplate.end_time.getDisplayValue() + ')');
 		}
 		
 		//Gather needed variables
@@ -221,13 +229,13 @@ ScheduleHelper.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-02-08 05:06:29</sys_created_on>
         <sys_id>718b7413db041300fa8ef6dfbf96193f</sys_id>
-        <sys_mod_count>24</sys_mod_count>
+        <sys_mod_count>30</sys_mod_count>
         <sys_name>ScheduleHelper</sys_name>
         <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
         <sys_update_name>sys_script_include_718b7413db041300fa8ef6dfbf96193f</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-02-21 05:46:59</sys_updated_on>
+        <sys_updated_on>2018-02-22 06:12:04</sys_updated_on>
     </sys_script_include>
 </record_update>

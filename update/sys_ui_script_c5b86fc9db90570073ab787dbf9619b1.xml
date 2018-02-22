@@ -174,6 +174,8 @@ function getDateRowData(todayDte, dateArray){
 	//console.log(': '+);
 	var formattedArray = [];
 	var thisDate;
+	console.log('TODAYDTE: '+todayDte);
+	console.log('DATEARRAY: '+dateArray);
 	for(var x = 0; x < dateArray.length; x++){
 		var temp = {};		
 		thisDate = new Date(dateArray[x].start);		
@@ -496,14 +498,14 @@ function getReqNamesText(reqNames){
         <sys_created_by>lzs@townsville.qld.gov.au</sys_created_by>
         <sys_created_on>2018-02-14 04:11:38</sys_created_on>
         <sys_id>c5b86fc9db90570073ab787dbf9619b1</sys_id>
-        <sys_mod_count>2</sys_mod_count>
+        <sys_mod_count>3</sys_mod_count>
         <sys_name>x_79929_booking.tcc_reservations</sys_name>
         <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
         <sys_policy/>
         <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
         <sys_update_name>sys_ui_script_c5b86fc9db90570073ab787dbf9619b1</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-02-21 06:09:27</sys_updated_on>
+        <sys_updated_on>2018-02-22 03:53:22</sys_updated_on>
         <use_scoped_format>false</use_scoped_format>
     </sys_ui_script>
 </record_update>

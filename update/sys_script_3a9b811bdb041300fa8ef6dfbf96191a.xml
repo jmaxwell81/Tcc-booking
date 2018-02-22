@@ -32,7 +32,12 @@
 
 function updateName(){
 	//var name = current.day_of_week.getDisplayValue() + ' ' + current.start_time.getGlideObject().getDisplayValueInternal() + '-' + current.end_time.getGlideObject().getDisplayValueInternal() + ' GMT';
+	
+		
 	var name = current.day_of_week.getDisplayValue() + ' ' + (new GlideDateTime(current.getValue('start_time'))).getDisplayValueInternal() + '-' + (new GlideDateTime(current.getValue('end_time'))).getDisplayValueInternal()+ ' GMT';
+
+	
+	//var name = current.day_of_week.getDisplayValue() + ' ' + current.getValue('start_time') + '-' + current.getValue('end_time') + ' AEST';
 	current.name = name;
 }]]></script>
         <sys_class_name>sys_script</sys_class_name>
@@ -41,7 +46,7 @@ function updateName(){
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>3a9b811bdb041300fa8ef6dfbf96191a</sys_id>
-        <sys_mod_count>3</sys_mod_count>
+        <sys_mod_count>7</sys_mod_count>
         <sys_name>Bookings - Update name identifier</sys_name>
         <sys_overrides/>
         <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
@@ -49,7 +54,7 @@ function updateName(){
         <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
         <sys_update_name>sys_script_3a9b811bdb041300fa8ef6dfbf96191a</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-02-21 05:45:59</sys_updated_on>
+        <sys_updated_on>2018-02-22 03:35:21</sys_updated_on>
         <template/>
         <when>before</when>
     </sys_script>

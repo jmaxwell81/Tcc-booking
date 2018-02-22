@@ -133,12 +133,12 @@ tccReservations.prototype = {
 			this.setFieldValue(resDetail, 'number_of_children', post_response_body.children);
 			this.setFieldValue(resDetail, 'post_code', post_response_body.postcode);
 			this.setFieldValue(resDetail, 'postal_address', post_response_body.postaladdress);
-			this.setFieldValue(resDetail, 'geostate', post_response_body.state);
+			this.setFieldValue(resDetail, 'x_79929_geostate', post_response_body.state);
 			this.setFieldValue(resDetail, 'telephone', post_response_body.telephone);
 			this.setFieldValue(resDetail, 'vehicle_registration_number', post_response_body.vehicleregistrationnumber);											
 			this.setFieldValue(resDetail, 'location_short_name', post_response_body.location);
 			
-			resDetail.u_comments = 'Booking placed on-hold from public application.';
+			resDetail.comments = 'Booking placed on-hold from public application.';
 			
 			//Commit
 			resDetail.insert();
@@ -485,19 +485,21 @@ tccReservations.prototype = {
 			var loc = {};
 			
 			//Populate resource location title
-			loc.title = grLoc.getValue('name');
-			loc.paymenttype = grLoc.getValue('payment_type');
-			loc.paymentdescription = grLoc.getValue('payment_description');
+			loc.title = grLoc.getValue('u_name');
+			loc.paymenttype = grLoc.getValue('u_payment_type');
+			loc.paymentdescription = grLoc.getValue('u_payment_description');
 			
 			//Only populate notification if the current date/time is between the notifications start/end dates.
 			var note = '';
-			var startDateTime = new GlideDateTime(grLoc.getValue('notification_start'));
-			var endDateTime = new GlideDateTime(grLoc.getValue('notification_end'));
+			//var startDateTime = new GlideDateTime(grLoc.getValue('notification_start'));
+			//var endDateTime = new GlideDateTime(grLoc.getValue('notification_end'));
+			var startDateTime = grLoc.getValue('u_notification_start');
+			var endDateTime = grLoc.getValue('u_notification_end');
 			
 			//If the notification is current then append.
 			if(startDateTime && endDateTime){
 				if(startDateTime.getNumericValue() < now.getNumericValue() && endDateTime.getNumericValue() > now.getNumericValue()){
-					note = grLoc.getValue('notification_text');
+					note = grLoc.getValue('u_notification_text');
 				}
 			}
 						
@@ -518,8 +520,10 @@ tccReservations.prototype = {
 			//Grab the first active template for the location and return its scheduled_days value
 			var grTemp = new GlideRecord('x_79929_booking_booking_template');
 			grTemp.addActiveQuery();
-			grTemp.addQuery('x_79929_booking_booking_resources.location.sys_id', booking_location_sys_id);
+			//grTemp.addQuery('x_79929_booking_booking_resources.u_location.sys_id', booking_location_sys_id);
+			grTemp.addQuery('u_booking_resource.u_location.sys_id', booking_location_sys_id);
 			grTemp.setLimit(1);
+			gs.info('ADD_QUERY: '+grTemp.getEncodedQuery());
 			grTemp.query();
 						
 			if(grTemp.hasNext()){
@@ -548,16 +552,17 @@ tccReservations.prototype = {
 		
 		//Select records
 		var resGR = new GlideRecord('x_79929_booking_booking_resources');
-		resGR.addQuery('active', true);
-		resGR.addQuery('location', booking_resource_sys_id);
-		resGR.orderBy('name');
+		resGR.addQuery('u_active', true);
+		resGR.addQuery('u_location', booking_resource_sys_id);
+		//resGR.orderBy('u_name');
+		resGR.orderBy('order');
 		resGR.query();
 		
 		//Loop through records and build return object
 		while(resGR.next()){
 			var bookres = {};
-			bookres.name = resGR.getValue('name');
-			bookres.desc = resGR.getValue('description');
+			bookres.name = resGR.getValue('u_name');
+			bookres.desc = resGR.getValue('u_description');
 			bookres.sys_id = resGR.getValue('sys_id');
 			result.push(bookres);
 					gs.info('BOOKRES: '+bookres);
@@ -583,7 +588,7 @@ tccReservations.prototype = {
 		//Loop through records and build return object
 		while(featGR.next()){
 			var feat = {};
-			feat.name = featGR.feature.getDisplayValue();
+			feat.name = featGR.x_79929_booking_feature.getDisplayValue();
 			feat.sys_id = featGR.getValue('sys_id');
 			result.push(feat);
 		}	
@@ -611,7 +616,7 @@ tccReservations.prototype = {
 		bookSchedule.addQuery('start_time', '<', endDateTime);
 		bookSchedule.orderBy('start_time');
 		bookSchedule.query();
-	
+	gs.info('START_TIME: '+startDateTime+' : '+ bookSchedule.getValue('start_time')+' : '+endDateTime);
 		//Loop through records and build return object
 		while(bookSchedule.next()){
 			var item = {};			
@@ -672,7 +677,7 @@ tccReservations.prototype = {
 				
 				//If time is not already 00:00:00 local time (14:00:00) server time
 				var time = new GlideDateTime(modStartDateTime).getTime().getDisplayValue();
-	
+	gs.info('TIME1: '+time);
 				if(time != '00:00:00'){
 					//If so set the start time 00:00:00 local time
 					//Reset to local time
@@ -934,13 +939,13 @@ gs.info('TXNO: '+grDetail.transaction_number);
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-02-08 05:08:51</sys_created_on>
         <sys_id>4f1c7013db041300fa8ef6dfbf961933</sys_id>
-        <sys_mod_count>59</sys_mod_count>
+        <sys_mod_count>75</sys_mod_count>
         <sys_name>tccReservations</sys_name>
         <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
         <sys_update_name>sys_script_include_4f1c7013db041300fa8ef6dfbf961933</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-02-21 06:15:30</sys_updated_on>
+        <sys_updated_on>2018-02-22 05:02:24</sys_updated_on>
     </sys_script_include>
 </record_update>
