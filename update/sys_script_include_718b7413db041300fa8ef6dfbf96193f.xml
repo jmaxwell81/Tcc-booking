@@ -22,6 +22,7 @@ ScheduleHelper.prototype = {
 		if (regenerate == 1){
 			var oldSlot = new GlideRecord("x_79929_booking_booking_schedule");
 			oldSlot.addQuery("schedule_template", schedTemplate.sys_id.toString());
+			//oldSlot.addQuery("schedule_template", schedTemplate);
 			oldSlot.addEncodedQuery("start_time>javascript:gs.daysAgoEnd(0)");
 			oldSlot.deleteMultiple();
 		}
@@ -92,7 +93,8 @@ ScheduleHelper.prototype = {
 		//If no slots exist for this day, week, and template
 		if (existingSlots == false){
 			var schedTemplateSlot = new GlideRecord("x_79929_booking_booking_template_slot");
-			schedTemplateSlot.addQuery("schedule_template", schedTemplate.sys_id.toString());
+			//schedTemplateSlot.addQuery("schedule_template", schedTemplate.sys_id.toString());
+			schedTemplateSlot.addQuery("schedule_template", schedTemplate);
 			schedTemplateSlot.addQuery("day_of_week", day);
 			schedTemplateSlot.orderBy("start_time");
 			schedTemplateSlot.query();
@@ -105,10 +107,14 @@ ScheduleHelper.prototype = {
 	//Generate individual schedule slot
 	_generateScheduleSlot: function(schedTemplateSlot, dateMidnight, day, startOfWeek){
 		//Get numeric value of start time from template (always at 01/01/1970 non-DST)
-		//var startTimeTemplate = schedTemplateSlot.start_time.getGlideObject().getNumericValue();
-		//var endTimeTemplate = schedTemplateSlot.end_time.getGlideObject().getNumericValue();
-		var startTimeTemplate = (new GlideDateTime(schedTemplateSlot.getValue('start_time'))).getNumericValue();
-		var endTimeTemplate = (new GlideDateTime(schedTemplateSlot.getValue('end_time'))).getNumericValue(); 
+		var startTimeTemplate = schedTemplateSlot.start_time.getGlideObject().getNumericValue(); 
+		var endTimeTemplate = schedTemplateSlot.end_time.getGlideObject().getNumericValue();
+		//var startTimeTemplate = (new GlideDateTime(schedTemplateSlot.getValue('start_time'))).getNumericValue();		
+		//var endTimeTemplate = (new GlideDateTime(schedTemplateSlot.getValue('end_time'))).getNumericValue(); 
+		if(gs.getProperty(x_79929_booking.debug)=='True')
+			gs.info('BOOKING STARTTIMETEMPLATE: '+startTimeTemplate);
+			gs.info('BOOKING ENDTIMETEMPLATE: '+endTimeTemplate);
+		
 		
 		/*Check if currently DST - if so, adjust
 		if (dateMidnight.isDST() == true){
@@ -229,13 +235,13 @@ ScheduleHelper.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-02-08 05:06:29</sys_created_on>
         <sys_id>718b7413db041300fa8ef6dfbf96193f</sys_id>
-        <sys_mod_count>30</sys_mod_count>
+        <sys_mod_count>35</sys_mod_count>
         <sys_name>ScheduleHelper</sys_name>
         <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
         <sys_update_name>sys_script_include_718b7413db041300fa8ef6dfbf96193f</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-02-22 06:12:04</sys_updated_on>
+        <sys_updated_on>2018-02-25 23:44:41</sys_updated_on>
     </sys_script_include>
 </record_update>
