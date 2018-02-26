@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <record_update sys_domain="global" table="sys_ui_action">
     <sys_ui_action action="INSERT_OR_UPDATE">
-        <action_name>generate_schedule_days</action_name>
+        <action_name>x_79929_generate_schedule_days</action_name>
         <active>true</active>
         <client>true</client>
         <comments>Manually generate schedule days, based on template configuration and template slots&#13;
@@ -29,7 +29,7 @@
 	if(confirm('This will delete and recreate all future schedule slots for this template after today, attempting to reassociate any existing reservations. Continue?') == false){
 		return false;
 	}
-	gsftSubmit(null, g_form.getFormElement(), 'generate_schedule_days');
+	gsftSubmit(null, g_form.getFormElement(), 'x_79929_generate_schedule_days');
 }
 
 if(typeof window == 'undefined')
@@ -51,7 +51,7 @@ function runBusRuleCodeScheduleDays(){
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>801b0da7db401300fa8ef6dfbf9619c3</sys_id>
-        <sys_mod_count>3</sys_mod_count>
+        <sys_mod_count>4</sys_mod_count>
         <sys_name>Generate Schedule Days</sys_name>
         <sys_overrides/>
         <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
@@ -59,7 +59,7 @@ function runBusRuleCodeScheduleDays(){
         <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
         <sys_update_name>sys_ui_action_801b0da7db401300fa8ef6dfbf9619c3</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-02-22 05:51:59</sys_updated_on>
+        <sys_updated_on>2018-02-26 03:25:28</sys_updated_on>
         <table>x_79929_booking_booking_template</table>
         <ui11_compatible>false</ui11_compatible>
         <ui16_compatible>false</ui16_compatible>

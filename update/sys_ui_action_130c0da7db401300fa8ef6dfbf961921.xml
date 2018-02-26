@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <record_update sys_domain="global" table="sys_ui_action">
     <sys_ui_action action="INSERT_OR_UPDATE">
-        <action_name>generate_template_slots</action_name>
+        <action_name>x_79929_generate_template_slots</action_name>
         <active>true</active>
         <client>true</client>
         <comments>Generates template slots for the reservation template, according to configuration.&#13;
@@ -29,7 +29,7 @@
 	if(confirm('This will overwrite any prior customizations to template slots. Continue?') == false){
 		return false;
 	}
-	gsftSubmit(null, g_form.getFormElement(), 'generate_template_slots');
+	gsftSubmit(null, g_form.getFormElement(), 'x_79929_generate_template_slots');
 }
 
 if(typeof window == 'undefined')
@@ -52,15 +52,15 @@ function runBusRuleCodeTemplateSlots(){
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>130c0da7db401300fa8ef6dfbf961921</sys_id>
-        <sys_mod_count>6</sys_mod_count>
+        <sys_mod_count>7</sys_mod_count>
         <sys_name>Generate Template Slots</sys_name>
         <sys_overrides/>
         <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
         <sys_policy/>
         <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
         <sys_update_name>sys_ui_action_130c0da7db401300fa8ef6dfbf961921</sys_update_name>
-        <sys_updated_by>lzs@townsville.qld.gov.au</sys_updated_by>
-        <sys_updated_on>2018-02-14 05:44:35</sys_updated_on>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-02-26 03:24:22</sys_updated_on>
         <table>x_79929_booking_booking_template</table>
         <ui11_compatible>false</ui11_compatible>
         <ui16_compatible>false</ui16_compatible>

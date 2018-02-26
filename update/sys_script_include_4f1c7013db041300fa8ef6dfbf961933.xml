@@ -23,51 +23,51 @@ tccReservations.prototype = {
 		if(locationkey == null || locationkey == ''){
 			locationkey = 'paluma';
 		}
-		//try{
+		try{
 		var locationsysid = gs.getProperty('x_79929_booking.reservation.sysid.' + locationkey);
-		gs.info('LOCATION KEY: '+locationkey);
-		gs.info('LOCATION SYSID: '+locationsysid);
 		var consecutiveSlots = gs.getProperty('x_79929_booking.reservation.consecutive.slots.' + locationkey); 
-		gs.info('CONSECUTIVE SLOTS: '+consecutiveSlots);
 		var dayIncrement = gs.getProperty('x_79929_booking.reservation.grid.days.' + locationkey);	
-		gs.info('DAY INCREMENT: '+dayIncrement);
 		var footersysid = gs.getProperty('x_79929_booking.reservation.footermenu.sysid.' + locationkey);
-		gs.info('FOOTER SYSID: '+footersysid);
 		var googlerecaptchakey = gs.getProperty('x_79929_booking.reservation.recaptcha');
-		gs.info('RECAPTCHA: '+googlerecaptchakey);
 		var storepaymentrecord = gs.getProperty('x_79929_booking.reservation.record.payment.record');
-		gs.info('STOREPAYMENTRECORD: '+storepaymentrecord);
 		var todayDate  = new GlideDateTime();
-		gs.info('DATE: '+todayDate);
 		var endDate = new GlideDateTime();
 		endDate.addDaysLocalTime(dayIncrement - 1);  
-		gs.info('END DATE: '+endDate);		
+	
 		
-		//}
-		//catch(err1){
-	//		gs.error('CATCH ERROR1: '+err1);
-	//	}
+		if (gs.getProperty('x_79929_booking.debug')=='True'){
+						gs.info('BOOKING LOCATION KEY: '+locationkey);
+						gs.info('BOOKING LOCATION SYSID: '+locationsysid);
+						gs.info('BOOKING CONSECUTIVE SLOTS: '+consecutiveSlots);
+						gs.info('BOOKING DAY INCREMENT: '+dayIncrement);
+						gs.info('BOOKING FOOTER SYSID: '+footersysid);
+						gs.info('BOOKING RECAPTCHA: '+googlerecaptchakey);
+						gs.info('BOOKING STOREPAYMENTRECORD: '+storepaymentrecord);
+						gs.info('BOOKING DATE: '+todayDate);
+						gs.info('BOOKING END DATE: '+endDate);	
+			}
+
 		
 		config.locationkey = locationkey;
 		config.locationsysid = locationsysid;
 		config.consecutiveSlots = consecutiveSlots;
 		config.dayIncrement = dayIncrement;
-		
 		config.footer = this.getMenu(footersysid);	
-		//config.footer = this.getMenu('9c93c1a3db401300fa8ef6dfbf961911');	
-		try{
+			
+
+
 		config.todayDate = todayDate.getNumericValue();
 		config.endDate = endDate.getNumericValue();
 		//config.todayDate = todayDate.valueOf();
 		//config.endDate = endDate.valueOf();
 		config.googlerecaptchakey = googlerecaptchakey;
-	}catch(err3){gs.error('CATCH ERROR3: '+err3);}			
+	}
+		catch(err3)
+		{
+			gs.error('BOOKING ERROR3: '+err3.message);
+		}			
 		result.push(config);
-		gs.info('CONFIG.RESULT: '+result);
-		
 		return result;
-			
-	
 	},
 	
 
@@ -523,7 +523,9 @@ tccReservations.prototype = {
 			//grTemp.addQuery('x_79929_booking_booking_resources.u_location.sys_id', booking_location_sys_id);
 			grTemp.addQuery('u_booking_resource.u_location.sys_id', booking_location_sys_id);
 			grTemp.setLimit(1);
-			gs.info('ADD_QUERY: '+grTemp.getEncodedQuery());
+			if (gs.getProperty('x_79929_booking.debug')=='True'){
+			gs.info('BOOKING ADD_QUERY: '+grTemp.getEncodedQuery());
+			}
 			grTemp.query();
 						
 			if(grTemp.hasNext()){
@@ -939,13 +941,13 @@ gs.info('TXNO: '+grDetail.transaction_number);
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-02-08 05:08:51</sys_created_on>
         <sys_id>4f1c7013db041300fa8ef6dfbf961933</sys_id>
-        <sys_mod_count>75</sys_mod_count>
+        <sys_mod_count>78</sys_mod_count>
         <sys_name>tccReservations</sys_name>
         <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
         <sys_update_name>sys_script_include_4f1c7013db041300fa8ef6dfbf961933</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-02-22 05:02:24</sys_updated_on>
+        <sys_updated_on>2018-02-26 06:23:36</sys_updated_on>
     </sys_script_include>
 </record_update>
