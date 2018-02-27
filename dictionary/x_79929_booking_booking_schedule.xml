@@ -11,7 +11,7 @@
         <element label="Price" max_length="40" name="price" type="currency"/>
         <element default="0" label="Reserved resources" max_length="40" name="reserved_capacity" type="integer"/>
         <element label="Schedule template" max_length="40" name="schedule_template" read_only="true" reference="x_79929_booking_booking_template" type="reference"/>
-        <element label="Schedule template slot" max_length="40" name="schedule_template_slot" read_only="true" reference="booking_template_slot" type="reference"/>
+        <element label="Schedule template slot" max_length="40" name="schedule_template_slot" read_only="true" reference="x_79929_booking_booking_template_slot" type="reference"/>
         <element label="Start time" max_length="40" name="start_time" type="glide_date_time"/>
         <element label="Week start on" max_length="40" name="week_start" type="string"/>
         <index name="index">
