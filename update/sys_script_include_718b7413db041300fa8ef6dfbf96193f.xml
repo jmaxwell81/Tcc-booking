@@ -52,9 +52,9 @@ ScheduleHelper.prototype = {
 			midnight.setValue('00.00.00');
 			var gd = new GlideDate().getDisplayValueInternal();
 			var dateMidnight = new GlideDateTime(gd+midnight);
-			var todayDateMidnight = new GlideDateTime(gd+' 00.00.00');
+			var todayDateMidnight = new GlideDateTime(gd+' 00.00.00').getNumericValue();
 
-			//todayDateMidnight.subtract(1000); //Need to adjust down 1 second for even number
+			todayDateMidnight.subtract(1000); //Need to adjust down 1 second for even number
 			
 		if(gs.getProperty('x_79929_booking.debug')=='True'){
 				gs.info('BOOKING todayDateMidnight: '+todayDateMidnight.getValue());
@@ -331,13 +331,13 @@ ScheduleHelper.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-02-08 05:06:29</sys_created_on>
         <sys_id>718b7413db041300fa8ef6dfbf96193f</sys_id>
-        <sys_mod_count>117</sys_mod_count>
+        <sys_mod_count>118</sys_mod_count>
         <sys_name>ScheduleHelper</sys_name>
         <sys_package display_value="Booking" source="x_79929_booking">f1c5a787db001300fa8ef6dfbf961986</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="Booking">f1c5a787db001300fa8ef6dfbf961986</sys_scope>
         <sys_update_name>sys_script_include_718b7413db041300fa8ef6dfbf96193f</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-02-27 05:29:08</sys_updated_on>
+        <sys_updated_on>2018-02-28 00:49:45</sys_updated_on>
     </sys_script_include>
 </record_update>
